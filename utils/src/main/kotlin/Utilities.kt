@@ -3,6 +3,7 @@ package com.sphericalchickens.utils
 import kotlinx.datetime.*
 import kotlinx.serialization.Serializable
 import kotlinx.coroutines.*
+import java.io.File
 
 @Serializable
 class Printer(val message: String) {
@@ -18,4 +19,30 @@ class Printer(val message: String) {
 
 fun Any.println() {
     println(this)
+}
+
+/**
+ * Reads lines from a file in the `resources` directory.
+ * This is a robust way to bundle input files with your application, as it avoids
+ * hardcoded absolute paths.
+ *
+ * @param fileName The path to the file relative to the `resources` root.
+ * @return A list of non-empty strings from the file.
+ */
+fun readInputLines(fileName: String): List<String> {
+    val url = object {}.javaClass.classLoader.getResource(fileName)
+        ?: error("File not found: $fileName. Make sure it is in `src/main/resources`.")
+    return File(url.toURI()).readLines().filter(String::isNotBlank)
+}
+
+/**
+ * Reads the entire content of a file from the `resources` directory as a single string.
+ *
+ * @param fileName The path to the file relative to the `resources` root.
+ * @return The content of the file.
+ */
+fun readInputText(fileName: String): String {
+    val url = object {}.javaClass.classLoader.getResource(fileName)
+        ?: error("File not found: $fileName. Make sure it is in `src/main/resources`.")
+    return File(url.toURI()).readText()
 }

@@ -44,3 +44,6 @@ bin/
 ### Mac OS ###
 .DS_Store
 /app/src/main/kotlin/*/inputs/
+
+# Ignore Advent of Code input files
+app/src/main/resources/aoc2015/*_input.txt

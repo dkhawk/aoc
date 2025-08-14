@@ -70,33 +70,33 @@ fun runPart2() {
 }
 
 fun run() {
+    runTests1()
+    runTests2()
+    runPart1()
     runPart2()
 }
 
 fun part1(input: String): Int {
-  return input.map {
-      when (it) {
-          '(' -> 1
-          ')' -> -1
-          else -> 0
-      }
-  }.sum()
+    return input.toValues().sum()
 }
 
-fun part2(input: String): Int {
-    var floor = 0
-    var position = 0
-
-    val iter = input.iterator()
-
-    while (floor != -1 && iter.hasNext()) {
-        floor += when (iter.nextChar()) {
+private fun String.toValues(): Sequence<Int> {
+    return this.asSequence().map {
+        when (it) {
             '(' -> 1
             ')' -> -1
-            else -> 0
+            else -> null
         }
-        position += 1
-    }
+    }.filterNotNull()
+}
 
-    return position
+private data class State(
+    val floor: Int,
+    val position: Int
+)
+
+fun part2(input: String): Int {
+    return input.toValues().scan(State(0, 1)) { acc, i ->
+       acc.copy(floor = acc.floor + i, position = acc.position + 1)
+    }.takeWhile { it.floor != -1 }.last().position
 }

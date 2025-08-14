@@ -15,3 +15,7 @@ class Printer(val message: String) {
         println(message)
     }
 }
+
+fun Any.println() {
+    println(this)
+}

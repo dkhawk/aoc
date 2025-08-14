@@ -1,11 +1,18 @@
 package com.sphericalchickens.app.aoc2015.day03
 
-import com.sphericalchickens.utils.readInputLines
+import com.sphericalchickens.utils.readInputText
 
 /**
- * # Advent of Code 2015, Day XX: TBD
+ * # Advent of Code 2015, Day 03: TBD
  *
- * This program solves the puzzle for Day XX.
+ * This program solves the puzzle for Day 03.
+ *
+ * > delivers presents to 2 houses: one at the starting location, and one to the east.
+ *
+ * ^>v< delivers presents to 4 houses in a square, including twice to the house at his starting/ending location.
+ *
+ * ^v^v^v^v^v delivers a bunch of presents to some very lucky children at only 2 houses.
+ *
  *
  */
 fun main() {
@@ -15,7 +22,7 @@ fun main() {
     println("✅ Tests passed!")
 
     // --- Setup ---
-    val puzzleInput = readInputLines("aoc2015/day03_input.txt")
+    val puzzleInput = readInputText("aoc2015/day03_input.txt")
     println("\n--- Advent of Code 2015, Day XX ---")
 
 
@@ -33,12 +40,51 @@ fun main() {
 // Core Logic
 // ---------------------------------------------------------------------------------------------
 
-fun part1(input: List<String>): Int {
-    return input.size
+private data class Vector(val x: Int, val y: Int) {
+    fun move(command: Char): Vector {
+        return when (command) {
+            '^' -> this + Vector(0, -1)
+            'v' -> this + Vector(0, 1)
+            '<' -> this + Vector(-1, 0)
+            '>' -> this + Vector(1, 0)
+            else -> error("Unknown movement character: $command")
+        }
+    }
+
+    private operator fun plus(other: Vector) = Vector(this.x + other.x, this.y + other.y)
 }
 
-fun part2(input: List<String>): Int {
-    return input.size
+private class Entity() {
+    var location = Vector(0, 0)
+    val visited = mutableSetOf(location)
+
+    fun move(c: Char) {
+        location = location.move(c)
+        visited.add(location)
+    }
+
+    fun totalVisited() = visited.size
+}
+
+fun part1(input: String): Int {
+    val santa = Entity()
+    input.forEach { santa.move(it) }
+    return santa.totalVisited()
+}
+
+
+fun part2(input: String): Int {
+    val santa = Entity()
+    val robot = Entity()
+
+    val moves = input.iterator()
+
+    while (moves.hasNext()) {
+        santa.move(moves.nextChar())
+        if (moves.hasNext()) robot.move(moves.nextChar())
+    }
+
+    return (santa.visited + robot.visited).size
 }
 
 
@@ -51,12 +97,12 @@ fun part2(input: List<String>): Int {
  */
 private fun runTests() {
     // Part 1 Test Cases
-    val testInput1 = """
-    """.trimIndent().lines()
-    check(part1(testInput1) == 0)
+    check(part1(">") == 2)
+    check(part1("^>v<") == 4)
+    check(part1("^v^v^v^v^v") == 2)
 
     // Part 2 Test Cases
-    val testInput2 = """
-    """.trimIndent().lines()
-    check(part2(testInput2) == 0)
+    check(part2("^v") == 3)
+    check(part2("^>v<") == 3)
+    check(part2("^v^v^v^v^v") == 11)
 }

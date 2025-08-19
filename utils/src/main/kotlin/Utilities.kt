@@ -17,6 +17,12 @@ class Printer(val message: String) {
     }
 }
 
+fun <E> Collection<E>.println() {
+    println(
+      this.joinToString(separator = "\n\t", prefix = "\t")
+    )
+}
+
 fun Any.println() {
     println(this)
 }

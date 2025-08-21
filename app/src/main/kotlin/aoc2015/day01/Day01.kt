@@ -1,7 +1,6 @@
 package com.sphericalchickens.app.aoc2015.day01
 
 import com.sphericalchickens.utils.readInputText
-import java.io.File
 
 /**
  * # Advent of Code 2015, Day 1: Not Quite Lisp

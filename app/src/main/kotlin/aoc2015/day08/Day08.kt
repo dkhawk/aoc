@@ -34,11 +34,64 @@ fun main() {
 // ---------------------------------------------------------------------------------------------
 
 fun part1(input: List<String>): Int {
-    return input.size
+    val rawSize = input.sumOf { it.length }
+
+    val memorySize = input.sumOf {
+        it.unescape().length
+    }
+
+    return rawSize - memorySize
+}
+
+private fun String.unescape() : String {
+    val result = substring(1, this.lastIndex)
+
+    val iter = result.iterator()
+
+    return buildString {
+        while (iter.hasNext()) {
+            val next = iter.nextChar()
+            if (next != '\\') {
+                append(next)
+            } else {
+                val escaped = iter.nextChar()
+                if (escaped != 'x') {
+                    // throw away the next character
+                    append('?')
+                } else {
+                    iter.nextChar()
+                    iter.nextChar()
+                    append('*')
+                }
+            }
+        }
+    }
 }
 
 fun part2(input: List<String>): Int {
-    return input.size
+    val rawSize = input.sumOf { it.length }
+
+    val memorySize = input.sumOf {
+        it.escape().length
+    }
+
+    return memorySize - rawSize
+}
+
+private fun String.escape() : String {
+    val iter = iterator()
+
+    return buildString {
+        append("\"")
+        while (iter.hasNext()) {
+            when (val c = iter.nextChar()) {
+                '"' -> { append('\\'); append('"') }
+                '\\' -> { append('\\'); append('\\') }
+                else -> append(c)
+            }
+        }
+        append("\"")
+    }
 }
 
 
@@ -52,11 +105,19 @@ fun part2(input: List<String>): Int {
 private fun runTests() {
     // Part 1 Test Cases
     val testInput1 = """
+        ""
+        "abc"
+        "aaa\"aaa"
+        "\x27"
     """.trimIndent().lines()
-    check(part1(testInput1) == 0)
 
-    // Part 2 Test Cases
-    val testInput2 = """
-    """.trimIndent().lines()
-    check(part2(testInput2) == 0)
+    check(testInput1[0].unescape().length == 0)
+    check(testInput1[1].unescape().length == 3)
+    check(testInput1[2].unescape().length == 7)
+    check(testInput1[3].unescape().length == 1)
+
+    check(testInput1[0].escape().length == 6)
+    check(testInput1[1].escape().length == 9)
+    check(testInput1[2].escape().length == 16)
+    check(testInput1[3].escape().length == 11)
 }

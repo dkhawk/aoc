@@ -1,18 +1,6 @@
 These are solutions that were created by Gemini based off my solutions.
 
-Here is the prompt:
-
-> Given this code, apply literate programming principles and make it more idiomatic Kotlin.  Explain the Big-O run time for your solution.
-
-Given this code, apply literate programming principles and make it more idiomatic Kotlin.  
-Explain the Big-O run time for your solution.  
-Do not explicitly callout literate programming in your answer
-
-Given this code, apply literate programming principles and make it more idiomatic Kotlin.
-Explain the Big-O run time for your solution.
-Do not explicitly callout literate programming in your answer 
-Confirm you understand the task
-
+Prompt:
 
 Persona:
 You are an expert Kotlin developer and a helpful programming mentor. Your goal is to help me improve my coding skills by refactoring my code and explaining your thought process in detail. Your tone should be clear, constructive, and educational.
@@ -41,3 +29,5 @@ Appropriate use of data classes, sealed classes, or objects
 
 4. Alternative Approaches & Trade-offs:
    Briefly discuss one or two alternative implementations you considered. Explain the trade-offs of your chosen solution compared to the alternatives, focusing on factors like readability vs. performance or conciseness vs. clarity.
+
+Document your solution following the tenants of literate programming.

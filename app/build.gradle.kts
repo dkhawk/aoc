@@ -5,12 +5,14 @@ plugins {
 
     // Apply the Application plugin to add support for building an executable JVM application.
     application
+    alias(libs.plugins.kotlinPluginSerialization)
 }
 
 dependencies {
     // Project "app" depends on project "utils". (Project paths are separated with ":", so ":utils" refers to the top-level "utils" project.)
     implementation(project(":utils"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
+    implementation(libs.kotlinxSerialization)
 }
 
 application {

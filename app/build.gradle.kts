@@ -16,7 +16,14 @@ dependencies {
 }
 
 application {
-    // Define the Fully Qualified Name for the application main class
-    // (Note that Kotlin compiles `App.kt` to a class with FQN `com.example.app.AppKt`.)
-    mainClass = "com.sphericalchickens.app.AppKt"
+    // Define the Fully Qualified Name for the application main class.
+    // This is the default entry point when running the application.
+    mainClass.set("com.sphericalchickens.app.AppKt")
+
+    // Allow overriding the main class from the command line.
+    // This is useful for running different solutions without modifying the build file.
+    // Example: ./gradlew run -PmainClass=com.sphericalchickens.aoc2015.day11.Day11Kt
+    if (project.hasProperty("mainClass")) {
+        mainClass.set(project.property("mainClass") as String)
+    }
 }

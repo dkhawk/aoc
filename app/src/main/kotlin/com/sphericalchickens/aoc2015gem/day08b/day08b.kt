@@ -1,4 +1,4 @@
-package com.sphericalchickens.aoc2015gem
+package com.sphericalchickens.aoc2015gem.day08b
 
 import com.sphericalchickens.utils.readInputLines
 

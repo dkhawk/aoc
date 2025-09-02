@@ -52,3 +52,13 @@ fun readInputText(fileName: String): String {
         ?: error("File not found: $fileName. Make sure it is in `src/main/resources`.")
     return File(url.toURI()).readText()
 }
+
+fun <T> check(message: String, expected: T, actual: T) {
+    if (expected == actual) {
+        println("✅ Test passed: $message")
+    } else {
+        System.err.println("❌ Test FAILED: $message")
+        System.err.println("   Expected: $expected")
+        System.err.println("   Actual:   $actual")
+    }
+}

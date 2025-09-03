@@ -50,7 +50,7 @@ private data class Keypad(private val layout: Map<Char, Map<Char, Char>>) {
 }
 
 private fun String.toLayout(): Map<Char, Map<Char, Char>> {
-    val grid = lines().map { it.trim().toList() }
+    val grid = lines()
     val positions = grid.flatMapIndexed { y, row ->
         row.mapIndexedNotNull { x, char ->
             if (char.isLetterOrDigit()) char to Position(x, y) else null
@@ -73,3 +73,25 @@ private data class Position(val x: Int, val y: Int) {
     fun left() = Position(x - 1, y)
     fun right() = Position(x + 1, y)
 }
+
+//class Day02Test : StringSpec({
+//    "part 1 test" {
+//        val testInput = """
+//            ULL
+//            RRDDD
+//            LURDL
+//            UUUUD
+//        """.trimIndent().lines()
+//        solve(testInput, Keypad.part1Keypad, '5') shouldBe "1985"
+//    }
+//
+//    "part 2 test" {
+//        val testInput = """
+//            ULL
+//            RRDDD
+//            LURDL
+//            UUUUD
+//        """.trimIndent().lines()
+//        solve(testInput, Keypad.part2Keypad, '5') shouldBe "5DB3"
+//    }
+//})

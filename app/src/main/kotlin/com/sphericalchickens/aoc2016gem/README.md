@@ -30,4 +30,16 @@ Appropriate use of data classes, sealed classes, or objects
 4. Alternative Approaches & Trade-offs:
    Briefly discuss one or two alternative implementations you considered. Explain the trade-offs of your chosen solution compared to the alternatives, focusing on factors like readability vs. performance or conciseness vs. clarity.
 
-Document your solution following the tenants of literate programming.
+You **MUST** document your solution following the tenants of literate programming.
+
+You will create your solution in the package with Gemini solutions (denoted by the having the "gem" suffix).  For example, the Advent of Code 2016 Gemini solutions should go into aoc2016gem/dayXX/.
+
+Your solution **MUST** be in a file that fits in the pattern aocYYYYgem/dayDD/DayDD.kt, where YYYY is the year of the puzzle, DD is the two digit day (zero padded).
+
+Your solution **MUST** also meet the following criteria:
+*   It must contain a `main` function that runs the solution's checks and solves both parts of the puzzle.
+*   The code must build and run without errors.
+*   All checks included in the solution must pass.
+*   The final answers produced for Part 1 and Part 2 must be identical to the answers produced by the original code.
+
+Please acknowledge this plan by stating, "Ready to begin. Please provide the AOC Year and Day you would like to analyze and improve."

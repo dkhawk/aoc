@@ -60,5 +60,6 @@ fun <T> check(message: String, expected: T, actual: T) {
         System.err.println("❌ Test FAILED: $message")
         System.err.println("   Expected: $expected")
         System.err.println("   Actual:   $actual")
+        error("Test failed: $message")
     }
 }

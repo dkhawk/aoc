@@ -1,4 +1,4 @@
-package com.sphericalchickens.aoc2016.day17
+package com.sphericalchickens.aoc2016.day06
 
 import com.sphericalchickens.utils.check
 import com.sphericalchickens.utils.readInputLines
@@ -13,9 +13,9 @@ fun main() {
     val runPart2Solution = true
     // ----------------------------------------
 
-    println("--- Advent of Code 2016, Day 17 ---")
+    println("--- Advent of Code 2016, Day 06 ---")
 
-    val input = readInputLines("aoc2016/day17_input.txt")
+    val input = readInputLines("aoc2016/day06_input.txt")
 
     // --- Part 1 ---
     if (runPart1Tests) {

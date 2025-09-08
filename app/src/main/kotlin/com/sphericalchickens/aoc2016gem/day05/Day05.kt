@@ -1,8 +1,18 @@
-package com.sphericalchickens.aoc2016.day05
+package com.sphericalchickens.aoc2016gem.day05
 
 import com.sphericalchickens.utils.check
+import com.sphericalchickens.utils.println
 import com.sphericalchickens.utils.readInputLines
 
+/**
+ * This file demonstrates a TDD-friendly structure for solving Advent of Code puzzles.
+ * The `main` function is designed as a control panel to facilitate an iterative workflow:
+ * 1. Implement and run Part 1 tests.
+ * 2. Run the Part 1 solution.
+ * 3. Implement and run Part 2 tests.
+ * 4. Run the Part 2 solution.
+ * 5. Set all flags to `true` for the final, committed solution.
+ */
 fun main() {
     // --- Development Workflow Control Panel ---
     // Set these flags to control which parts of the solution to run.

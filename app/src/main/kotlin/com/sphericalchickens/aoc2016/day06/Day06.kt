@@ -1,6 +1,7 @@
 package com.sphericalchickens.aoc2016.day06
 
 import com.sphericalchickens.utils.check
+import com.sphericalchickens.utils.println
 import com.sphericalchickens.utils.readInputLines
 import kotlin.system.measureTimeMillis
 
@@ -50,22 +51,68 @@ fun main() {
 
 private fun runPart1Tests() {
     val testInput = """
-        
+        eedadn
+        drvtee
+        eandsr
+        raavrd
+        atevrs
+        tsrnev
+        sdttsa
+        rasrtv
+        nssdts
+        ntnada
+        svetve
+        tesnvt
+        vntsnd
+        vrdear
+        dvrsen
+        enarar
     """.trimIndent().lines()
-    check("Part 1 Test Case 1", "expected", part1(testInput))
+    check("Part 1 Test Case 1", "easter", part1(testInput))
 }
 
 private fun runPart2Tests() {
     val testInput = """
-        
+        eedadn
+        drvtee
+        eandsr
+        raavrd
+        atevrs
+        tsrnev
+        sdttsa
+        rasrtv
+        nssdts
+        ntnada
+        svetve
+        tesnvt
+        vntsnd
+        vrdear
+        dvrsen
+        enarar
     """.trimIndent().lines()
-    check("Part 2 Test Case 1", "expected", part2(testInput))
+    check("Part 2 Test Case 1", "advent", part2(testInput))
 }
 
 private fun part1(input: List<String>): String {
-    return ""
+    val counts = characterCounts(input)
+    return counts.map() { 'a' + it.withIndex().maxBy { it.value }.index }.joinToString("")
+}
+
+private fun characterCounts(input: List<String>): List<MutableList<Int>> {
+    val counts = List(input.first().length) {
+        MutableList(26) { 0 }
+    }
+
+    input.forEach { line ->
+        line.withIndex().forEach { (i, ch) ->
+            val j = ch - 'a'
+            counts[i][j] += 1
+        }
+    }
+    return counts
 }
 
 private fun part2(input: List<String>): String {
-    return ""
+    val counts = characterCounts(input)
+    return counts.map() { 'a' + it.withIndex().filter { it.value > 0 }.minBy { it.value }.index }.joinToString("")
 }

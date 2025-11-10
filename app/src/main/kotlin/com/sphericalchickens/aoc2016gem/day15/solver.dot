@@ -1,0 +1,54 @@
+digraph SolveFunction {
+    // Graph Attributes
+    rankdir=TB;
+    bgcolor="#FDFDFD";
+    fontname="Helvetica";
+    label="Visualization of the 'solve' Function Logic";
+    fontsize=18;
+    labelloc=t;
+
+    // Node Defaults
+    node [shape=box, style="rounded,filled", fillcolor="#EAEAEA", fontname="Helvetica", margin=0.1];
+    
+    // Edge Defaults
+    edge [fontname="Helvetica", fontsize=10];
+
+    // Start and End Nodes
+    Start [label="Start", shape=ellipse, fillcolor="#CDE8FF", style="filled"];
+    End [label="Return final 'time'", shape=ellipse, fillcolor="#CDE8FF", style="filled"];
+
+    // Initialization
+    Init [label="Initialize State\ntime = 0\nstep = 1", shape=box, fillcolor="#FFF5C3", style="filled"];
+    
+    // Outer Loop Control
+    LoopCheck [label="Process next disc in list?", shape=diamond, fillcolor="#FFDDC3", style="filled"];
+
+    // Inner Loop (Finding Time)
+    CheckTime [label="Check congruence:\n(time + disc.id + disc.initial) % disc.positions == 0?", shape=diamond, fillcolor="#FFEABF", style="filled"];
+    IncrementTime [label="Find next candidate:\ntime += step", shape=box, fillcolor="#FFFFFF", style="rounded,filled,dashed"];
+
+    // State Update
+    UpdateStep [label="Update step size:\nstep *= disc.positions", shape=box, fillcolor="#D7F0DB", style="filled"];
+
+    // --- Define Flow ---
+    Start -> Init [weight=2];
+    Init -> LoopCheck [weight=2];
+    
+    // Outer Loop: "Yes, there's a disc"
+    LoopCheck -> CheckTime [label=" Yes ", weight=2];
+
+    // Inner Loop: "No, time is not valid"
+    // This is the generateSequence().first { ... }
+    CheckTime -> IncrementTime [label=" False (Try next) "];
+    IncrementTime -> CheckTime [label=" loop "];
+
+    // Inner Loop: "Yes, time is valid"
+    // The 'first' condition was met
+    CheckTime -> UpdateStep [label=" True (Found time) ", weight=2];
+    
+    // Go back to check for more discs
+    UpdateStep -> LoopCheck [label=" next disc ", weight=2];
+    
+    // Outer Loop: "No, all discs processed"
+    LoopCheck -> End [label=" No (All discs done) ", weight=2];
+}

@@ -15,7 +15,7 @@ import kotlin.system.measureTimeMillis
 import java.security.MessageDigest
 import java.util.concurrent.ConcurrentHashMap
 
-fun String.md5(): String {
+private fun String.md5(): String {
     val md = MessageDigest.getInstance("MD5")
     val digest = md.digest(this.toByteArray())
     return digest.fold("") { str, byte -> str + "%02x".format(byte) }

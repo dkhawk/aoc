@@ -9,7 +9,6 @@ fun main() {
     // Set these flags to control which parts of the solution to run.
     val runPart1Tests = true
     val runPart1Solution = true
-    val runPart2Tests = true
     val runPart2Solution = true
     // ----------------------------------------
 
@@ -26,22 +25,17 @@ fun main() {
     if (runPart1Solution) {
         println("🎁 Solving Part 1...")
         val timeInMillis = measureTimeMillis {
-            val part1Result = part1(input)
+            val part1Result = part1(input, 272)
             println("   Part 1: $part1Result")
         }
         println("Part 1 runtime: $timeInMillis ms.")
     }
 
     // --- Part 2 ---
-    if (runPart2Tests) {
-        println("🧪 Running Part 2 tests...")
-        runPart2Tests()
-        println("✅ Part 2 tests passed!")
-    }
     if (runPart2Solution) {
         println("🎀 Solving Part 2...")
         val timeInMillis = measureTimeMillis {
-            val part2Result = part2(input)
+            val part2Result = part1(input, 35651584)
             println("   Part 2: $part2Result")
         }
         println("Part 2 runtime: $timeInMillis ms.")
@@ -50,22 +44,54 @@ fun main() {
 
 private fun runPart1Tests() {
     val testInput = """
-        
+        1 100
+        0 001
+        11111 11111000000
+        111100001010 1111000010100101011110000
     """.trimIndent().lines()
-    check("Part 1 Test Case 1", "expected", part1(testInput))
+
+    testInput.forEach { line ->
+        val (a, b) = line.split(" ")
+        check("Part 1 Test Case $line", b, a.dragonExpand())
+    }
+
+    check("checksum", "100", "110010110100".dragonChecksum())
+
+    check("all together", "01100", part1(listOf("10000"), 20))
+
 }
 
-private fun runPart2Tests() {
-    val testInput = """
-        
-    """.trimIndent().lines()
-    check("Part 2 Test Case 1", "expected", part2(testInput))
+private fun String.dragonChecksum(): String {
+    return generateSequence(this) { str ->
+        buildString {
+            str.windowed(2, 2).forEach { append(if (it.first() == it.last()) '1' else '0') }
+        }
+    }.first { it.length.isOdd() }
 }
 
-private fun part1(input: List<String>): String {
-    return ""
+private fun Int.isEven() = (this and 1) == 0
+private fun Int.isOdd() = (this and 1) == 1
+
+private fun String.dragonExpand(): String {
+    val b = buildString {
+        this@dragonExpand.reversed().forEach {
+            append(
+                when (it) {
+                    '0' -> '1'
+                    '1' -> '0'
+                    else -> error("Invalid character: $it")
+                }
+            )
+        }
+    }
+
+    return "${this}0$b"
 }
 
-private fun part2(input: List<String>): String {
-    return ""
+private fun part1(input: List<String>, diskSize: Int): String {
+    val s = generateSequence(input.first()) {
+        it.dragonExpand()
+    }.first { it.length >= diskSize }.take(diskSize)
+
+    return s.dragonChecksum()
 }

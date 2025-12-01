@@ -8,9 +8,9 @@ fun main() {
     // --- Development Workflow Control Panel ---
     // Set these flags to control which parts of the solution to run.
     val runPart1Tests = true
-    val runPart1Solution = true
-    val runPart2Tests = true
-    val runPart2Solution = true
+    val runPart1Solution = false
+    val runPart2Tests = false
+    val runPart2Solution = false
     // ----------------------------------------
 
     println("--- Advent of Code 2016, Day __DAY__ ---")
@@ -52,20 +52,20 @@ private fun runPart1Tests() {
     val testInput = """
         
     """.trimIndent().lines()
-    check("Part 1 Test Case 1", "expected", part1(testInput))
+    check("Part 1 Test Case 1", -1, part1(testInput))
 }
 
 private fun runPart2Tests() {
     val testInput = """
         
     """.trimIndent().lines()
-    check("Part 2 Test Case 1", "expected", part2(testInput))
+    check("Part 2 Test Case 1", -1, part2(testInput))
 }
 
-private fun part1(input: List<String>): String {
-    return ""
+private fun part1(input: List<String>): Int {
+    return -1
 }
 
-private fun part2(input: List<String>): String {
-    return ""
+private fun part2(input: List<String>): Int {
+    return -1
 }

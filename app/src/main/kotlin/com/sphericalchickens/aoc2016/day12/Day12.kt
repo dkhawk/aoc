@@ -99,7 +99,7 @@ fun main() {
     val runPart2Solution = true
     // ----------------------------------------
 
-    println("--- Advent of Code 2016, Day 11 ---")
+    println("--- Advent of Code 2016, Day 12 ---")
 
     val input = readInputLines("aoc2016/day12_input.txt")
 

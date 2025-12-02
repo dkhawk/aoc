@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>North Pole Gift Shop - ID Scanner</title>
+    <style>
+        :root {
+            --bg-color: #051005;
+            --term-green: #33ff33;
+            --term-dim: #1a801a;
+            --term-bright: #ccffcc;
+            --alert-color: #ff3333;
+            --scan-line-color: rgba(18, 16, 16, 0.5);
+        }
+
+        body {
+            background-color: #000;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Courier New', Courier, monospace;
+            overflow: hidden;
+        }
+
+        /* CRT Monitor Frame */
+        .monitor-casing {
+            background: #222;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8) inset, 0 0 20px #111;
+            border: 2px solid #444;
+        }
+
+        .screen-container {
+            width: 800px;
+            height: 600px;
+            background-color: var(--bg-color);
+            position: relative;
+            border-radius: 4px; /* Slight curve */
+            box-shadow: inset 0 0 100px rgba(0,0,0,0.9);
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        /* Scanlines and Flicker effects */
+        .scanlines {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to bottom, var(--scan-line-color) 50%, transparent 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 10;
+            opacity: 0.3;
+        }
+
+        .glow-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            box-shadow: inset 0 0 50px rgba(51, 255, 51, 0.1);
+            pointer-events: none;
+            z-index: 11;
+            animation: flicker 0.15s infinite;
+        }
+
+        /* UI Layout */
+        .ui-grid {
+            display: grid;
+            grid-template-rows: 60px 1fr 150px;
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            color: var(--term-green);
+            z-index: 1;
+            position: relative;
+        }
+
+        /* Header */
+        header {
+            border-bottom: 2px solid var(--term-dim);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h1 { margin: 0; font-size: 24px; text-transform: uppercase; text-shadow: 0 0 5px var(--term-green); }
+        .status { font-size: 14px; color: var(--term-dim); }
+
+        /* Main Display */
+        .main-display {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .current-range {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--term-dim);
+        }
+
+        .scanner-window {
+            font-size: 64px;
+            font-weight: bold;
+            margin: 20px 0;
+            letter-spacing: 5px;
+            text-shadow: 0 0 10px var(--term-green);
+            min-height: 80px;
+        }
+
+        .analysis-visual {
+            font-size: 20px;
+            height: 40px;
+            color: var(--term-bright);
+        }
+
+        .match-indicator {
+            margin-top: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.1s;
+        }
+
+        .match-indicator.echo { color: #ffff33; text-shadow: 0 0 10px #ffff33; }
+        .match-indicator.periodic { color: #33ffff; text-shadow: 0 0 10px #33ffff; }
+
+        /* Stats Footer */
+        .stats-panel {
+            border-top: 2px solid var(--term-dim);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding-top: 15px;
+        }
+
+        .stat-box {
+            background: rgba(0, 50, 0, 0.3);
+            padding: 10px;
+            border: 1px solid var(--term-dim);
+        }
+
+        .stat-title { font-size: 12px; color: var(--term-dim); margin-bottom: 5px; text-transform: uppercase; }
+        .stat-value { font-size: 24px; color: var(--term-bright); }
+
+        /* Utility classes for text highlighting */
+        .highlight-half-1 { color: #ffff33; }
+        .highlight-half-2 { color: #ffff33; text-decoration: underline; }
+        .highlight-period { color: #33ffff; border-bottom: 2px solid #33ffff; }
+
+        @keyframes flicker {
+            0% { opacity: 0.97; }
+            5% { opacity: 0.95; }
+            10% { opacity: 0.9; }
+            15% { opacity: 0.95; }
+            100% { opacity: 0.98; }
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="monitor-casing">
+    <div class="screen-container">
+        <div class="scanlines"></div>
+        <div class="glow-overlay"></div>
+
+        <div class="ui-grid">
+            <header>
+                <h1>ElfOS v2.0 - ID_SCAN</h1>
+                <div class="status">System: ONLINE | Mode: DUAL_SCAN</div>
+            </header>
+
+            <div class="main-display">
+                <div class="current-range" id="rangeDisplay">Initializing Range Buffer...</div>
+
+                <!-- The Big Number -->
+                <div class="scanner-window" id="numberDisplay">000000</div>
+
+                <!-- Visual explanation of the split -->
+                <div class="analysis-visual" id="analysisDisplay"></div>
+
+                <div class="match-indicator" id="matchIndicator"></div>
+            </div>
+
+            <div class="stats-panel">
+                <div class="stat-box">
+                    <div class="stat-title">Part 1 (Echo Pattern) Sum</div>
+                    <div class="stat-value" id="p1Score">0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-title">Part 2 (Periodic Pattern) Sum</div>
+                    <div class="stat-value" id="p2Score">0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Configuration based on the specific Test Input from the Kotlin code
+    // "11-22,95-115,998-1012,1188511880-1188511890,222220-222224,..."
+    const rangesRaw = [
+        [11, 22],
+        [95, 115],
+        [998, 1012],
+        [1188511880, 1188511890],
+        [222220, 222224],
+        [1698522, 1698528],
+        [446443, 446449],
+        [38593856, 38593862],
+        [565653, 565659],
+        [824824821, 824824827],
+        [2121212118, 2121212124]
+    ];
+
+    let currentRangeIndex = 0;
+    let currentId = rangesRaw[0][0];
+    let p1Sum = 0;
+    let p2Sum = 0;
+    let isPaused = false;
+
+    // DOM Elements
+    const elRange = document.getElementById('rangeDisplay');
+    const elNumber = document.getElementById('numberDisplay');
+    const elAnalysis = document.getElementById('analysisDisplay');
+    const elMatch = document.getElementById('matchIndicator');
+    const elP1 = document.getElementById('p1Score');
+    const elP2 = document.getElementById('p2Score');
+
+    // --- Logic Logic (Ported from Kotlin) ---
+
+    function isEchoPattern(str) {
+        const len = str.length;
+        if (len % 2 !== 0) return false;
+        const half = len / 2;
+        for (let i = 0; i < half; i++) {
+            if (str[i] !== str[i + half]) return false;
+        }
+        return true;
+    }
+
+    function isPeriodicPattern(str) {
+        const n = str.length;
+        for (let len = 1; len <= n / 2; len++) {
+            if (n % len !== 0) continue;
+            let isPattern = true;
+            for (let i = len; i < n; i++) {
+                if (str[i] !== str[i % len]) {
+                    isPattern = false;
+                    break;
+                }
+            }
+            if (isPattern) return { isMatch: true, period: len };
+        }
+        return { isMatch: false, period: 0 };
+    }
+
+    // --- Animation Loop ---
+
+    function processNext() {
+        if (currentRangeIndex >= rangesRaw.length) {
+            elRange.innerText = "SCAN COMPLETE";
+            elNumber.innerText = "DONE";
+            return;
+        }
+
+        const [start, end] = rangesRaw[currentRangeIndex];
+
+        // Update UI
+        elRange.innerText = `Scanning Range: [${start} - ${end}]`;
+        const strId = currentId.toString();
+        elNumber.innerText = strId;
+
+        // Reset Visuals
+        elAnalysis.innerHTML = "";
+        elMatch.style.opacity = "0";
+
+        // Check Logic
+        const echo = isEchoPattern(strId);
+        const periodicData = isPeriodicPattern(strId);
+        const periodic = periodicData.isMatch;
+
+        if (echo || periodic) {
+            // Found a match! Pause to visualize.
+            isPaused = true;
+            let delayTime = 1500;
+
+            // Build Visualization
+            if (echo && periodic) {
+                elMatch.innerText = "CRITICAL: DUAL PATTERN DETECTED";
+                elMatch.className = "match-indicator echo"; // Just style as echo for simplicity
+                elAnalysis.innerHTML = visualizeEcho(strId) + " | " + visualizePeriodic(strId, periodicData.period);
+                p1Sum += currentId;
+                p2Sum += currentId;
+            } else if (echo) {
+                elMatch.innerText = "ECHO PATTERN MATCH";
+                elMatch.className = "match-indicator echo";
+                elAnalysis.innerHTML = visualizeEcho(strId);
+                p1Sum += currentId;
+            } else if (periodic) {
+                elMatch.innerText = "PERIODIC PATTERN MATCH";
+                elMatch.className = "match-indicator periodic";
+                elAnalysis.innerHTML = visualizePeriodic(strId, periodicData.period);
+                p2Sum += currentId;
+            }
+
+            elMatch.style.opacity = "1";
+
+            // Update Scores
+            elP1.innerText = p1Sum;
+            elP2.innerText = p2Sum;
+
+            setTimeout(() => {
+                isPaused = false;
+                moveToNext();
+            }, delayTime);
+
+        } else {
+            // No match, move fast
+            setTimeout(moveToNext, 50);
+        }
+    }
+
+    function moveToNext() {
+        const [start, end] = rangesRaw[currentRangeIndex];
+        currentId++;
+        if (currentId > end) {
+            currentRangeIndex++;
+            if (currentRangeIndex < rangesRaw.length) {
+                currentId = rangesRaw[currentRangeIndex][0];
+            }
+        }
+        processNext();
+    }
+
+    // Helpers to create HTML strings for visual logic
+    function visualizeEcho(str) {
+        const half = str.length / 2;
+        const p1 = str.substring(0, half);
+        const p2 = str.substring(half);
+        return `<span class="highlight-half-1">${p1}</span> == <span class="highlight-half-2">${p2}</span>`;
+    }
+
+    function visualizePeriodic(str, period) {
+        let html = "";
+        for(let i=0; i<str.length; i+=period) {
+            html += `[${str.substring(i, i+period)}]`;
+        }
+        return `<span style="color:#33ffff">${html}</span> (Period: ${period})`;
+    }
+
+    // Start
+    setTimeout(processNext, 1000);
+
+</script>
+</body>
+</html>

@@ -3,12 +3,13 @@ package com.sphericalchickens.aoc2025.day02
 import com.sphericalchickens.utils.check
 import com.sphericalchickens.utils.readInputText
 import kotlin.system.measureTimeMillis
+import kotlin.time.measureTimedValue
 
 fun main() {
     // --- Development Workflow Control Panel ---
     // Set these flags to control which parts of the solution to run.
-    val runPart1Tests = false
-    val runPart1Solution = false
+    val runPart1Tests = true
+    val runPart1Solution = true
     val runPart2Tests = true
     val runPart2Solution = true
     // ----------------------------------------
@@ -25,7 +26,7 @@ fun main() {
     }
     if (runPart1Solution) {
         println("🎁 Solving Part 1...")
-        val timeInMillis = measureTimeMillis {
+        val timeInMillis = measureTimedValue {
             val part1Result = part1(input)
             println("   Part 1: $part1Result")
         }
@@ -40,7 +41,7 @@ fun main() {
     }
     if (runPart2Solution) {
         println("🎀 Solving Part 2...")
-        val timeInMillis = measureTimeMillis {
+        val timeInMillis = measureTimedValue {
             val part2Result = part2(input)
             println("   Part 2: $part2Result")
         }
@@ -95,11 +96,28 @@ private fun findInvalidIds2(range: String): List<Long> {
         var isInvalid = false
 
         for (ws in 1..h) {
-            val ss = s.take(ws)
-            if (s.windowed(ws, ws, true).all { it == ss }) {
-                isInvalid = true
-                break
+            //            if (s.length % ws == 0) {
+            //                if (s.chunked(ws).toSet().size == 1) {
+            //                    isInvalid = true
+            //                    break
+            //                }
+            //            }
+
+            // This is slightly more performant
+            if (s.length % ws == 0) {
+                val chunks = s.chunked(ws)
+                if (chunks.all { it == chunks.first() }) {
+                    isInvalid = true
+                    break
+                }
             }
+
+
+            //            val ss = s.take(ws)
+            //            if (s.windowed(ws, ws, true).all { it == ss }) {
+            //                isInvalid = true
+            //                break
+            //            }
         }
 
         if (isInvalid) value else null

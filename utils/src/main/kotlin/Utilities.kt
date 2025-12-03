@@ -5,6 +5,7 @@ import kotlinx.datetime.Clock
 import kotlinx.serialization.Serializable
 import kotlinx.coroutines.*
 import java.io.File
+import kotlin.time.Duration
 
 @Serializable
 class Printer(val message: String) {
@@ -62,5 +63,13 @@ fun <T> check(message: String, expected: T, actual: T) {
         System.err.println("   Expected: $expected")
         System.err.println("   Actual:   $actual")
         error("Test failed: $message")
+    }
+}
+
+fun formatDuration(duration: Duration): String {
+    return if (duration.inWholeMilliseconds < 5) {
+        "${duration.inWholeMilliseconds}ms (${duration.inWholeMicroseconds}µs)"
+    } else {
+        "${duration.inWholeMilliseconds}ms"
     }
 }

@@ -1,9 +1,10 @@
 package com.sphericalchickens.aoc2025gem.day01
 
 import com.sphericalchickens.utils.check
+import com.sphericalchickens.utils.formatDuration
 import com.sphericalchickens.utils.readInputLines
 import kotlin.math.abs
-import kotlin.system.measureTimeMillis
+import kotlin.time.measureTimedValue
 
 // We define our domain constants at the top level for easy configuration and readability.
 private const val DIAL_SIZE = 100
@@ -85,17 +86,19 @@ private fun solve(input: List<String>) {
     // keeps the solver functions clean.
     val instructions = input.map { Instruction.parse(it) }
 
-    println("🎁 Solving Part 1...")
-    val time1 = measureTimeMillis {
-        println("   Part 1: ${part1(instructions)}")
-    }
-    println("   (Runtime: ${time1}ms)")
+        println("🎁 Solving Part 1...")
+        val (part1Result, part1Duration) = measureTimedValue {
+            part1(instructions)
+        }
+        println("   Part 1: $part1Result")
+        println("Part 1 runtime: ${formatDuration(part1Duration)}")
 
-    println("🎀 Solving Part 2...")
-    val time2 = measureTimeMillis {
-        println("   Part 2: ${part2(instructions)}")
-    }
-    println("   (Runtime: ${time2}ms)")
+        println("🎀 Solving Part 2...")
+        val (part2Result, part2Duration) = measureTimedValue {
+            part2(instructions)
+        }
+        println("   Part 2: $part2Result")
+        println("Part 2 runtime: ${formatDuration(part2Duration)}")
 }
 
 /**

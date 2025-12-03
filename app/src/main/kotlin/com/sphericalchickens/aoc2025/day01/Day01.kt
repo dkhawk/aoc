@@ -1,8 +1,10 @@
 package com.sphericalchickens.aoc2025.day01
 
 import com.sphericalchickens.utils.check
+import com.sphericalchickens.utils.formatDuration
 import com.sphericalchickens.utils.readInputLines
-import kotlin.system.measureTimeMillis
+import kotlin.math.abs
+import kotlin.time.measureTimedValue
 
 fun main() {
     // --- Development Workflow Control Panel ---
@@ -25,11 +27,11 @@ fun main() {
     }
     if (runPart1Solution) {
         println("🎁 Solving Part 1...")
-        val timeInMillis = measureTimeMillis {
-            val part1Result = part1(input)
-            println("   Part 1: $part1Result")
+        val (part1Result, part1Duration) = measureTimedValue {
+            part1(input)
         }
-        println("Part 1 runtime: $timeInMillis ms.")
+        println("   Part 1: $part1Result")
+        println("Part 1 runtime: ${formatDuration(part1Duration)}")
     }
 
     // --- Part 2 ---
@@ -40,11 +42,11 @@ fun main() {
     }
     if (runPart2Solution) {
         println("🎀 Solving Part 2...")
-        val timeInMillis = measureTimeMillis {
-            val part2Result = part2c(input)
-            println("   Part 2: $part2Result")
+        val (part2Result, part2Duration) = measureTimedValue {
+            part2b(input)
         }
-        println("Part 2 runtime: $timeInMillis ms.")
+        println("   Part 2: $part2Result")
+        println("Part 2 runtime: ${formatDuration(part2Duration)}")
     }
 }
 

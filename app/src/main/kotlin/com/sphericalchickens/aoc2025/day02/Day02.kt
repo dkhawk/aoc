@@ -3,6 +3,7 @@ package com.sphericalchickens.aoc2025.day02
 import com.sphericalchickens.utils.check
 import com.sphericalchickens.utils.readInputText
 import kotlin.system.measureTimeMillis
+import kotlin.time.measureTimedValue
 
 fun main() {
     // --- Development Workflow Control Panel ---
@@ -25,11 +26,11 @@ fun main() {
     }
     if (runPart1Solution) {
         println("🎁 Solving Part 1...")
-        val timeInMillis = measureTimeMillis {
+        val timedValue = measureTimedValue {
             val part1Result = part1(input)
             println("   Part 1: $part1Result")
         }
-        println("Part 1 runtime: $timeInMillis ms.")
+        println("Part 1 runtime: $timedValue.")
     }
 
     // --- Part 2 ---

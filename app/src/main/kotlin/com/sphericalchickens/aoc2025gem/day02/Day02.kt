@@ -1,8 +1,10 @@
 package com.sphericalchickens.aoc2025gem.day02
 
 import com.sphericalchickens.utils.check
+import com.sphericalchickens.utils.formatDuration
+import com.sphericalchickens.utils.readInputLines
 import com.sphericalchickens.utils.readInputText
-import kotlin.system.measureTimeMillis
+import kotlin.time.measureTimedValue
 
 fun main() {
     println("--- Advent of Code 2025, Day 2 (Gemini Refactor) ---")
@@ -12,18 +14,20 @@ fun main() {
     runTests()
 
     // Solve Part 1
-    val t1 = measureTimeMillis {
-        val result = part1(input)
-        println("Part 1: $result")
-    }
-    println("Part 1 runtime: ${t1}ms")
+        println("🎁 Solving Part 1...")
+        val (part1Result, part1Duration) = measureTimedValue {
+            part1(input)
+        }
+        println("   Part 1: $part1Result")
+        println("Part 1 runtime: ${formatDuration(part1Duration)}")
 
     // Solve Part 2
-    val t2 = measureTimeMillis {
-        val result = part2(input)
-        println("Part 2: $result")
-    }
-    println("Part 2 runtime: ${t2}ms")
+        println("🎀 Solving Part 2...")
+        val (part2Result, part2Duration) = measureTimedValue {
+            part2(input)
+        }
+        println("   Part 2: $part2Result")
+        println("Part 2 runtime: ${formatDuration(part2Duration)}")
 }
 
 /**

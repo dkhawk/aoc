@@ -142,8 +142,8 @@ private data class DialState(val position: Int, val zeroCrossings: Int = 0) {
      * This encapsulates the core domain logic for Part 2.
      */
     fun applyInstruction(instruction: Instruction): DialState {
-        val nextPosition = (position + instruction.movement).posMod(DIAL_SIZE)
-        
+        val nextPosition = (position + instruction.movement).mod(DIAL_SIZE)
+
         // Count full rotations (e.g., a move of 205 on a dial of 100 crosses zero twice guaranteed)
         val fullRotations = abs(instruction.movement) / DIAL_SIZE
         
@@ -190,7 +190,7 @@ private fun part1(instructions: List<Instruction>): Int {
     data class P1State(val pos: Int, val count: Int)
     
     val finalState = instructions.fold(P1State(START_POSITION, 0)) { state, instr ->
-        val nextPos = (state.pos + instr.movement).posMod(DIAL_SIZE)
+        val nextPos = (state.pos + instr.movement).mod(DIAL_SIZE)
         val hitZero = if (nextPos == 0) 1 else 0
         P1State(nextPos, state.count + hitZero)
     }
@@ -206,14 +206,4 @@ private fun part2(instructions: List<Instruction>): Int {
         state.applyInstruction(instr)
     }
     return finalState.zeroCrossings
-}
-
-/**
- * Idiomatic helper: Positive Modulo.
- * Kotlin's `%` operator is "remainder", so `-5 % 100` is `-5`.
- * In modular arithmetic (dial logic), we want `-5` to wrap to `95`.
- */
-private infix fun Int.posMod(mod: Int): Int {
-    val r = this % mod
-    return if (r < 0) r + mod else r
 }

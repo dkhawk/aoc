@@ -8,8 +8,8 @@ import kotlin.time.measureTimedValue
 fun main() {
     // --- Development Workflow Control Panel ---
     // Set these flags to control which parts of the solution to run.
-    val runPart1Tests = false
-    val runPart1Solution = false
+    val runPart1Tests = true
+    val runPart1Solution = true
     val runPart2Tests = true
     val runPart2Solution = true
     // ----------------------------------------
@@ -96,11 +96,28 @@ private fun findInvalidIds2(range: String): List<Long> {
         var isInvalid = false
 
         for (ws in 1..h) {
-            val ss = s.take(ws)
-            if (s.windowed(ws, ws, true).all { it == ss }) {
-                isInvalid = true
-                break
+            //            if (s.length % ws == 0) {
+            //                if (s.chunked(ws).toSet().size == 1) {
+            //                    isInvalid = true
+            //                    break
+            //                }
+            //            }
+
+            // This is slightly more performant
+            if (s.length % ws == 0) {
+                val chunks = s.chunked(ws)
+                if (chunks.all { it == chunks.first() }) {
+                    isInvalid = true
+                    break
+                }
             }
+
+
+            //            val ss = s.take(ws)
+            //            if (s.windowed(ws, ws, true).all { it == ss }) {
+            //                isInvalid = true
+            //                break
+            //            }
         }
 
         if (isInvalid) value else null

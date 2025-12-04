@@ -9,9 +9,9 @@ fun main() {
     // --- Development Workflow Control Panel ---
     // Set these flags to control which parts of the solution to run.
     val runPart1Tests = true
-    val runPart1Solution = false
-    val runPart2Tests = false
-    val runPart2Solution = false
+    val runPart1Solution = true
+    val runPart2Tests = true
+    val runPart2Solution = true
     // ----------------------------------------
 
     println("--- Advent of Code 2025, Day 4 ---")
@@ -51,22 +51,105 @@ fun main() {
 
 private fun runPart1Tests() {
     val testInput = """
-        
+        ..@@.@@@@.
+        @@@.@.@.@@
+        @@@@@.@.@@
+        @.@@@@..@.
+        @@.@@@@.@@
+        .@@@@@@@.@
+        .@.@.@.@@@
+        @.@@@.@@@@
+        .@@@@@@@@.
+        @.@.@@@.@.
     """.trimIndent().lines()
-    check("Part 1 Test Case 1", -1, part1(testInput))
+    check("Part 1 Test Case 1", 13, part1(testInput))
 }
 
 private fun runPart2Tests() {
     val testInput = """
-        
+        ..@@.@@@@.
+        @@@.@.@.@@
+        @@@@@.@.@@
+        @.@@@@..@.
+        @@.@@@@.@@
+        .@@@@@@@.@
+        .@.@.@.@@@
+        @.@@@.@@@@
+        .@@@@@@@@.
+        @.@.@@@.@.        
     """.trimIndent().lines()
-    check("Part 2 Test Case 1", -1, part2(testInput))
+    check("Part 2 Test Case 1", 43, part2(testInput))
+}
+
+private data class Vector(val x: Int, val y: Int) {
+    fun neighbors() : List<Vector> {
+        return listOf(
+            Vector(x - 1, y - 1),
+            Vector(x + 0, y - 1),
+            Vector(x + 1, y - 1),
+            Vector(x - 1, y + 0),
+            Vector(x + 1, y + 0),
+            Vector(x - 1, y + 1),
+            Vector(x + 0, y + 1),
+            Vector(x + 1, y + 1),
+        )
+    }
 }
 
 private fun part1(input: List<String>): Int {
-    return -1
+    val grid = input
+    val width = input.first().length
+    val height = input.size
+
+    fun getCell(location: Vector) : Char? {
+        val (x, y) = location
+        return if (x !in 0 until width || y !in 0 until height) {
+            null
+        } else {
+            grid[y][x]
+        }
+    }
+
+    fun getNeighbors(location: Vector) : List<Pair<Vector, Char?>> {
+        return location.neighbors().map { it to getCell(it) }
+    }
+
+    return (0 until height).sumOf { y ->
+        (0 until width).sumOf { x ->
+            val location = Vector(x, y)
+            if (getCell(location) == '@') {
+                if (getNeighbors(location).count { it.second == '@' } < 4) 1 else 0
+            } else {
+                0
+            }
+        }
+    }
 }
 
 private fun part2(input: List<String>): Int {
-    return -1
+    val grid = input.mapIndexed { y, line ->
+        line.mapIndexedNotNull { x, c ->
+            if (c == '@') Vector(x, y) else null
+        }
+    }.flatten().toSet().toMutableSet()
+
+    val start = grid.size
+
+    fun getNeighbors(location: Vector) : List<Vector> {
+        return location.neighbors().filter { it in grid }
+    }
+
+    while (true) {
+        val candidates = grid.filter { location ->
+            getNeighbors(location).size < 4
+        }.toSet()
+
+        if (candidates.isEmpty()) {
+            break
+        } else {
+            grid.removeAll(candidates)
+        }
+    }
+
+    return start - grid.size
 }

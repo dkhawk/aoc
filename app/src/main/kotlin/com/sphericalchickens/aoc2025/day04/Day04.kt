@@ -135,6 +135,43 @@ private fun part2(input: List<String>): Int {
 
     val start = grid.size
 
+    fun occupiedNeighbors(location: Vector): List<Vector> {
+        return location.neighbors().filter { it in grid }
+    }
+
+    fun neighborCount(location: Vector): Int {
+        return occupiedNeighbors(location).size
+    }
+
+    val seedSet = grid.filter { location ->
+        neighborCount(location) < 4
+    }
+
+    val queue = ArrayList(seedSet)
+    val inTheQueue = seedSet.toMutableSet()
+
+    while (queue.isNotEmpty()) {
+        val location = queue.removeFirst()
+        inTheQueue.remove(location)
+        val neighbors = occupiedNeighbors(location)
+        if (neighbors.size < 4) {
+            grid.remove(location)
+            queue.addAll(neighbors.filter { it !in inTheQueue }.also { inTheQueue.addAll(it)})
+        }
+    }
+
+    return start - grid.size
+}
+
+private fun part2org(input: List<String>): Int {
+    val grid = input.mapIndexed { y, line ->
+        line.mapIndexedNotNull { x, c ->
+            if (c == '@') Vector(x, y) else null
+        }
+    }.flatten().toSet().toMutableSet()
+
+    val start = grid.size
+
     fun getNeighbors(location: Vector) : List<Vector> {
         return location.neighbors().filter { it in grid }
     }

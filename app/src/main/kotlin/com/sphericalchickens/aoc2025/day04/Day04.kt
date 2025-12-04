@@ -82,7 +82,7 @@ private fun runPart2Tests() {
 }
 
 private data class Vector(val x: Int, val y: Int) {
-    fun neighbors() : List<Vector> {
+    fun neighbors(): List<Vector> {
         return listOf(
             Vector(x - 1, y - 1),
             Vector(x + 0, y - 1),
@@ -101,7 +101,7 @@ private fun part1(input: List<String>): Int {
     val width = input.first().length
     val height = input.size
 
-    fun getCell(location: Vector) : Char? {
+    fun getCell(location: Vector): Char? {
         val (x, y) = location
         return if (x !in 0 until width || y !in 0 until height) {
             null
@@ -110,7 +110,7 @@ private fun part1(input: List<String>): Int {
         }
     }
 
-    fun getNeighbors(location: Vector) : List<Pair<Vector, Char?>> {
+    fun getNeighbors(location: Vector): List<Pair<Vector, Char?>> {
         return location.neighbors().map { it to getCell(it) }
     }
 
@@ -127,66 +127,57 @@ private fun part1(input: List<String>): Int {
 }
 
 private fun part2(input: List<String>): Int {
-    val grid = input.mapIndexed { y, line ->
-        line.mapIndexedNotNull { x, c ->
-            if (c == '@') Vector(x, y) else null
+    val xRange = 0..input.first().lastIndex
+    val yRange = 0..input.lastIndex
+
+    fun isPaperRoll(x: Int, y: Int): Boolean {
+        return x in xRange && y in yRange && input[y][x] == '@'
+    }
+
+    fun getOccupiedNeighbors(x: Int, y: Int): MutableList<Vector> {
+        val result = mutableListOf<Vector>()
+
+        for (dy in -1..1) {
+            for (dx in -1..1) {
+                if (((dy != 0) || (dx != 0)) && isPaperRoll(x + dx, y + dy)) result.add(Vector(x + dx, y + dy))
+            }
         }
-    }.flatten().toSet().toMutableSet()
 
-    val start = grid.size
-
-    fun occupiedNeighbors(location: Vector): List<Vector> {
-        return location.neighbors().filter { it in grid }
+        return result
     }
 
-    fun neighborCount(location: Vector): Int {
-        return occupiedNeighbors(location).size
-    }
+    val queue = ArrayDeque<Vector>(5000)
 
-    val seedSet = grid.filter { location ->
-        neighborCount(location) < 4
-    }
+    val adjacencyMatrix = buildMap {
+        yRange.forEach { y ->
+            xRange.forEach { x ->
+                if (isPaperRoll(x, y)) {
+                    val occupiedNeighbors = getOccupiedNeighbors(x, y)
+                    put(Vector(x, y), occupiedNeighbors)
+                    if (occupiedNeighbors.size < 4) {
+                        queue.add(Vector(x, y))
+                    }
+                }
+            }
+        }
+    }.toMutableMap()
 
-    val queue = ArrayList(seedSet)
-    val inTheQueue = seedSet.toMutableSet()
+    var count = 0
 
     while (queue.isNotEmpty()) {
         val location = queue.removeFirst()
-        inTheQueue.remove(location)
-        val neighbors = occupiedNeighbors(location)
-        if (neighbors.size < 4) {
-            grid.remove(location)
-            queue.addAll(neighbors.filter { it !in inTheQueue }.also { inTheQueue.addAll(it)})
+        count += 1
+
+        adjacencyMatrix.remove(location)?.forEach { loc ->
+            val neighborsNeighbors = adjacencyMatrix.getValue(loc)
+            neighborsNeighbors.remove(location)
+
+            // Add to the work queue when it first satisfies the size condition
+            if (neighborsNeighbors.size == 3) {
+                queue.add(loc)
+            }
         }
     }
 
-    return start - grid.size
-}
-
-private fun part2org(input: List<String>): Int {
-    val grid = input.mapIndexed { y, line ->
-        line.mapIndexedNotNull { x, c ->
-            if (c == '@') Vector(x, y) else null
-        }
-    }.flatten().toSet().toMutableSet()
-
-    val start = grid.size
-
-    fun getNeighbors(location: Vector) : List<Vector> {
-        return location.neighbors().filter { it in grid }
-    }
-
-    while (true) {
-        val candidates = grid.filter { location ->
-            getNeighbors(location).size < 4
-        }.toSet()
-
-        if (candidates.isEmpty()) {
-            break
-        } else {
-            grid.removeAll(candidates)
-        }
-    }
-
-    return start - grid.size
+    return count
 }

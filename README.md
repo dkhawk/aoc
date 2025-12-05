@@ -21,3 +21,23 @@ The shared build logic was extracted to a convention plugin located in `buildSrc
 
 This project uses a version catalog (see `gradle/libs.versions.toml`) to declare and version dependencies
 and both a build cache and a configuration cache (see `gradle.properties`).
+
+## Runtimes
+
+### 2025
+
+| Day | Part 1 | Part 2 | Total |
+|:---:|:---:|:---:|:--:|
+| [Day 1](app/src/main/kotlin/com/sphericalchickens/aoc2025/day01/Day01.kt) | 1ms (1816µs) | 2ms (2045µs) | 23ms |
+| [Day 2](app/src/main/kotlin/com/sphericalchickens/aoc2025/day02/Day02.kt) | 88ms | 322ms | 414ms |
+| [Day 3](app/src/main/kotlin/com/sphericalchickens/aoc2025/day03/Day03.kt) | 0ms (739µs) | 1ms (1338µs) | 4ms (4157µs) |
+| [Day 4](app/src/main/kotlin/com/sphericalchickens/aoc2025/day04/Day04.kt) | 7ms | 12ms | 24ms |
+| [Day 5](app/src/main/kotlin/com/sphericalchickens/aoc2025/day05/Day05.kt) | 5ms | 0ms (555µs) | 9ms |
+| [Day 6](app/src/main/kotlin/com/sphericalchickens/aoc2025/day06/Day06.kt) |  |  | |
+| [Day 7](app/src/main/kotlin/com/sphericalchickens/aoc2025/day07/Day07.kt) |  |  | |
+| [Day 8](app/src/main/kotlin/com/sphericalchickens/aoc2025/day08/Day08.kt) |  |  | |
+| [Day 9](app/src/main/kotlin/com/sphericalchickens/aoc2025/day09/Day09.kt) |  |  | |
+| [Day 10](app/src/main/kotlin/com/sphericalchickens/aoc2025/day10/Day10.kt) |  |  | |
+| [Day 11](app/src/main/kotlin/com/sphericalchickens/aoc2025/day11/Day11.kt) |  |  | |
+| [Day 12](app/src/main/kotlin/com/sphericalchickens/aoc2025/day12/Day12.kt) |  |  | |
+

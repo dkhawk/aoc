@@ -1,4 +1,5 @@
-# Day 5: Cafeteria
+[< Day 04](../day04/README.md) | [AoC 2025 >](../README.md)
+
 [View Problem on Advent of Code](https://adventofcode.com/2025/day/5)
 
 ## Setup

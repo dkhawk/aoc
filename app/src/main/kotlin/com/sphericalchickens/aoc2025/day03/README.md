@@ -1,4 +1,5 @@
-# Day 3: Lobby
+[< Day 02](../day02/README.md) | [Day 04 >](../day04/README.md)
+
 [View Problem on Advent of Code](https://adventofcode.com/2025/day/3)
 
 ## Setup

@@ -1,4 +1,5 @@
-# Day 2: Gift Shop
+[< Day 01](../day01/README.md) | [Day 03 >](../day03/README.md)
+
 [View Problem on Advent of Code](https://adventofcode.com/2025/day/2)
 
 ## Setup

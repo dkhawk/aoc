@@ -1,4 +1,5 @@
-# Day 1: Secret Entrance
+[< AoC 2025](../README.md) | [Day 02 >](../day02/README.md)
+
 [View Problem on Advent of Code](https://adventofcode.com/2025/day/1)
 
 ## Setup

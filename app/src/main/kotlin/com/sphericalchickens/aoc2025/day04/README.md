@@ -1,4 +1,5 @@
 # Day 4: Printing Department
+[View Problem on Advent of Code](https://adventofcode.com/2025/day/4)
 
 ## Setup
 

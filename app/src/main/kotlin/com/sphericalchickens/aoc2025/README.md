@@ -16,9 +16,9 @@ Here you can find the solutions, explanations, and art for each day.
 ## Gallery
 
 <p float="left">
-  <img src="day01/day01_art.png" width="200" alt="Day 1 Art" />
-  <img src="day02/day02_art.png" width="200" alt="Day 2 Art" />
-  <img src="day03/day03_art.png" width="200" alt="Day 3 Art" />
-  <img src="day04/day04_art.png" width="200" alt="Day 4 Art" />
-  <img src="day05/day05_art.png" width="200" alt="Day 5 Art" />
+  <a href="day01/README.md"><img src="day01/day01_art.png" width="200" alt="Day 1 Art" /></a>
+  <a href="day02/README.md"><img src="day02/day02_art.png" width="200" alt="Day 2 Art" /></a>
+  <a href="day03/README.md"><img src="day03/day03_art.png" width="200" alt="Day 3 Art" /></a>
+  <a href="day04/README.md"><img src="day04/day04_art.png" width="200" alt="Day 4 Art" /></a>
+  <a href="day05/README.md"><img src="day05/day05_art.png" width="200" alt="Day 5 Art" /></a>
 </p>

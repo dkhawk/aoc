@@ -1,4 +1,5 @@
 # Day 2: Gift Shop
+[View Problem on Advent of Code](https://adventofcode.com/2025/day/2)
 
 ## Setup
 
@@ -37,6 +38,4 @@ The second part extends the check to any repeating pattern, not just two halves.
 
 The code checks for any chunk size that divides the string length evenly, and verifies if all chunks are identical.
 
-## Art
-
-![Day 2 Art](day02_art.png)
+<img src="day02_art.png" width="400" alt="Day 2 Art" />

@@ -1,4 +1,5 @@
 # Day 5: Cafeteria
+[View Problem on Advent of Code](https://adventofcode.com/2025/day/5)
 
 ## Setup
 
@@ -28,6 +29,4 @@ To do this efficiently (and handle overlaps):
     *   If the next range overlaps with the current range, extend the current range to cover both.
 3.  Sum the lengths of the merged ranges.
 
-## Art
-
-![Day 5 Art](day05_art.png)
+<img src="day05_art.png" width="400" alt="Day 5 Art" />

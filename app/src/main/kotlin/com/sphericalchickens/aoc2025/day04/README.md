@@ -1,4 +1,5 @@
 # Day 4: Printing Department
+[View Problem on Advent of Code](https://adventofcode.com/2025/day/4)
 
 ## Setup
 
@@ -41,6 +42,4 @@ This is efficiently implemented using a queue and an adjacency matrix (mapping r
 
 This cascade effect allows us to count the total number of rolls that can eventually be accessed/removed.
 
-## Art
-
-![Day 4 Art](day04_art.png)
+<img src="day04_art.png" width="400" alt="Day 4 Art" />

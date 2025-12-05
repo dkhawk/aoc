@@ -36,6 +36,4 @@ private fun maxJoltage(line: String): Int {
 The second part extends this to forming a larger number, specifically picking **12** digits to form the maximum 12-digit number.
 The logic generalizes: pick the largest valid digit for the current position that allows enough remaining digits to fill the rest of the requirement.
 
-## Art
-
-![Day 3 Art](day03_art.png)
+<img src="day03_art.png" width="400" alt="Day 3 Art" />

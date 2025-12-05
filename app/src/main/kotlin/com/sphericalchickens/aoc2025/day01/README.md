@@ -35,6 +35,4 @@ private fun part1(input: List<String>): Int {
 
 The second part (implemented as `part2c`) seems to involve counting how many times the dial passes through 0 (or a multiple of 100) during the rotation, effectively counting full rotations or crossings.
 
-## Art
-
-![Day 1 Art](day01_art.png)
+<img src="day01_art.png" width="400" alt="Day 1 Art" />

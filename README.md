@@ -1,6 +1,6 @@
 # advent-of-code
 
-This project uses [Gradle](https://gradle.org/)[.](spherical_chickens.md)
+This project uses [Gradle](https://gradle.org/)[🐔](spherical_chickens.md)
 To build and run the application, use the *Gradle* tool window by clicking the Gradle icon in the right-hand toolbar,
 or run it directly from the terminal:
 

@@ -1,3 +1,5 @@
+[< Day 06](../day06/README.md) | [AoC 2025 >](../README.md)
+
 # Day 7: Laboratories
 
 <p align="center">

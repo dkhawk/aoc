@@ -7,13 +7,13 @@ Here you can find the solutions, explanations, and art for each day.
 
 | Day | Title | Runtime | Links |
 |:---:|:---|:--------|:---|
-| 01 | Secret Entrance | 23ms    | [Read](day01/README.md) / [Code](day01/Day01.kt) |
-| 02 | Gift Shop | 414ms   | [Read](day02/README.md) / [Code](day02/Day02.kt) |
-| 03 | Lobby | 4ms     | [Read](day03/README.md) / [Code](day03/Day03.kt) |
-| 04 | Printing Department | 24ms    | [Read](day04/README.md) / [Code](day04/Day04.kt) |
-| 05 | Cafeteria | 9ms     | [Read](day05/README.md) / [Code](day05/Day05.kt) |
-| 06 | Trash Compactor | 5ms     | [Read](day06/README.md) / [Code](day06/Day06.kt) |
-| 07 | Laboratories | 4ms     | [Read](day07/README.md) / [Code](day07/Day07.kt) |
+| 01 | Secret Entrance | 23ms    | [Readme](day01/README.md) / [Code](day01/Day01.kt) |
+| 02 | Gift Shop | 414ms   | [Readme](day02/README.md) / [Code](day02/Day02.kt) |
+| 03 | Lobby | 4ms     | [Readme](day03/README.md) / [Code](day03/Day03.kt) |
+| 04 | Printing Department | 24ms    | [Readme](day04/README.md) / [Code](day04/Day04.kt) |
+| 05 | Cafeteria | 9ms     | [Readme](day05/README.md) / [Code](day05/Day05.kt) |
+| 06 | Trash Compactor | 5ms     | [Readme](day06/README.md) / [Code](day06/Day06.kt) |
+| 07 | Laboratories | 4ms     | [Readme](day07/README.md) / [Code](day07/Day07.kt) |
 
 ## Gallery
 

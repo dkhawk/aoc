@@ -1,3 +1,5 @@
+[< Day 05](../day05/README.md) | [Day 07 >](../day07/README.md)
+
 # Day 6: Trash Compactor
 
 <p align="center">

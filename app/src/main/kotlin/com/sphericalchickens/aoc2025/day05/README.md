@@ -1,4 +1,4 @@
-[< Day 04](../day04/README.md) | [AoC 2025 >](../README.md)
+[< Day 04](../day04/README.md) | [Day 06 >](../day06/README.md)
 
 [View Problem on Advent of Code](https://adventofcode.com/2025/day/5)
 

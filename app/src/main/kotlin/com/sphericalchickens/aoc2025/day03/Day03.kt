@@ -71,7 +71,7 @@ private fun maxJoltage(line: String): Int {
     val max = line.dropLast(1).max()
     val max2 = line.substringAfter(max).max()
 
-    val a = ((max - '0') * 10) + (max2 - '0')
+    val a = (max.digitToInt() * 10) + (max2.digitToInt())
     return a
 }
 

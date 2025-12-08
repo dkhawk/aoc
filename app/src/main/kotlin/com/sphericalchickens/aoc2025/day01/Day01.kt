@@ -3,7 +3,6 @@ package com.sphericalchickens.aoc2025.day01
 import com.sphericalchickens.utils.check
 import com.sphericalchickens.utils.formatDuration
 import com.sphericalchickens.utils.readInputLines
-import kotlin.math.abs
 import kotlin.time.measureTimedValue
 
 fun main() {
@@ -43,7 +42,7 @@ fun main() {
     if (runPart2Solution) {
         println("🎀 Solving Part 2...")
         val (part2Result, part2Duration) = measureTimedValue {
-            part2b(input)
+            part2c(input)
         }
         println("   Part 2: $part2Result")
         println("Part 2 runtime: ${formatDuration(part2Duration)}")

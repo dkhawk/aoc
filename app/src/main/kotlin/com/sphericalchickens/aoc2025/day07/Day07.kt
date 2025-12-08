@@ -9,9 +9,9 @@ fun main() {
     // --- Development Workflow Control Panel ---
     // Set these flags to control which parts of the solution to run.
     val runPart1Tests = true
-    val runPart1Solution = false
-    val runPart2Tests = false
-    val runPart2Solution = false
+    val runPart1Solution = true
+    val runPart2Tests = true
+    val runPart2Solution = true
     // ----------------------------------------
 
     println("--- Advent of Code 2025, Day 7 ---")
@@ -51,22 +51,111 @@ fun main() {
 
 private fun runPart1Tests() {
     val testInput = """
-        
+        .......S.......
+        ...............
+        .......^.......
+        ...............
+        ......^.^......
+        ...............
+        .....^.^.^.....
+        ...............
+        ....^.^...^....
+        ...............
+        ...^.^...^.^...
+        ...............
+        ..^...^.....^..
+        ...............
+        .^.^.^.^.^...^.
+        ...............
     """.trimIndent().lines()
-    check("Part 1 Test Case 1", -1, part1(testInput))
+    check("Part 1 Test Case 1", 21, part1(testInput))
 }
 
 private fun runPart2Tests() {
     val testInput = """
-        
+        .......S.......
+        ...............
+        .......^.......
+        ...............
+        ......^.^......
+        ...............
+        .....^.^.^.....
+        ...............
+        ....^.^...^....
+        ...............
+        ...^.^...^.^...
+        ...............
+        ..^...^.....^..
+        ...............
+        .^.^.^.^.^...^.
+        ...............        
     """.trimIndent().lines()
-    check("Part 2 Test Case 1", -1, part2(testInput))
+    check("Part 2 Test Case 1", 40, part2(testInput))
 }
 
 private fun part1(input: List<String>): Int {
-    return -1
+    val rows = input.map { row ->
+        row.toSplitters()
+    }
+
+    val validRange = 0..(input.first().lastIndex)
+    val first = rows.first()
+    var splits = 0
+
+    val beams = rows.drop(1).fold(first) { previous, row ->
+        buildList {
+            previous.forEach { col ->
+                if (col in row) {
+                    splits += 1
+                    add(col - 1)
+                    add(col + 1)
+                } else {
+                    add(col)
+                }
+            }
+        }.filter { it in validRange }.distinct()
+    }
+
+    return splits
 }
 
-private fun part2(input: List<String>): Int {
-    return -1
+private fun String.toSplitters(): List<Int> {
+    return this.withIndex().filter { it.value != '.' }.map { it.index }
+}
+
+private data class State(val wheresTheBeam: Int, val height: Int)
+private val previousResults = mutableMapOf<State, Long>()
+private var validRange = 0..0
+
+private fun part2(input: List<String>): Long {
+    val rows = input.map { row ->
+        row.toSplitters()
+    }
+
+    validRange = 0..(input.first().lastIndex)
+
+    return solve(State(rows.first().first(), rows.size), rows.drop(1))
+}
+
+private fun solve(
+    state: State,
+    rest: List<List<Int>>
+): Long {
+    if (rest.isEmpty()) {
+        return 1
+    }
+
+    if (state.wheresTheBeam !in validRange) {
+        return 0
+    }
+
+    return previousResults.getOrPut(state) {
+        val row = rest.first()
+        if (state.wheresTheBeam in row) {
+            solve(State(state.wheresTheBeam - 1, state.height -1), rest.drop(1)) +
+            solve(State(state.wheresTheBeam + 1, state.height -1), rest.drop(1))
+        } else {
+            solve(State(state.wheresTheBeam, state.height -1), rest.drop(1))
+        }
+    }
 }

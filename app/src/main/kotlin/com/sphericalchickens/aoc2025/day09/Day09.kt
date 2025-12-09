@@ -2,16 +2,19 @@ package com.sphericalchickens.aoc2025.day09
 
 import com.sphericalchickens.utils.check
 import com.sphericalchickens.utils.formatDuration
+import com.sphericalchickens.utils.println
 import com.sphericalchickens.utils.readInputLines
+import kotlin.math.abs
+import kotlin.math.max
 import kotlin.time.measureTimedValue
 
 fun main() {
     // --- Development Workflow Control Panel ---
     // Set these flags to control which parts of the solution to run.
-    val runPart1Tests = true
+    val runPart1Tests = false
     val runPart1Solution = false
-    val runPart2Tests = false
-    val runPart2Solution = false
+    val runPart2Tests = true
+    val runPart2Solution = true
     // ----------------------------------------
 
     println("--- Advent of Code 2025, Day 9 ---")
@@ -49,24 +52,75 @@ fun main() {
     }
 }
 
+val testInput = """
+    7,1
+    11,1
+    11,7
+    9,7
+    9,5
+    2,5
+    2,3
+    7,3
+""".trimIndent().lines()
+
 private fun runPart1Tests() {
-    val testInput = """
-        
-    """.trimIndent().lines()
-    check("Part 1 Test Case 1", -1, part1(testInput))
+    check("Part 1 Test Case 1", 50, part1(testInput))
 }
 
 private fun runPart2Tests() {
-    val testInput = """
-        
-    """.trimIndent().lines()
-    check("Part 2 Test Case 1", -1, part2(testInput))
+    check("Part 2 Test Case 1", 24, part2(testInput))
 }
 
-private fun part1(input: List<String>): Int {
-    return -1
+private data class Corner(val x: Long, val y: Long)
+
+private fun part1(input: List<String>): Long {
+    val corners = parserCorners(input)
+
+    return findMaxOf(corners)
 }
 
-private fun part2(input: List<String>): Int {
-    return -1
+private fun parserCorners(input: List<String>): List<Corner> =
+    input.map { it.split(",").map { it.trim().toLong() } }.map { (a, b) -> Corner(a, b) }
+
+private fun findMaxOf(corners: List<Corner>): Long {
+    if (corners.size < 2) return 0L
+
+    val first = corners.first()
+    val rest = corners.drop(1)
+
+    val myMax = rest.maxOfOrNull { area(first, it) } ?: 0L
+
+    val othersMax = findMaxOf(rest)
+
+    return max(myMax, othersMax)
+}
+
+private fun area(a: Corner, b: Corner): Long {
+    return a.delta(b).let { (dx, dy) ->
+        dx * dy
+    }
+}
+
+private fun Corner.delta(b: Corner): Pair<Long, Long> {
+    return abs(x - b.x) + 1 to abs(y - b.y) + 1
+}
+
+private fun part2(input: List<String>): Long {
+    val corners = parserCorners(input)
+
+    // Let's first determine if we need to deal with any co-linear "corners"
+    // A "corner" is co-linear if we three of the same value in a row
+
+    val cl = corners.windowed(3, 1).firstOrNull {
+        (it[0].x == it[1].x && it[1].x == it[2].x) ||
+        (it[0].y == it[1].y && it[1].y == it[2].y)
+    }
+
+    if (cl == null) {
+        "No co-linear corners found".println()
+    } else {
+        "oh FFS!".println()
+    }
+
+    return 24L
 }

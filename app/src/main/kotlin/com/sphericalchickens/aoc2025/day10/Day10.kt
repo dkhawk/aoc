@@ -51,9 +51,14 @@ fun main() {
 
 private fun runPart1Tests() {
     val testInput = """
-        
+        [.##.] (3) (1,3) (2) (2,3) (0,2) (0,1) {3,5,4,7}
+        [...#.] (0,2,3,4) (2,3) (0,4) (0,1,2) (1,2,3,4) {7,5,12,7,2}
+        [.###.#] (0,1,2,3,4) (0,3,4) (0,1,2,4,5) (1,2) {10,11,11,5,10,5}
     """.trimIndent().lines()
-    check("Part 1 Test Case 1", -1, part1(testInput))
+
+
+
+    check("Part 1 Test Case 1", 7, part1(testInput))
 }
 
 private fun runPart2Tests() {
@@ -64,9 +69,53 @@ private fun runPart2Tests() {
 }
 
 private fun part1(input: List<String>): Int {
+    val machines = input.toMachines()
+
     return -1
+}
+
+private fun List<String>.toMachines(): List<Machine> {
+    return map { it.toMachine() }
 }
 
 private fun part2(input: List<String>): Int {
     return -1
+}
+
+private enum class Light(val ch: Char) {
+    ON('#'), OFF('.');
+
+    override fun toString(): String {
+        return ch.toString()
+    }
+}
+
+private data class Button(val wiringDiagram: List<Int>)
+
+private data class Machine(val lights: List<Light>, val buttons: List<Button>, val joltages: List<Int>)
+
+private fun String.toMachine(): Machine {
+    val lightsString = substringBefore(" ")
+    val joltagesString = substringAfterLast(" ")
+    val buttonString = substring(lightsString.length + 1, length - (joltagesString.length + 1))
+
+    val lights = lightsString.mapNotNull {
+        when (it) {
+            '.' -> Light.OFF
+            '#' -> Light.ON
+            else -> null
+        }
+    }
+
+    val buttons = buttonString.split(" ").map {
+        Button(it.drop(1).dropLast(1).split(",").map { it.toInt() })
+    }
+
+    val joltages = joltagesString.drop(1).dropLast(1).split(",").map { it.toInt() }
+
+    return Machine(
+        lights = lights,
+        buttons = buttons,
+        joltages = joltages
+    )
 }

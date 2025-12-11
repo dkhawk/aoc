@@ -11,7 +11,7 @@ fun main() {
     val runPart1Tests = false
     val runPart1Solution = false
     val runPart2Tests = true
-    val runPart2Solution = false
+    val runPart2Solution = true
     // ----------------------------------------
 
     println("--- Advent of Code 2025, Day 11 ---")
@@ -81,7 +81,7 @@ private fun runPart2Tests() {
         ggg: out
         hhh: out
     """.trimIndent().lines()
-    check("Part 2 Test Case 1", -1, part2(testInput))
+    check("Part 2 Test Case 1", 2, part2(testInput))
 }
 
 private val re = Regex(""":?\s+""")
@@ -112,65 +112,22 @@ private fun countPaths(
     }
 }
 
-private data class Key(
-    val location: String,
-    val foundDac: Boolean,
-    val foundFft: Boolean,
-)
-
-private fun countPaths2(
-    network: Map<String, List<String>>,
-    goal: String,
-    key: Key,
-    pathsToOut: MutableMap<Key, Long>,
-): Long {
-    val location = key.location
-    val fd = key.foundDac || key.location == "dec"
-    val ff = key.foundFft || key.location == "fft"
-
-    val newKey = Key(
-        location = location, foundDac = fd, foundFft = ff,
-    )
-
-    return pathsToOut.getOrPut(newKey) {
-        if (location == goal) {
-            if (fd && ff) 1 else 0
-        } else {
-            if (location !in network.keys) { error("Cannot find $location in network") }
-            network.getValue(location).sumOf {
-                countPaths2(
-                    network,
-                    goal,
-                    key,
-                    pathsToOut,
-                )
-            }
+private fun part2(input: List<String>): Long {
+    val network = input.asSequence()
+        .plus("out")
+        .associate { line ->
+            val nodes = line.split(re)
+            nodes.first() to nodes.drop(1)
         }
-    }
-}
 
-private fun part2(input: List<String>): Int {
-    val network = input.associate { line ->
-        val nodes = line.split(re)
-        nodes.first() to nodes.drop(1)
-    }
+    val svr2fft = countPaths(network, "svr", "fft", mutableMapOf())
+    val fft2dac = countPaths(network, "fft", "dac", mutableMapOf())
+    check(fft2dac > 0L)
 
-//    println(countPaths(network, "dac", "out", mutableMapOf()))
-//    println(countPaths(network, "fft", "out", mutableMapOf()))
-//    println(countPaths(network, "dac", "fft", mutableMapOf()))
-//    println(countPaths(network, "fft", "dac", mutableMapOf()))
+    val dac2fft = countPaths(network, "dac", "fft", mutableMapOf())
+    check(dac2fft == 0L)
 
-    println(countPaths2(
-        network = network,
-        goal = "out",
-        key = Key(location = "svr", foundDac = false, foundFft = false),
-        pathsToOut = mutableMapOf()
-    ))
+    val dac2out = countPaths(network, "dac", "out", mutableMapOf())
 
-//    println(countPaths(network, "srv", "fft", pathsToOut))
-//    println(countPaths(network, "srv", "dac", pathsToOut))
-//    println(countPaths(network, "dac", "fft", pathsToOut))
-//    println(countPaths(network, "fft", "dac", pathsToOut))
-
-    return -1
+    return svr2fft * fft2dac * dac2out
 }

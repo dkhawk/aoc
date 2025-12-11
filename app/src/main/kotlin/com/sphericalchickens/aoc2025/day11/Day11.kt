@@ -8,10 +8,10 @@ import kotlin.time.measureTimedValue
 fun main() {
     // --- Development Workflow Control Panel ---
     // Set these flags to control which parts of the solution to run.
-    val runPart1Tests = true
-    val runPart1Solution = true
+    val runPart1Tests = false
+    val runPart1Solution = false
     val runPart2Tests = false
-    val runPart2Solution = false
+    val runPart2Solution = true
     // ----------------------------------------
 
     println("--- Advent of Code 2025, Day 11 ---")
@@ -103,15 +103,30 @@ private fun countPaths(
     goal: String,
     pathsToOut: MutableMap<String, Long>
 ): Long {
+
+
     return pathsToOut.getOrPut(location) {
         if (location == goal) {
             1
         } else {
-            network.getValue(location).mapNotNull { countPaths(network, it, goal, pathsToOut) }.sum()
+            if (location !in network.keys) println("Failed to find $location")
+            network[location]?.mapNotNull { countPaths(network, it, goal, pathsToOut) }?.sum() ?: 0
         }
     }
 }
 
 private fun part2(input: List<String>): Int {
+    val pathsToOut = mutableMapOf<String, Long>()
+
+    val network = input.associate { line ->
+        val nodes = line.split(re)
+        nodes.first() to nodes.drop(1)
+    }
+
+//    println(countPaths(network, "srv", "fft", pathsToOut))
+//    println(countPaths(network, "srv", "dac", pathsToOut))
+    println(countPaths(network, "dac", "fft", pathsToOut))
+//    println(countPaths(network, "fft", "dac", pathsToOut))
+
     return -1
 }

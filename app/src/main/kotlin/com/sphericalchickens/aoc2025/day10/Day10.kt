@@ -134,14 +134,14 @@ private data class JoltageState(
     val presses: Int,
     val error: Int
 ) {
-    fun applyMask(button: List<Int>, goal: Int): JoltageState {
-        val newJoltages = joltages
-        return JoltageState(
-            lights = newLights,
-            presses = presses + 1,
-            error = newLights xor goal,
-        )
-    }
+//    fun applyMask(button: List<Int>, goal: Int): JoltageState {
+//        val newJoltages = joltages
+//        return JoltageState(
+//            lights = newLights,
+//            presses = presses + 1,
+//            error = newLights xor goal,
+//        )
+//    }
 }
 
 private data class Machine(val lights: List<Light>, val buttons: List<Button>, val joltages: List<Int>) {

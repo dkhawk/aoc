@@ -10,8 +10,8 @@ fun main() {
     // Set these flags to control which parts of the solution to run.
     val runPart1Tests = false
     val runPart1Solution = false
-    val runPart2Tests = false
-    val runPart2Solution = true
+    val runPart2Tests = true
+    val runPart2Solution = false
     // ----------------------------------------
 
     println("--- Advent of Code 2025, Day 11 ---")
@@ -103,29 +103,73 @@ private fun countPaths(
     goal: String,
     pathsToOut: MutableMap<String, Long>
 ): Long {
-
-
     return pathsToOut.getOrPut(location) {
         if (location == goal) {
             1
         } else {
-            if (location !in network.keys) println("Failed to find $location")
-            network[location]?.mapNotNull { countPaths(network, it, goal, pathsToOut) }?.sum() ?: 0
+            network.getValue(location).sumOf { countPaths(network, it, goal, pathsToOut) }
+        }
+    }
+}
+
+private data class Key(
+    val location: String,
+    val foundDac: Boolean,
+    val foundFft: Boolean,
+)
+
+private fun countPaths2(
+    network: Map<String, List<String>>,
+    goal: String,
+    key: Key,
+    pathsToOut: MutableMap<Key, Long>,
+): Long {
+    val location = key.location
+    val fd = key.foundDac || key.location == "dec"
+    val ff = key.foundFft || key.location == "fft"
+
+    val newKey = Key(
+        location = location, foundDac = fd, foundFft = ff,
+    )
+
+    return pathsToOut.getOrPut(newKey) {
+        if (location == goal) {
+            if (fd && ff) 1 else 0
+        } else {
+            if (location !in network.keys) { error("Cannot find $location in network") }
+            network.getValue(location).sumOf {
+                countPaths2(
+                    network,
+                    goal,
+                    key,
+                    pathsToOut,
+                )
+            }
         }
     }
 }
 
 private fun part2(input: List<String>): Int {
-    val pathsToOut = mutableMapOf<String, Long>()
-
     val network = input.associate { line ->
         val nodes = line.split(re)
         nodes.first() to nodes.drop(1)
     }
 
+//    println(countPaths(network, "dac", "out", mutableMapOf()))
+//    println(countPaths(network, "fft", "out", mutableMapOf()))
+//    println(countPaths(network, "dac", "fft", mutableMapOf()))
+//    println(countPaths(network, "fft", "dac", mutableMapOf()))
+
+    println(countPaths2(
+        network = network,
+        goal = "out",
+        key = Key(location = "svr", foundDac = false, foundFft = false),
+        pathsToOut = mutableMapOf()
+    ))
+
 //    println(countPaths(network, "srv", "fft", pathsToOut))
 //    println(countPaths(network, "srv", "dac", pathsToOut))
-    println(countPaths(network, "dac", "fft", pathsToOut))
+//    println(countPaths(network, "dac", "fft", pathsToOut))
 //    println(countPaths(network, "fft", "dac", pathsToOut))
 
     return -1

@@ -4,6 +4,8 @@ import com.sphericalchickens.utils.check
 import com.sphericalchickens.utils.formatDuration
 import com.sphericalchickens.utils.println
 import com.sphericalchickens.utils.readInputText
+import kotlin.collections.count
+import kotlin.collections.forEach
 import kotlin.time.measureTimedValue
 
 fun main() {
@@ -91,43 +93,37 @@ private fun runPart1Tests() {
         123
         456
         789
-    """.trimIndent().toArea()
+    """.trimIndent().toRectangle()
 
     val r1 = """
         741
         852
         963
-    """.trimIndent().toArea()
+    """.trimIndent().toRectangle()
 
     val f1 = """
         321
         654
         987
-    """.trimIndent().toArea()
+    """.trimIndent().toRectangle()
 
     val f2 = """
         789
         456
         123
-    """.trimIndent().toArea()
+    """.trimIndent().toRectangle()
 
-    check("rotation", r1.toString(), t1.rotate().toString())
+    check("rotation", r1, t1.rotate())
+    check("flipped", f1, t1.flipAlongY())
+    check("flipped", f2, t1.flipAlongX())
 
-    check("flipped", f1.toString(), t1.flipAlongY().toString())
+//    val input = readInputText("aoc2025/day12_input.txt")
+//
+    val (presents, regions) = parseInput(testInput)
 
-    check("flipped", f2.toString(), t1.flipAlongX().toString())
-
-    val input = readInputText("aoc2025/day12_input.txt")
-
-    val parts = input.split("\n\n")
-    val presents = parts.dropLast(1).map { it.toPresent() }
-    presents.sumOf { it.orientations.size }.println()
-
-//    presents.first().orientations.joinToString("\n\n").println()
-    presents[4].orientations.joinToString("\n\n").println()
-
-    val regions = parts.last().lines().filter{ it.isNotBlank() }.map { it.toRegion() }
-    regions.first().println()
+    check("orientations", 28, presents.sumOf { it.orientations.size })
+    check("has solution #1", true, hasSolution(regions[0], presents))
+//    check("Part 1 Test Case 1", 2, part1(testInput))
 }
 
 private fun runPart2Tests() {
@@ -138,144 +134,212 @@ private fun runPart2Tests() {
 }
 
 private fun part1(input: String): Int {
-    val parts = input.split("\n\n")
+    val (presents, regions) = parseInput(input)
 
-    val presents = parts.dropLast(1).map { it.toPresent() }
-    val regions = parts.last().lines().filter{ it.isNotBlank() }.map { it.toRegion() }
-
-    presents.first().orientations
-
-    regions.take(1).count { region -> hasSolution(region, presents) }
-
-    return -1
+    return regions.count { region -> hasSolution(region, presents) }
 }
 
-private class Area(val width: Int, val height: Int) {
-    val grid: CharArray = CharArray(height * width) { ' ' }
+private fun parseInput(input: String): Pair<List<Present>, List<Region>> {
+    val parts = input.split("\n\n")
+    val presents = parts.dropLast(1).map { it.toPresent() }
+    val regions = parts.last().lines().filter { it.isNotBlank() }.map { it.toRegion() }
+    return Pair(presents, regions)
+}
+
+private data class Rectangle(val width: Int, val height: Int, val grid: String) {
+    constructor(width: Int, height: Int) : this(width, height, ' '.toString().repeat(width * height))
+
+    val area = grid.length
+
+    val holeCount by lazy { grid.count { it != '#' } }
+    val blockCount by lazy { area - holeCount }
 
     operator fun get(x: Int, y: Int) = grid[y * width + x]
-    operator fun set(x: Int, y: Int, value: Char) { grid[y * width + x] = value }
+
+    fun description() = "width = $width, height = $height, area = ${width * height}"
 
     override fun toString(): String {
         return buildString {
+            append(description())
+            append('\n')
             (0 until height).forEach { y ->
                 grid.slice((y * width) ..< ((y + 1) * width)).forEach { append(it) }
                 append('\n')
             }
         }.dropLast(1)
     }
-
-    fun setRange(start: Int, line: String) {
-        line.toCharArray().copyInto(grid, start)
-    }
-
-    // I'm going to programmer hell for this...
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other !is Area) return false
-
-        if (width != other.width) return false
-        if (height != other.height) return false
-        // specific check for array content
-        if (!grid.contentEquals(other.grid)) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = width
-        result = 31 * result + height
-        // specific hash for array content
-        result = 31 * result + grid.contentHashCode()
-        return result
-    }
 }
 
-private fun String.toArea() : Area {
+private fun String.toRectangle() : Rectangle {
     val lines = lines()
     val h = lines.size
     val w = lines[0].length
 
-    return Area(width = h, height = w).apply {
-        lines.forEachIndexed { y, line ->
-            setRange(y * w, line)
-        }
-    }
+    return Rectangle(
+        width = w,
+        height = h,
+        grid = lines.joinToString(separator = "")
+    )
 }
+
+private class Hopper(
+    var count: Int,
+    val shape: List<Present>
+)
 
 private fun hasSolution(
     region: Region,
-    shapes: List<Present>
+    presents: List<Present>
 ): Boolean {
-    val presents = buildList {
-        region.shapes.mapIndexed { idx, count ->
-            repeat(count) { add(shapes[idx]) }
-        }
+    val area = CharArray(region.width * region.height) { '.' }
+    val hoppers = region.shapeCounts.toIntArray()
+
+    val presentX = 3
+    val presentY = 3
+
+    fun get(x: Int, y: Int) = area[y * region.width + x]
+    fun set(x: Int, y: Int, ch: Char) {
+        area[y * region.width + x] = ch
     }
 
-    val regionArea = Area(
-        width = region.height, height = region.width
-    )
+    // Filled space => '#'
+    // Usable space => '.'
+    // Unusable space => 'x'
 
-    regionArea.println()
+    // simple rejection
+    val needed = presents.mapIndexed { index, present -> present.shape.blockCount * region.shapeCounts[index] }.sum()
+    val holes = area.count { it == '.' }
 
-    return false
+    if (needed >= holes) {
+        // One always hope....
+        "Trivial rejection of $region".println()
+        return false
+    }
+
+    // Let's try tiling...
+    // Find the next open spot
+
+    while (true) {
+        if (hoppers.none { it > 0 }) {
+            return true
+        }
+
+        val nextFreeSpace = area.indexOf('.')
+
+        if (nextFreeSpace == -1) {
+            return false
+        }
+
+        val y = nextFreeSpace / region.width
+        val x = nextFreeSpace % region.width
+
+        // See if there is even the possibility of placing a block there
+        if ((region.height - y < 3) || (region.width - x < 3)) {
+            set(x, y, 'x')
+            continue
+        }
+
+        // Generate a sequence of possible next blocks
+        val nextBlockIndexAndOrientationSequence = sequence {
+            hoppers.forEachIndexed { index, count ->
+                if (count > 0) {
+                    val orientations = presents[index].orientations
+                    orientations.forEach { orientation ->
+                        yield(index to orientation)
+                    }
+                }
+            }
+        }
+
+        // Do any fit?
+        val candidates = nextBlockIndexAndOrientationSequence.filter { (index, block) ->
+            var fits = true
+            val yIter = (0 until presentY).iterator()
+
+            while (fits && yIter.hasNext()) {
+                val y0 = yIter.next()
+                val xIter = (0 until presentX).iterator()
+                while (fits && xIter.hasNext()) {
+                    val x0 = xIter.next()
+                    if (block[x0, y0] == '#' && get(x0 + x, y0 + y) == '#') {
+                        fits = false
+                    }
+                }
+            }
+
+            fits
+        }.toList()
+
+        if (candidates.isEmpty()) {
+            set(x, y, 'x')
+            continue
+        }
+
+        TODO("More work to do here")
+        // Yes?  Add the block, decrement the pool of those kind of blocks
+        // No? Skip that hole and move on
+
+
+        return false
+    }
 }
 
 private data class Present(
     val index: Int,
-    val shape: String
+    val shape: Rectangle
 ) {
     val orientations = orientations()
 
-    private fun orientations(): Set<Area> {
-        val a = shape.toArea()
+    private fun orientations(): Set<Rectangle> {
+        val rectangle = shape
 
         return buildSet {
-            add(a)
-            a.rotate().also { add(it) }.rotate().also { add(it) }.rotate().also { add(it) }
-            a.flipAlongY().rotate().also { add(it) }.rotate().also { add(it) }.rotate().also { add(it) }
-            a.flipAlongX().rotate().also { add(it) }.rotate().also { add(it) }.rotate().also { add(it) }
+            add(rectangle)
+            rectangle.rotate().also { add(it) }.rotate().also { add(it) }.rotate().also { add(it) }
+            rectangle.flipAlongY().rotate().also { add(it) }.rotate().also { add(it) }.rotate().also { add(it) }
+            rectangle.flipAlongX().rotate().also { add(it) }.rotate().also { add(it) }.rotate().also { add(it) }
         }
     }
 }
 
-private fun Area.rotate(): Area {
+private fun Rectangle.rotate(): Rectangle {
     val h = this.width
-    val result = Area(this.height, this.width)
+    val ca = CharArray(width * height)
 
     for (y in 0 until height) {
         for (x in 0 until width) {
-            result[((h - 1) - y), x] = this[x, y]
+            val xx = ((h - 1) - y)
+            val yy = x
+            val index = yy * this.height + xx
+            ca[index] = this[x, y]
         }
     }
 
-    return result
+    return Rectangle(width = this.height, height = this.width, grid = ca.concatToString())
 }
 
-private fun Area.flipAlongY(): Area {
-    val result = Area(this.height, this.width)
+private fun Rectangle.flipAlongY(): Rectangle {
+    val ca = CharArray(width * height)
 
     for (y in 0 until height) {
         for (x in 0 until width) {
-            result[(this.width - 1) - x, y] = this[x, y]
+            ca[y * this.width + ((height - 1) - x)] = this[x, y]
         }
     }
 
-    return result
+    return Rectangle(width = this.width, height = this.height, grid = ca.concatToString())
 }
 
-private fun Area.flipAlongX(): Area {
-    val result = Area(this.height, this.width)
+private fun Rectangle.flipAlongX(): Rectangle {
+    val ca = CharArray(width * height)
 
     for (y in 0 until height) {
         for (x in 0 until width) {
-            result[x, (this.height - 1) - y] = this[x, y]
+            ca[((this.height - 1) - y) * this.width + x] = this[x, y]
         }
     }
 
-    return result
+    return Rectangle(width = this.width, height = this.height, grid = ca.concatToString())
 }
 
 private fun String.toPresent(): Present {
@@ -284,7 +348,7 @@ private fun String.toPresent(): Present {
     val shape = this.substringAfter("\n")
 
     return Present(
-        index, shape
+        index, shape.toRectangle()
     )
 }
 
@@ -297,7 +361,8 @@ private fun String.toRegion(): Region {
     return Region(w, l, shapes)
 }
 
-private data class Region(val width: Int, val height: Int, val shapes: List<Int>)
+private data class Region(val width: Int, val height: Int, val shapeCounts: List<Int>) {
+}
 
 private fun part2(input: String): Int {
     return -1

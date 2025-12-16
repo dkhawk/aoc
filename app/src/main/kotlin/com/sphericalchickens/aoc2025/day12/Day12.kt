@@ -189,9 +189,10 @@ private class Hopper(
 
 private fun hasSolution(
     region: Region,
-    presents: List<Present>
+    presents: List<Present>,
+    progress: CharArray? = null,
 ): Boolean {
-    val area = CharArray(region.width * region.height) { '.' }
+    val area = progress ?: CharArray(region.width * region.height) { '.' }
     val hoppers = region.shapeCounts.toIntArray()
 
     val presentX = 3
@@ -275,10 +276,39 @@ private fun hasSolution(
             continue
         }
 
-        TODO("More work to do here")
-        // Yes?  Add the block, decrement the pool of those kind of blocks
-        // No? Skip that hole and move on
+        // Try each candidate in succession
+        candidates.firstOrNull { candidate ->
+            val progress = CharArray(area.size)
+            area.copyInto(progress)
 
+            fun set(x: Int, y: Int, ch: Char) {
+                progress[y * region.width + x] = ch
+            }
+
+            val yIter = (0 until presentY).iterator()
+
+            while (yIter.hasNext()) {
+                val y0 = yIter.next()
+                val xIter = (0 until presentX).iterator()
+                while (xIter.hasNext()) {
+                    val x0 = xIter.next()
+                    if (candidate.second[x0, y0] == '#') set(x0 + x, y0 + y, '#')
+                }
+            }
+
+            val newShapeCounts = region.shapeCounts.toIntArray()
+            newShapeCounts[candidate.first] -= 1
+
+            val newRegion = region.copy(
+               shapeCounts = newShapeCounts.toList()
+            )
+
+            hasSolution(
+                region = newRegion,
+                presents = presents,
+                progress = progress,
+            )
+        }
 
         return false
     }

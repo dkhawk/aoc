@@ -11,10 +11,8 @@ import kotlin.time.measureTimedValue
 fun main() {
     // --- Development Workflow Control Panel ---
     // Set these flags to control which parts of the solution to run.
-    val runPart1Tests = true
-    val runPart1Solution = false
-    val runPart2Tests = false
-    val runPart2Solution = false
+    val runPart1Tests = false
+    val runPart1Solution = true
     // ----------------------------------------
 
     println("--- Advent of Code 2025, Day 12 ---")
@@ -34,21 +32,6 @@ fun main() {
         }
         println("   Part 1: $part1Result")
         println("Part 1 runtime: ${formatDuration(part1Duration)}")
-    }
-
-    // --- Part 2 ---
-    if (runPart2Tests) {
-        println("🧪 Running Part 2 tests...")
-        runPart2Tests()
-        println("✅ Part 2 tests passed!")
-    }
-    if (runPart2Solution) {
-        println("🎀 Solving Part 2...")
-        val (part2Result, part2Duration) = measureTimedValue {
-            part2(input)
-        }
-        println("   Part 2: $part2Result")
-        println("Part 2 runtime: ${formatDuration(part2Duration)}")
     }
 }
 
@@ -117,20 +100,13 @@ private fun runPart1Tests() {
     check("flipped", f1, t1.flipAlongY())
     check("flipped", f2, t1.flipAlongX())
 
-//    val input = readInputText("aoc2025/day12_input.txt")
-//
     val (presents, regions) = parseInput(testInput)
 
     check("orientations", 28, presents.sumOf { it.orientations.size })
     check("has solution #1", true, hasSolution(regions[0], presents))
-//    check("Part 1 Test Case 1", 2, part1(testInput))
-}
-
-private fun runPart2Tests() {
-    val testInput = """
-        
-    """.trimIndent()
-    check("Part 2 Test Case 1", -1, part2(testInput))
+    check("has solution #2", true, hasSolution(regions[1], presents))
+    check("has solution #3", false, hasSolution(regions[2], presents))
+    check("Part 1 Test Case 1", 2, part1(testInput))
 }
 
 private fun part1(input: String): Int {
@@ -147,8 +123,6 @@ private fun parseInput(input: String): Pair<List<Present>, List<Region>> {
 }
 
 private data class Rectangle(val width: Int, val height: Int, val grid: String) {
-    constructor(width: Int, height: Int) : this(width, height, ' '.toString().repeat(width * height))
-
     val area = grid.length
 
     val holeCount by lazy { grid.count { it != '#' } }
@@ -181,11 +155,6 @@ private fun String.toRectangle() : Rectangle {
         grid = lines.joinToString(separator = "")
     )
 }
-
-private class Hopper(
-    var count: Int,
-    val shape: List<Present>
-)
 
 private fun hasSolution(
     region: Region,
@@ -277,7 +246,8 @@ private fun hasSolution(
         }
 
         // Try each candidate in succession
-        candidates.firstOrNull { candidate ->
+
+        return candidates.firstOrNull { candidate ->
             val progress = CharArray(area.size)
             area.copyInto(progress)
 
@@ -300,7 +270,7 @@ private fun hasSolution(
             newShapeCounts[candidate.first] -= 1
 
             val newRegion = region.copy(
-               shapeCounts = newShapeCounts.toList()
+                shapeCounts = newShapeCounts.toList()
             )
 
             hasSolution(
@@ -308,9 +278,7 @@ private fun hasSolution(
                 presents = presents,
                 progress = progress,
             )
-        }
-
-        return false
+        } != null
     }
 }
 
@@ -339,8 +307,7 @@ private fun Rectangle.rotate(): Rectangle {
     for (y in 0 until height) {
         for (x in 0 until width) {
             val xx = ((h - 1) - y)
-            val yy = x
-            val index = yy * this.height + xx
+            val index = x * this.height + xx
             ca[index] = this[x, y]
         }
     }
@@ -391,10 +358,4 @@ private fun String.toRegion(): Region {
     return Region(w, l, shapes)
 }
 
-private data class Region(val width: Int, val height: Int, val shapeCounts: List<Int>) {
-}
-
-private fun part2(input: String): Int {
-    return -1
-}
-
+private data class Region(val width: Int, val height: Int, val shapeCounts: List<Int>)

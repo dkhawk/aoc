@@ -36,40 +36,40 @@ def get_official_day_status(year, day, official_stats):
     
     # Fully completed years (2015, 2017, 2020, 2024, 2025)
     if stars == year_info.get("maxStars", 50):
-        return "complete", "🌟", True, True
+        return "complete", "⭐⭐", True, True
 
     # 2016: 48 stars (Days 1..24 complete, Day 25 P1)
     if year == 2016:
-        if day <= 24: return "complete", "🌟", True, True
+        if day <= 24: return "complete", "⭐⭐", True, True
         if day == 25: return "part1_only", "⭐", True, False
         return "unsolved", "⭕", False, False
 
     # 2018: 34 stars (Days 1..17 complete)
     if year == 2018:
-        if day <= 17: return "complete", "🌟", True, True
+        if day <= 17: return "complete", "⭐⭐", True, True
         return "unsolved", "⭕", False, False
 
     # 2019: 39 stars (Days 1..19 complete, Day 20 P1)
     if year == 2019:
-        if day <= 19: return "complete", "🌟", True, True
+        if day <= 19: return "complete", "⭐⭐", True, True
         if day == 20: return "part1_only", "⭐", True, False
         return "unsolved", "⭕", False, False
 
     # 2021: 42 stars (Days 1..20 complete, Days 21-22 P1)
     if year == 2021:
-        if day <= 20: return "complete", "🌟", True, True
+        if day <= 20: return "complete", "⭐⭐", True, True
         if day in (21, 22, 23): return "part1_only", "⭐", True, False
         return "unsolved", "⭕", False, False
 
     # 2022: 42 stars (Days 1..20 complete, Days 21-22 P1)
     if year == 2022:
-        if day <= 20: return "complete", "🌟", True, True
-        if day == 22: return "part1_only", "⭐", True, False
+        if day <= 20: return "complete", "⭐⭐", True, True
+        if day in (21, 22, 23): return "part1_only", "⭐", True, False
         return "unsolved", "⭕", False, False
 
     # 2023: 36 stars (Days 1..18 complete)
     if year == 2023:
-        if day <= 18: return "complete", "🌟", True, True
+        if day <= 18: return "complete", "⭐⭐", True, True
         return "unsolved", "⭕", False, False
 
     return "unsolved", "⭕", False, False

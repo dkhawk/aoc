@@ -216,11 +216,56 @@
       min-height: 150px;
     }
 
-    .day-card:hover {
-      transform: translateY(-4px);
-      background: var(--card-hover);
-      border-color: rgba(251, 191, 36, 0.4);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 20px var(--accent-gold-glow);
+    /* High Contrast Status Variations */
+    .day-card.status-complete {
+      border: 1.5px solid rgba(251, 191, 36, 0.45);
+      background: linear-gradient(135deg, rgba(18, 24, 38, 0.85) 0%, rgba(251, 191, 36, 0.08) 100%);
+    }
+    .day-card.status-complete:hover {
+      border-color: #fbbf24;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 25px rgba(251, 191, 36, 0.35);
+    }
+    .day-card.status-complete .day-number {
+      color: rgba(251, 191, 36, 0.7);
+    }
+    .day-card.status-complete .day-status-icon {
+      filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.6));
+    }
+
+    .day-card.status-part1_only {
+      border: 1.5px solid rgba(56, 189, 248, 0.45);
+      background: linear-gradient(135deg, rgba(18, 24, 38, 0.85) 0%, rgba(56, 189, 248, 0.08) 100%);
+    }
+    .day-card.status-part1_only:hover {
+      border-color: #38bdf8;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 25px rgba(56, 189, 248, 0.35);
+    }
+    .day-card.status-part1_only .day-number {
+      color: rgba(56, 189, 248, 0.7);
+    }
+    .day-card.status-part1_only .day-status-icon {
+      filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.6));
+    }
+
+    .day-card.status-unsolved {
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      opacity: 0.7;
+    }
+    .day-card.status-unsolved:hover {
+      opacity: 1;
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .badge-part.done-p1 {
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--accent-green);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+
+    .badge-part.done-p2 {
+      background: rgba(251, 191, 36, 0.25);
+      color: var(--accent-gold);
+      border: 1px solid rgba(251, 191, 36, 0.5);
     }
 
     .day-card-header {
@@ -279,12 +324,6 @@
       justify-content: center;
       font-size: 0.7rem;
       font-weight: 700;
-    }
-
-    .badge-part.done {
-      background: rgba(16, 185, 129, 0.2);
-      color: var(--accent-green);
-      border: 1px solid rgba(16, 185, 129, 0.4);
     }
 
     .badge-part.pending {
@@ -480,7 +519,7 @@
       </div>
       <div class="stat-item">
         <span>Completed Days:</span>
-        <span class="stat-val" id="stat-completed">0</span> 🌟
+        <span class="stat-val" id="stat-completed">0</span> ⭐⭐
       </div>
       <div class="stat-item">
         <span>Years:</span>
@@ -500,7 +539,7 @@
         </div>
         <div class="filter-pills" id="filter-pills">
           <button class="pill active" data-filter="all">All Days</button>
-          <button class="pill" data-filter="complete">🌟 Both Parts</button>
+          <button class="pill" data-filter="complete">⭐⭐ Both Parts</button>
           <button class="pill" data-filter="part1_only">⭐ Part 1 Only</button>
           <button class="pill" data-filter="unsolved">⭕ Unsolved</button>
         </div>
@@ -612,7 +651,7 @@
 
       filtered.forEach(day => {
         const card = document.createElement('div');
-        card.className = 'day-card';
+        card.className = `day-card status-${day.status}`;
         card.innerHTML = `
           <div>
             <div class="day-card-header">
@@ -623,8 +662,8 @@
           </div>
           <div class="day-footer">
             <div class="parts-badge">
-              <div class="badge-part ${day.part1Complete ? 'done' : 'pending'}">P1</div>
-              <div class="badge-part ${day.part2Complete ? 'done' : 'pending'}">P2</div>
+              <div class="badge-part ${day.part1Complete ? 'done-p1' : 'pending'}">P1</div>
+              <div class="badge-part ${day.part2Complete ? 'done-p2' : 'pending'}">P2</div>
             </div>
             <a href="${day.aocUrl}" target="_blank" rel="noopener noreferrer" class="aoc-direct-btn" onclick="event.stopPropagation();">AoC ↗</a>
           </div>

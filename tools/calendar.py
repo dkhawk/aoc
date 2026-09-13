@@ -47,20 +47,20 @@ def get_day_status(year, day):
     symbol = "⭕"
 
     if stars == year_info.get("maxStars", 50):
-        p1, p2, status, symbol = True, True, "complete", "⭐⭐"
+        p1, p2, status, symbol = True, True, "complete", "⭐"
     elif year == 2016:
-        if day <= 24: p1, p2, status, symbol = True, True, "complete", "⭐⭐"
-        elif day == 25: p1, p2, status, symbol = True, False, "part1_only", "⭐"
+        if day <= 24: p1, p2, status, symbol = True, True, "complete", "⭐"
+        elif day == 25: p1, p2, status, symbol = True, False, "part1_only", "🔹"
     elif year == 2018:
-        if day <= 17: p1, p2, status, symbol = True, True, "complete", "⭐⭐"
+        if day <= 17: p1, p2, status, symbol = True, True, "complete", "⭐"
     elif year == 2019:
-        if day <= 19: p1, p2, status, symbol = True, True, "complete", "⭐⭐"
-        elif day == 20: p1, p2, status, symbol = True, False, "part1_only", "⭐"
+        if day <= 19: p1, p2, status, symbol = True, True, "complete", "⭐"
+        elif day == 20: p1, p2, status, symbol = True, False, "part1_only", "🔹"
     elif year in (2021, 2022):
-        if day <= 20: p1, p2, status, symbol = True, True, "complete", "⭐⭐"
-        elif day in (21, 22, 23): p1, p2, status, symbol = True, False, "part1_only", "⭐"
+        if day <= 20: p1, p2, status, symbol = True, True, "complete", "⭐"
+        elif day in (21, 22, 23): p1, p2, status, symbol = True, False, "part1_only", "🔹"
     elif year == 2023:
-        if day <= 18: p1, p2, status, symbol = True, True, "complete", "⭐⭐"
+        if day <= 18: p1, p2, status, symbol = True, True, "complete", "⭐"
 
     day_padded = f"{int(day):02d}"
     day_dir = os.path.join(KOTLIN_BASE, f"aoc{year}", f"day{day_padded}")
@@ -131,7 +131,7 @@ def print_dashboard():
     print("=========================================================================")
     print("                  🎄 ADVENT OF CODE MASTER CALENDAR 🎄                   ")
     print("=========================================================================")
-    print("Legend:  ⭐⭐ Both Parts Complete   ⭐ Part 1 Complete   🛠️ In Progress   ⭕ Unsolved\n")
+    print("Legend:  ⭐ Both Parts Complete   🔹 Part 1 Complete   🛠️ In Progress   ⭕ Unsolved\n")
     
     header = f"{'Year':<6} | " + " ".join(f"{d:2d}" for d in range(1, 26))
     print(header)

@@ -31,6 +31,17 @@ def load_official_stats():
 def get_official_day_status(year, day, official_stats):
     year_str = str(year)
     year_info = official_stats.get("years", {}).get(year_str, {})
+    day_str = str(day)
+    
+    day_stars = year_info.get("dayStars", {}).get(day_str)
+    if day_stars is not None:
+        if day_stars == 2:
+            return "complete", "⭐", True, True
+        elif day_stars == 1:
+            return "part1_only", "🔹", True, False
+        else:
+            return "unsolved", "⭕", False, False
+
     stars = year_info.get("stars", 0)
     max_days = get_max_days(year)
     

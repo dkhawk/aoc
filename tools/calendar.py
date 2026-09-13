@@ -38,29 +38,37 @@ OFFICIAL_STATS = load_official_stats()
 def get_day_status(year, day):
     year_str = str(year)
     year_info = OFFICIAL_STATS.get("years", {}).get(year_str, {})
-    stars = year_info.get("stars", 0)
+    day_str = str(day)
     
-    # Official status derivation
-    p1 = False
-    p2 = False
-    status = "unsolved"
-    symbol = "⭕"
+    day_stars = year_info.get("dayStars", {}).get(day_str)
+    if day_stars is not None:
+        p1 = day_stars >= 1
+        p2 = day_stars == 2
+        if day_stars == 2: status, symbol = "complete", "⭐"
+        elif day_stars == 1: status, symbol = "part1_only", "🔹"
+        else: status, symbol = "unsolved", "⭕"
+    else:
+        stars = year_info.get("stars", 0)
+        p1 = False
+        p2 = False
+        status = "unsolved"
+        symbol = "⭕"
 
-    if stars == year_info.get("maxStars", 50):
-        p1, p2, status, symbol = True, True, "complete", "⭐"
-    elif year == 2016:
-        if day <= 24: p1, p2, status, symbol = True, True, "complete", "⭐"
-        elif day == 25: p1, p2, status, symbol = True, False, "part1_only", "🔹"
-    elif year == 2018:
-        if day <= 17: p1, p2, status, symbol = True, True, "complete", "⭐"
-    elif year == 2019:
-        if day <= 19: p1, p2, status, symbol = True, True, "complete", "⭐"
-        elif day == 20: p1, p2, status, symbol = True, False, "part1_only", "🔹"
-    elif year in (2021, 2022):
-        if day <= 20: p1, p2, status, symbol = True, True, "complete", "⭐"
-        elif day in (21, 22, 23): p1, p2, status, symbol = True, False, "part1_only", "🔹"
-    elif year == 2023:
-        if day <= 18: p1, p2, status, symbol = True, True, "complete", "⭐"
+        if stars == year_info.get("maxStars", 50):
+            p1, p2, status, symbol = True, True, "complete", "⭐"
+        elif year == 2016:
+            if day <= 24: p1, p2, status, symbol = True, True, "complete", "⭐"
+            elif day == 25: p1, p2, status, symbol = True, False, "part1_only", "🔹"
+        elif year == 2018:
+            if day <= 17: p1, p2, status, symbol = True, True, "complete", "⭐"
+        elif year == 2019:
+            if day <= 19: p1, p2, status, symbol = True, True, "complete", "⭐"
+            elif day == 20: p1, p2, status, symbol = True, False, "part1_only", "🔹"
+        elif year in (2021, 2022):
+            if day <= 20: p1, p2, status, symbol = True, True, "complete", "⭐"
+            elif day in (21, 22, 23): p1, p2, status, symbol = True, False, "part1_only", "🔹"
+        elif year == 2023:
+            if day <= 18: p1, p2, status, symbol = True, True, "complete", "⭐"
 
     day_padded = f"{int(day):02d}"
     day_dir = os.path.join(KOTLIN_BASE, f"aoc{year}", f"day{day_padded}")

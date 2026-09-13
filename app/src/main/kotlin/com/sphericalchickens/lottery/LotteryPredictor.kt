@@ -1,5 +1,7 @@
 package com.sphericalchickens.lottery
 
+import com.sphericalchickens.utils.*
+
 import kotlin.random.Random
 
 fun main() {

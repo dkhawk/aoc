@@ -1,5 +1,7 @@
 package com.sphericalchickens.aoc2025gem.day08
 
+import com.sphericalchickens.utils.*
+
 import kotlin.math.pow
 import kotlin.math.sqrt
 

@@ -1,0 +1,174 @@
+package com.sphericalchickens.aoc2022.day01
+
+import com.sphericalchickens.utils.*
+import kotlin.time.measureTimedValue
+
+
+import java.util.TreeSet
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.launch
+
+const val day = 0
+const val year = 2022
+
+class TopItems<T>(
+  private val size: Int = 3,
+  private val comparator: Comparator<T>
+) {
+  private val items = TreeSet<T>(comparator)
+
+  fun getItems(): List<T> = items.toList()
+
+  fun add(item: T) {
+    items.add(item)
+    while (items.size > size) {
+      items.remove(items.first())
+    }
+  }
+
+  fun clear() {
+    items.clear()
+  }
+}
+
+class Day(private val scope: CoroutineScope) {
+  private var inputElves: List<Elf> = emptyList()
+  private var input: List<List<Int>> = emptyList()
+
+  private val _elfCursor = MutableStateFlow<Int>(-1)
+  private val elfCursor: StateFlow<Int> = _elfCursor
+
+  private val _currentElf = MutableStateFlow<Elf?>(null)
+  val currentElf: StateFlow<Elf?> = _currentElf
+
+  var running = (false)
+  private var job: Job? = null
+
+  var delayTime = ( 500L)
+  val maxDelay = 500L
+
+  private val topElves = TopItems<Elf>(size = 3, compareBy { it.total })
+  var elves by mutableStateOf<List<Elf>>(emptyList())
+
+  var topTotal = derivedStateOf {
+    elves.sumOf { it.total }
+  }
+
+  var useRealData = (false)
+
+  val sampleInput = """
+    1000
+    2000
+    3000
+
+    4000
+
+    5000
+    6000
+
+    7000
+    8000
+    9000
+
+    10000
+  """.trimIndent().split("\n\n").map { it.split("\n").map { it.toInt() } }
+
+  init {
+    scope.launch {
+      elfCursor.collect { index -> _currentElf.value = inputElves.getOrNull(index) }
+    }
+
+    scope.launch {
+      currentElf.filterNotNull().collect {
+        topElves.add(it)
+        elves = topElves.getItems()
+      }
+    }
+  }
+
+  fun initialize() {
+    input = if (useRealData) {
+      val realInput = InputNew(year, day).readAsString().split("\n\n").map { it.split("\n").filter { it.isNotBlank() }.map { it.toInt() } }
+      realInput
+    } else {
+      sampleInput
+    }
+
+    inputElves = input.mapIndexed { index, snacks -> toElf(index, snacks) }
+  }
+
+  fun part1() {
+    val most = input.maxOfOrNull { it.sum() }
+    println(most)
+  }
+
+  fun part2() {
+    val top3 = input.map { it.sum() }.sorted().reversed().take(3)
+    println(top3.sum())
+  }
+
+  fun execute() {
+    job?.cancel()
+    job = scope.launch {
+      running = true
+
+      while (elfCursor.value < inputElves.lastIndex) {
+        step()
+        delay(delayTime)
+      }
+
+      _elfCursor.value = -1
+      running = false
+    }
+  }
+
+  fun step() {
+    _elfCursor.value += 1
+  }
+
+  fun stop() {
+    job?.cancel()
+    running = false
+  }
+
+  private fun toElf(index: Int, snackList: List<Int>): Elf = Elf(index, snackList)
+
+  fun reset() {
+    stop()
+    _elfCursor.value = -1
+    topElves.clear()
+    elves = emptyList()
+  }
+
+  fun updateDataSource(useRealData: Boolean) {
+    this.useRealData = useRealData
+    initialize()
+    reset()
+  }
+}
+
+data class Elf(
+  val id: Int,
+  val snacks: List<Int>
+) {
+  val total by lazy {
+    snacks.sum()
+  }
+}
+
+fun main() {
+    println("--- Advent of Code 2022, Day 1 ---")
+    val solver = Day(kotlinx.coroutines.GlobalScope)
+    solver.useRealData = true
+    try { solver.initialize() } catch (e: Exception) {}
+    println("Solving Part 1:")
+    try { solver.part1() } catch (e: Exception) { println("Part 1: " + e.message) }
+    println("Solving Part 2:")
+    try { solver.part2() } catch (e: Exception) { println("Part 2: " + e.message) }
+}

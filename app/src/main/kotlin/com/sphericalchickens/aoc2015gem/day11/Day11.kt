@@ -1,5 +1,7 @@
 package com.sphericalchickens.aoc2015gem.day11
 
+import com.sphericalchickens.utils.*
+
 /**
  * # Advent of Code 2015, Day 11: Corporate Policy
  *

@@ -12,6 +12,7 @@ Usage:
 import os
 import sys
 import re
+import json
 
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 KOTLIN_BASE = os.path.join(PROJECT_ROOT, "app", "src", "main", "kotlin", "com", "sphericalchickens")
@@ -24,30 +25,49 @@ def get_max_days(year):
         return 12
     return 25
 
+OFFICIAL_STATS_FILE = os.path.join(os.path.dirname(__file__), "official_stats.json")
+
+def load_official_stats():
+    if os.path.exists(OFFICIAL_STATS_FILE):
+        with open(OFFICIAL_STATS_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return {}
+
+OFFICIAL_STATS = load_official_stats()
+
 def get_day_status(year, day):
+    year_str = str(year)
+    year_info = OFFICIAL_STATS.get("years", {}).get(year_str, {})
+    stars = year_info.get("stars", 0)
+    
+    # Official status derivation
+    p1 = False
+    p2 = False
+    status = "unsolved"
+    symbol = "⭕"
+
+    if stars == year_info.get("maxStars", 50):
+        p1, p2, status, symbol = True, True, "complete", "🌟"
+    elif year == 2016:
+        if day <= 24: p1, p2, status, symbol = True, True, "complete", "🌟"
+        elif day == 25: p1, p2, status, symbol = True, False, "part1_only", "⭐"
+    elif year == 2018:
+        if day <= 17: p1, p2, status, symbol = True, True, "complete", "🌟"
+    elif year == 2019:
+        if day <= 19: p1, p2, status, symbol = True, True, "complete", "🌟"
+        elif day == 20: p1, p2, status, symbol = True, False, "part1_only", "⭐"
+    elif year in (2021, 2022):
+        if day <= 20: p1, p2, status, symbol = True, True, "complete", "🌟"
+        elif day in (21, 22, 23): p1, p2, status, symbol = True, False, "part1_only", "⭐"
+    elif year == 2023:
+        if day <= 18: p1, p2, status, symbol = True, True, "complete", "🌟"
+
     day_padded = f"{int(day):02d}"
     day_dir = os.path.join(KOTLIN_BASE, f"aoc{year}", f"day{day_padded}")
     day_kt = os.path.join(day_dir, f"Day{day_padded}.kt")
-    
-    if not os.path.exists(day_kt):
-        return {"status": "unsolved", "part1": False, "part2": False, "symbol": "⭕"}
-    
-    with open(day_kt, "r", encoding="utf-8", errors="ignore") as f:
-        code = f.read()
-    
-    has_part1 = "part1(" in code or "solvePart1" in code or "Part 1:" in code or "fun main" in code
-    has_part2 = "part2(" in code or "part2c(" in code or "solvePart2" in code or "Part 2:" in code
-    
-    if "TODO" in code or "not implemented" in code.lower():
-        if "part2" in code.lower() and "TODO" in code:
-            has_part2 = False
+    has_kt = os.path.exists(day_kt)
 
-    if has_part1 and has_part2:
-        return {"status": "complete", "part1": True, "part2": True, "symbol": "🌟"}
-    elif has_part1:
-        return {"status": "part1_only", "part1": True, "part2": False, "symbol": "⭐"}
-    else:
-        return {"status": "in_progress", "part1": False, "part2": False, "symbol": "🛠️"}
+    return {"status": status, "part1": p1, "part2": p2, "symbol": symbol, "hasKt": has_kt}
 
 def get_day_synopsis(year, day):
     day_padded = f"{int(day):02d}"
@@ -160,7 +180,7 @@ def generate_readme_calendar():
     grid_rows.append("| Year | " + " | ".join(f"{d}" for d in range(1, 26)) + " |")
     grid_rows.append("|:---:| " + " | ".join(":---:" for _ in range(25)) + " |")
     
-    total_stars = 0
+    total_stars = OFFICIAL_STATS.get("totalOfficialStars", 465)
     
     for y in YEARS:
         row = [f"**[{y}](app/src/main/kotlin/com/sphericalchickens/aoc{y}/README.md)**"]
@@ -168,8 +188,6 @@ def generate_readme_calendar():
         for d in range(1, 26):
             if d <= max_d:
                 st = get_day_status(y, d)
-                if st["part1"]: total_stars += 1
-                if st["part2"]: total_stars += 1
                 day_padded = f"{d:02d}"
                 kt_file = f"app/src/main/kotlin/com/sphericalchickens/aoc{y}/day{day_padded}/Day{day_padded}.kt"
                 if os.path.exists(os.path.join(PROJECT_ROOT, kt_file)):

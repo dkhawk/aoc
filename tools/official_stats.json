@@ -1,0 +1,16 @@
+{
+  "totalOfficialStars": 465,
+  "years": {
+    "2015": { "stars": 50, "maxStars": 50, "days": 25 },
+    "2016": { "stars": 48, "maxStars": 50, "days": 25 },
+    "2017": { "stars": 50, "maxStars": 50, "days": 25 },
+    "2018": { "stars": 34, "maxStars": 50, "days": 25 },
+    "2019": { "stars": 39, "maxStars": 50, "days": 25 },
+    "2020": { "stars": 50, "maxStars": 50, "days": 25 },
+    "2021": { "stars": 42, "maxStars": 50, "days": 25 },
+    "2022": { "stars": 42, "maxStars": 50, "days": 25 },
+    "2023": { "stars": 36, "maxStars": 50, "days": 25 },
+    "2024": { "stars": 50, "maxStars": 50, "days": 25 },
+    "2025": { "stars": 24, "maxStars": 24, "days": 12 }
+  }
+}

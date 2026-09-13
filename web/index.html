@@ -579,9 +579,11 @@
       container.innerHTML = '';
       
       appData.years.slice().reverse().forEach(year => {
+        const yStats = appData.stats.yearStats ? appData.stats.yearStats[year] : null;
+        const starLabel = yStats ? ` (${yStats.stars}⭐)` : '';
         const btn = document.createElement('button');
         btn.className = `tab-btn ${year === currentYear ? 'active' : ''}`;
-        btn.innerText = year;
+        btn.innerText = `${year}${starLabel}`;
         btn.onclick = () => {
           currentYear = year;
           document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -634,7 +636,7 @@
 
     function openModal(day) {
       document.getElementById('modal-subtitle').innerText = `Advent of Code ${day.year} • Day ${day.dayPadded}`;
-      document.getElementById('modal-title').innerText = `${day.symbol} ${day.title} ↗`;
+      document.getElementById('modal-title').innerText = `${day.symbol} ${day.title}`;
       document.getElementById('modal-title-link').href = day.aocUrl;
       document.getElementById('modal-header-aoc-link').href = day.aocUrl;
       document.getElementById('modal-aoc-link').href = day.aocUrl;
@@ -657,7 +659,8 @@
         p2Container.style.display = 'none';
       }
 
-      document.getElementById('modal-kt-path').innerText = day.ktPath || "Solution file not created yet";
+      const ktStatus = day.ktPath ? `✅ ${day.ktPath}` : "🛠️ Kotlin solution pending in codebase";
+      document.getElementById('modal-kt-path').innerText = ktStatus;
       document.getElementById('modal-overlay').classList.add('open');
     }
 

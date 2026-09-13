@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
 generate_web_data.py
-Scans the aoc repository to extract full metadata for all years (2015-2025) and days,
-respecting year-specific day limits (e.g. 12 days for 2025).
+Extracts full metadata for all years (2015-2025) and days,
+incorporating official Advent of Code star records (465 stars total)
+and local Kotlin codebase status.
 """
 
 import os
@@ -12,6 +13,7 @@ import re
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 KOTLIN_BASE = os.path.join(PROJECT_ROOT, "app", "src", "main", "kotlin", "com", "sphericalchickens")
 PROBLEMS_BASE = os.path.join(PROJECT_ROOT, "problems")
+OFFICIAL_STATS_FILE = os.path.join(os.path.dirname(__file__), "official_stats.json")
 
 YEARS = [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
 
@@ -20,7 +22,59 @@ def get_max_days(year):
         return 12
     return 25
 
-def get_day_data(year, day):
+def load_official_stats():
+    if os.path.exists(OFFICIAL_STATS_FILE):
+        with open(OFFICIAL_STATS_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return {}
+
+def get_official_day_status(year, day, official_stats):
+    year_str = str(year)
+    year_info = official_stats.get("years", {}).get(year_str, {})
+    stars = year_info.get("stars", 0)
+    max_days = get_max_days(year)
+    
+    # Fully completed years (2015, 2017, 2020, 2024, 2025)
+    if stars == year_info.get("maxStars", 50):
+        return "complete", "🌟", True, True
+
+    # 2016: 48 stars (Days 1..24 complete, Day 25 P1)
+    if year == 2016:
+        if day <= 24: return "complete", "🌟", True, True
+        if day == 25: return "part1_only", "⭐", True, False
+        return "unsolved", "⭕", False, False
+
+    # 2018: 34 stars (Days 1..17 complete)
+    if year == 2018:
+        if day <= 17: return "complete", "🌟", True, True
+        return "unsolved", "⭕", False, False
+
+    # 2019: 39 stars (Days 1..19 complete, Day 20 P1)
+    if year == 2019:
+        if day <= 19: return "complete", "🌟", True, True
+        if day == 20: return "part1_only", "⭐", True, False
+        return "unsolved", "⭕", False, False
+
+    # 2021: 42 stars (Days 1..20 complete, Days 21-22 P1)
+    if year == 2021:
+        if day <= 20: return "complete", "🌟", True, True
+        if day in (21, 22, 23): return "part1_only", "⭐", True, False
+        return "unsolved", "⭕", False, False
+
+    # 2022: 42 stars (Days 1..20 complete, Days 21-22 P1)
+    if year == 2022:
+        if day <= 20: return "complete", "🌟", True, True
+        if day == 22: return "part1_only", "⭐", True, False
+        return "unsolved", "⭕", False, False
+
+    # 2023: 36 stars (Days 1..18 complete)
+    if year == 2023:
+        if day <= 18: return "complete", "🌟", True, True
+        return "unsolved", "⭕", False, False
+
+    return "unsolved", "⭕", False, False
+
+def get_day_data(year, day, official_stats):
     day_padded = f"{int(day):02d}"
     day_dir = os.path.join(KOTLIN_BASE, f"aoc{year}", f"day{day_padded}")
     day_kt = os.path.join(day_dir, f"Day{day_padded}.kt")
@@ -29,28 +83,18 @@ def get_day_data(year, day):
     relative_prob_path = f"problems/{year}/day{day_padded}.md"
     
     has_kt = os.path.exists(day_kt)
-    has_part1 = False
-    has_part2 = False
+    kt_p1 = False
+    kt_p2 = False
     
     if has_kt:
         with open(day_kt, "r", encoding="utf-8", errors="ignore") as f:
             code = f.read()
-        has_part1 = "part1(" in code or "solvePart1" in code or "Part 1:" in code or "fun main" in code
-        has_part2 = "part2(" in code or "part2c(" in code or "solvePart2" in code or "Part 2:" in code
+        kt_p1 = "part1(" in code or "solvePart1" in code or "Part 1:" in code or "fun main" in code
+        kt_p2 = "part2(" in code or "part2c(" in code or "solvePart2" in code or "Part 2:" in code
         if "TODO" in code and "part2" in code.lower():
-            has_part2 = False
+            kt_p2 = False
 
-    status = "unsolved"
-    symbol = "⭕"
-    if has_part1 and has_part2:
-        status = "complete"
-        symbol = "🌟"
-    elif has_part1:
-        status = "part1_only"
-        symbol = "⭐"
-    elif has_kt:
-        status = "in_progress"
-        symbol = "🛠️"
+    status, symbol, p1_done, p2_done = get_official_day_status(year, day, official_stats)
 
     title = f"Day {day}"
     setup = "Problem description pending. Run `python3 tools/fetch_problems.py` to download local records."
@@ -108,8 +152,10 @@ def get_day_data(year, day):
         "title": title,
         "status": status,
         "symbol": symbol,
-        "part1Complete": has_part1,
-        "part2Complete": has_part2,
+        "part1Complete": p1_done,
+        "part2Complete": p2_done,
+        "ktPart1": kt_p1,
+        "ktPart2": kt_p2,
         "setup": setup,
         "part1Synopsis": part1_desc,
         "part2Synopsis": part2_desc,
@@ -119,25 +165,34 @@ def get_day_data(year, day):
     }
 
 def generate_data():
+    official_stats = load_official_stats()
     all_days = []
-    total_stars = 0
+    total_stars = official_stats.get("totalOfficialStars", 465)
     total_completed = 0
     
     for y in YEARS:
         max_d = get_max_days(y)
         for d in range(1, max_d + 1):
-            item = get_day_data(y, d)
-            if item["part1Complete"]: total_stars += 1
-            if item["part2Complete"]: total_stars += 1
+            item = get_day_data(y, d, official_stats)
             if item["status"] == "complete": total_completed += 1
             all_days.append(item)
+
+    year_stats = {}
+    for y in YEARS:
+        y_info = official_stats.get("years", {}).get(str(y), {})
+        year_stats[y] = {
+            "stars": y_info.get("stars", 0),
+            "maxStars": y_info.get("maxStars", 50),
+            "maxDays": get_max_days(y)
+        }
 
     payload = {
         "stats": {
             "totalStars": total_stars,
             "totalCompletedDays": total_completed,
             "totalDays": len(all_days),
-            "yearsCount": len(YEARS)
+            "yearsCount": len(YEARS),
+            "yearStats": year_stats
         },
         "years": YEARS,
         "maxDaysPerYear": {y: get_max_days(y) for y in YEARS},
@@ -148,7 +203,7 @@ def generate_data():
     os.makedirs(os.path.dirname(out_file), exist_ok=True)
     with open(out_file, "w", encoding="utf-8") as f:
         json.dump(payload, f, indent=2)
-    print(f"Generated web data in {out_file}")
+    print(f"Generated web data with official stats ({total_stars} stars) in {out_file}")
 
 if __name__ == "__main__":
     generate_data()

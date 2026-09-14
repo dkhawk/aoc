@@ -40,7 +40,7 @@ The logic generalizes: pick the largest valid digit for the current position tha
 
 | Part | Runtime |
 |:---:|:---:|
-| Part 1 | 0ms |
+| Part 1 | 0.0ms |
 | Part 2 | 1ms |
 | **Total** | **1ms** |
 

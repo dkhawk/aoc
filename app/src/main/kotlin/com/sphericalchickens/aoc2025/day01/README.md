@@ -41,8 +41,8 @@ The second part involves counting how many times the dial passes through 0 (or a
 
 | Part | Runtime |
 |:---:|:---:|
-| Part 1 | 1ms |
+| Part 1 | 2ms |
 | Part 2 | 1ms |
-| **Total** | **2ms** |
+| **Total** | **3ms** |
 
 <img src="day01_art.png" width="400" alt="Day 1 Art" />

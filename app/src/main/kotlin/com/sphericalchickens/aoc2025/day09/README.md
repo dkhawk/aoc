@@ -22,7 +22,7 @@ Part 2 considers restrictions on tile regions and calculates the maximum area bo
 | Part | Runtime |
 |:---:|:---:|
 | Part 1 | 7ms |
-| Part 2 | 1322ms |
-| **Total** | **1329ms** |
+| Part 2 | 1308ms |
+| **Total** | **1315ms** |
 
 <img src="day09_art.png" width="400" alt="Day 9 Art" />

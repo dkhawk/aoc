@@ -42,8 +42,8 @@ The code checks for any chunk size that divides the string length evenly, and ve
 
 | Part | Runtime |
 |:---:|:---:|
-| Part 1 | 81ms |
-| Part 2 | 316ms |
-| **Total** | **397ms** |
+| Part 1 | 80ms |
+| Part 2 | 325ms |
+| **Total** | **405ms** |
 
 <img src="day02_art.png" width="400" alt="Day 2 Art" />

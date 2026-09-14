@@ -23,7 +23,7 @@ Part 2 solves the minimum button press configuration subject to exact joltage co
 | Part | Runtime |
 |:---:|:---:|
 | Part 1 | 12ms |
-| Part 2 | 901ms |
-| **Total** | **913ms** |
+| Part 2 | 886ms |
+| **Total** | **898ms** |
 
 <img src="day10_art.png" width="400" alt="Day 10 Art" />

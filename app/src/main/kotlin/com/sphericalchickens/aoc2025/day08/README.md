@@ -23,8 +23,8 @@ Part 2 finds the final connection that completes the minimum spanning network su
 
 | Part | Runtime |
 |:---:|:---:|
-| Part 1 | 171ms |
-| Part 2 | 167ms |
-| **Total** | **339ms** |
+| Part 1 | 170ms |
+| Part 2 | 157ms |
+| **Total** | **327ms** |
 
 <img src="day08_art.png" width="400" alt="Day 8 Art" />

@@ -21,8 +21,8 @@ Part 2 computes optimal polyomino placement configurations across all regions to
 
 | Part | Runtime |
 |:---:|:---:|
-| Part 1 | 389ms |
+| Part 1 | 407ms |
 | Part 2 | N/A |
-| **Total** | **389ms** |
+| **Total** | **407ms** |
 
 <img src="day12_art.png" width="400" alt="Day 12 Art" />

@@ -21,8 +21,8 @@ Part 2 analyzes multi-branch signal paths and feedback loops to determine total 
 
 | Part | Runtime |
 |:---:|:---:|
-| Part 1 | 1ms |
+| Part 1 | 2ms |
 | Part 2 | 1ms |
-| **Total** | **2ms** |
+| **Total** | **3ms** |
 
 <img src="day11_art.png" width="400" alt="Day 11 Art" />

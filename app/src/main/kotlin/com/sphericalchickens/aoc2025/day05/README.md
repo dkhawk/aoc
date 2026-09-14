@@ -33,7 +33,7 @@ To do this efficiently:
 | Part | Runtime |
 |:---:|:---:|
 | Part 1 | 5ms |
-| Part 2 | 0ms |
+| Part 2 | 0.0ms |
 | **Total** | **5ms** |
 
 <img src="day05_art.png" width="400" alt="Day 5 Art" />

@@ -20,8 +20,8 @@ Ribbon required is the smallest perimeter of any face plus the volume `l * w * h
 
 | Part | Runtime |
 |:---:|:---:|
-| Part 1 | 3.0ms |
+| Part 1 | 2.3ms |
 | Part 2 | 1.0ms |
-| **Total** | **4.0ms** |
+| **Total** | **3.3ms** |
 
 <img src="day02_art.png" width="400" alt="Day 2 Art" />

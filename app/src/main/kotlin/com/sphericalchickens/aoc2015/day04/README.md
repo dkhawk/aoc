@@ -20,8 +20,8 @@ Find the lowest positive integer `n` where MD5 hash starts with 6 hex zeroes (`0
 
 | Part | Runtime |
 |:---:|:---:|
-| Part 1 | 148ms |
-| Part 2 | 3470ms |
-| **Total** | **3617ms** |
+| Part 1 | 176ms |
+| Part 2 | 3479ms |
+| **Total** | **3655ms** |
 
 <img src="day04_art.png" width="400" alt="Day 4 Art" />

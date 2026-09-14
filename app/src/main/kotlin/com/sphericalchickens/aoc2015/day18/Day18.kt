@@ -1,16 +1,71 @@
 package com.sphericalchickens.aoc2015.day18
 
+import com.sphericalchickens.utils.check
+import com.sphericalchickens.utils.formatDuration
 import com.sphericalchickens.utils.readInputLines
+import kotlin.time.measureTimedValue
 
 /**
  * # Advent of Code 2015, Day 18: Like a GIF For Your Yard
  *
- * Placeholder solution for Day 18.
+ * Placeholder template for Day 18.
  */
 fun main() {
-    println("--- Advent of Code 2015, Day 18: Like a GIF For Your Yard ---")
+    // --- Verification ---
+    println("🧪 Running tests...")
+    runTests()
+    println("✅ Tests passed!")
+
+    // --- Setup ---
     val puzzleInput = readInputLines("aoc2015/day18_input.txt")
-    println("Loaded ${puzzleInput.size} lines of puzzle input.")
-    println("🎁 Part 1: Unsolved in this repository")
-    println("🎀 Part 2: Unsolved in this repository")
+    println("\n--- Advent of Code 2015, Day 18: Like a GIF For Your Yard ---")
+
+    // --- Part 1 ---
+    val (part1Result, part1Duration) = measureTimedValue {
+        part1(puzzleInput)
+    }
+    println("🎁 Part 1: $part1Result")
+    println("Part 1 runtime: ${formatDuration(part1Duration)}")
+
+    // --- Part 2 ---
+    val (part2Result, part2Duration) = measureTimedValue {
+        part2(puzzleInput)
+    }
+    println("🎀 Part 2: $part2Result")
+    println("Part 2 runtime: ${formatDuration(part2Duration)}")
+}
+
+// ---------------------------------------------------------------------------------------------
+// Core Logic
+// ---------------------------------------------------------------------------------------------
+
+fun part1(input: List<String>): Int {
+    // TODO: Implement Part 1
+    return 0
+}
+
+fun part2(input: List<String>): Int {
+    // TODO: Implement Part 2
+    return 0
+}
+
+// ---------------------------------------------------------------------------------------------
+// Utilities & Test Functions
+// ---------------------------------------------------------------------------------------------
+
+/**
+ * Executes checks to validate the core logic against known test cases.
+ */
+private fun runTests() {
+    val testInput = """
+.#.#.#
+...##.
+#....#
+..#...
+#.#..#
+####..
+    """.trimIndent().lines().filter(String::isNotBlank)
+
+    // TODO: Add real test expectations when implementing
+    check("Part 1 stub check", 0, part1(testInput))
 }

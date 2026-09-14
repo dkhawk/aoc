@@ -21,7 +21,7 @@ Apply the look-and-say process 50 times and return the length.
 | Part | Runtime |
 |:---:|:---:|
 | Part 1 | 15ms |
-| Part 2 | 37ms |
-| **Total** | **52ms** |
+| Part 2 | 34ms |
+| **Total** | **49ms** |
 
 <img src="day10_art.png" width="400" alt="Day 10 Art" />

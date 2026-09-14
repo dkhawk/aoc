@@ -170,8 +170,16 @@ def main():
             continue
 
         title = get_day_title(year, d)
-        print(f"Benchmarking Day {dp}: {title}...")
-        p1_ms, p2_ms, tot_ms = run_day_benchmark(year, d, runs=args.runs)
+        with open(kt_path, "r", encoding="utf-8") as f:
+            kt_code = f.read()
+        is_placeholder = "// TODO: Implement" in kt_code or "Placeholder template" in kt_code or "Placeholder solution" in kt_code
+
+        if is_placeholder:
+            print(f"Skipping Day {dp}: {title} (Placeholder template)...")
+            p1_ms, p2_ms, tot_ms = None, None, None
+        else:
+            print(f"Benchmarking Day {dp}: {title}...")
+            p1_ms, p2_ms, tot_ms = run_day_benchmark(year, d, runs=args.runs)
         
         p1_str = format_ms(p1_ms)
         p2_str = format_ms(p2_ms)

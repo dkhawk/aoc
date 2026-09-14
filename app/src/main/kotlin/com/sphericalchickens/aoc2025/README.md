@@ -17,7 +17,7 @@ Here you can find the solutions, explanations, and art for each day.
 | 08 | Playground | 318ms | [Readme](day08/README.md) / [Code](day08/Day08.kt) |
 | 09 | Movie Theater | 1320ms | [Readme](day09/README.md) / [Code](day09/Day09.kt) |
 | 10 | Factory | 749ms | [Readme](day10/README.md) / [Code](day10/Day10.kt) |
-| 11 | Reactor | 2ms | [Readme](day11/README.md) / [Code](day11/Day11.kt) |
+| 11 | Reactor | 3ms | [Readme](day11/README.md) / [Code](day11/Day11.kt) |
 | 12 | Christmas Tree Farm | 425ms | [Readme](day12/README.md) / [Code](day12/Day12.kt) |
 
 ## Gallery

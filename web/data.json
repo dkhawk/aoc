@@ -4726,11 +4726,11 @@
       "part2Complete": true,
       "ktPart1": true,
       "ktPart2": true,
-      "setup": "Problem description pending. Run `python3 tools/fetch_problems.py` to download local records.",
+      "setup": "[< Day 07](../day07/README.md) | [Day 09 >](../day09/README.md)\n\n[View Problem on Advent of Code](https://adventofcode.com/2025/day/8)\n\n\nEquipped with teleporter maintenance knowledge, you rematerialize in a giant underground playground.\nThe Elves are connecting electrical junction boxes suspended in 3D space with strings of lights to power a Christmas decoration project.\nEach junction box is specified as an `X,Y,Z` 3D coordinate.",
       "part1Synopsis": "",
       "part2Synopsis": "",
       "ktPath": "app/src/main/kotlin/com/sphericalchickens/aoc2025/day08/Day08.kt",
-      "probPath": null,
+      "probPath": "problems/2025/day08.md",
       "aocUrl": "https://adventofcode.com/2025/day/8"
     },
     {
@@ -4744,11 +4744,11 @@
       "part2Complete": true,
       "ktPart1": true,
       "ktPart2": true,
-      "setup": "Problem description pending. Run `python3 tools/fetch_problems.py` to download local records.",
+      "setup": "[< Day 08](../day08/README.md) | [Day 10 >](../day10/README.md)\n\n[View Problem on Advent of Code](https://adventofcode.com/2025/day/9)\n\n\nSliding down a firepole from the playground, you land in the North Pole base movie theater.\nThe theater floor has a large tile floor grid. The Elves are redecorating by switching out square tiles, some of which are red tiles (`#`).",
       "part1Synopsis": "",
       "part2Synopsis": "",
       "ktPath": "app/src/main/kotlin/com/sphericalchickens/aoc2025/day09/Day09.kt",
-      "probPath": null,
+      "probPath": "problems/2025/day09.md",
       "aocUrl": "https://adventofcode.com/2025/day/9"
     },
     {
@@ -4762,11 +4762,11 @@
       "part2Complete": true,
       "ktPart1": true,
       "ktPart2": true,
-      "setup": "Problem description pending. Run `python3 tools/fetch_problems.py` to download local records.",
+      "setup": "[< Day 09](../day09/README.md) | [Day 11 >](../day11/README.md)\n\n[View Problem on Advent of Code](https://adventofcode.com/2025/day/10)\n\n\nAcross the hall from the movie theater, you enter a large factory where all machines are offline.\nThe initialization section of the manual was eaten by a Shiba Inu, leaving only indicator light diagrams (`[.##.]`) and button wiring schematics.",
       "part1Synopsis": "",
       "part2Synopsis": "",
       "ktPath": "app/src/main/kotlin/com/sphericalchickens/aoc2025/day10/Day10.kt",
-      "probPath": null,
+      "probPath": "problems/2025/day10.md",
       "aocUrl": "https://adventofcode.com/2025/day/10"
     },
     {
@@ -4780,11 +4780,11 @@
       "part2Complete": true,
       "ktPart1": true,
       "ktPart2": true,
-      "setup": "Problem description pending. Run `python3 tools/fetch_problems.py` to download local records.",
+      "setup": "[< Day 10](../day10/README.md) | [Day 12 >](../day12/README.md)\n\n[View Problem on Advent of Code](https://adventofcode.com/2025/day/11)\n\n\nClimbing down a ladder through a floor hatch in the factory, you discover a large toroidal reactor powering the facility.\nElves are connecting a new server rack to the reactor. Input lines define a directed acyclic network of device outputs leading from `you` to `out`.",
       "part1Synopsis": "",
       "part2Synopsis": "",
       "ktPath": "app/src/main/kotlin/com/sphericalchickens/aoc2025/day11/Day11.kt",
-      "probPath": null,
+      "probPath": "problems/2025/day11.md",
       "aocUrl": "https://adventofcode.com/2025/day/11"
     },
     {
@@ -4798,11 +4798,11 @@
       "part2Complete": true,
       "ktPart1": true,
       "ktPart2": false,
-      "setup": "Problem description pending. Run `python3 tools/fetch_problems.py` to download local records.",
+      "setup": "[< Day 11](../day11/README.md) | [AoC 2025 >](../README.md)\n\n[View Problem on Advent of Code](https://adventofcode.com/2025/day/12)\n\n\nJumping down a ventilation duct, you land in a cavernous underground Christmas tree farm.\nThe Elves are placing presents under the trees, but presents come in non-standard polyomino shapes and must fit perfectly into grid regions under each tree without overlapping or stacking.",
       "part1Synopsis": "",
       "part2Synopsis": "",
       "ktPath": "app/src/main/kotlin/com/sphericalchickens/aoc2025/day12/Day12.kt",
-      "probPath": null,
+      "probPath": "problems/2025/day12.md",
       "aocUrl": "https://adventofcode.com/2025/day/12"
     }
   ]

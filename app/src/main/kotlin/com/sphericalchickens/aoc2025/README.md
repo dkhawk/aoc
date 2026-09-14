@@ -7,13 +7,18 @@ Here you can find the solutions, explanations, and art for each day.
 
 | Day | Title | Runtime | Links |
 |:---:|:---|:--------|:---|
-| 01 | Secret Entrance | 23ms    | [Readme](day01/README.md) / [Code](day01/Day01.kt) |
-| 02 | Gift Shop | 414ms   | [Readme](day02/README.md) / [Code](day02/Day02.kt) |
-| 03 | Lobby | 4ms     | [Readme](day03/README.md) / [Code](day03/Day03.kt) |
-| 04 | Printing Department | 24ms    | [Readme](day04/README.md) / [Code](day04/Day04.kt) |
-| 05 | Cafeteria | 9ms     | [Readme](day05/README.md) / [Code](day05/Day05.kt) |
-| 06 | Trash Compactor | 5ms     | [Readme](day06/README.md) / [Code](day06/Day06.kt) |
-| 07 | Laboratories | 4ms     | [Readme](day07/README.md) / [Code](day07/Day07.kt) |
+| 01 | Secret Entrance | 23ms | [Readme](day01/README.md) / [Code](day01/Day01.kt) |
+| 02 | Gift Shop | 414ms | [Readme](day02/README.md) / [Code](day02/Day02.kt) |
+| 03 | Lobby | 4ms | [Readme](day03/README.md) / [Code](day03/Day03.kt) |
+| 04 | Printing Department | 24ms | [Readme](day04/README.md) / [Code](day04/Day04.kt) |
+| 05 | Cafeteria | 9ms | [Readme](day05/README.md) / [Code](day05/Day05.kt) |
+| 06 | Trash Compactor | 5ms | [Readme](day06/README.md) / [Code](day06/Day06.kt) |
+| 07 | Laboratories | 4ms | [Readme](day07/README.md) / [Code](day07/Day07.kt) |
+| 08 | Playground | 318ms | [Readme](day08/README.md) / [Code](day08/Day08.kt) |
+| 09 | Movie Theater | 1320ms | [Readme](day09/README.md) / [Code](day09/Day09.kt) |
+| 10 | Factory | 749ms | [Readme](day10/README.md) / [Code](day10/Day10.kt) |
+| 11 | Reactor | 2ms | [Readme](day11/README.md) / [Code](day11/Day11.kt) |
+| 12 | Christmas Tree Farm | 425ms | [Readme](day12/README.md) / [Code](day12/Day12.kt) |
 
 ## Gallery
 
@@ -25,4 +30,9 @@ Here you can find the solutions, explanations, and art for each day.
   <a href="day05/README.md"><img src="day05/day05_art.png" width="200" alt="Day 5 Art" /></a>
   <a href="day06/README.md"><img src="day06/day06_art.png" width="200" alt="Day 6 Art" /></a>
   <a href="day07/README.md"><img src="day07/day07_art.png" width="200" alt="Day 7 Art" /></a>
+  <a href="day08/README.md"><img src="day08/day08_art.png" width="200" alt="Day 8 Art" /></a>
+  <a href="day09/README.md"><img src="day09/day09_art.png" width="200" alt="Day 9 Art" /></a>
+  <a href="day10/README.md"><img src="day10/day10_art.png" width="200" alt="Day 10 Art" /></a>
+  <a href="day11/README.md"><img src="day11/day11_art.png" width="200" alt="Day 11 Art" /></a>
+  <a href="day12/README.md"><img src="day12/day12_art.png" width="200" alt="Day 12 Art" /></a>
 </p>

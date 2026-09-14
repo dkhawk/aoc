@@ -33,3 +33,7 @@ Appropriate use of data classes, sealed classes, or objects
 Document your solution following the tenants of literate programming.
 
 Gemini must follow the tenants of literate programming.
+
+## Advent of Code Calendar Structure
+- The original Advent of Code problems (2015–2024) had 25 days (December 1–25).
+- Starting in 2025, Advent of Code was reduced to 12 days (December 1–12). Days 13–25 do not exist for 2025 onwards.

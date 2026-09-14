@@ -1,6 +1,8 @@
 package com.sphericalchickens.aoc2015.day01
 
+import com.sphericalchickens.utils.formatDuration
 import com.sphericalchickens.utils.readInputText
+import kotlin.time.measureTimedValue
 
 /**
  * # Advent of Code 2015, Day 1: Not Quite Lisp
@@ -38,15 +40,21 @@ fun main() {
     // --- Part 1: Calculate Final Floor ---
     // The final floor is simply the number of 'up' instructions minus the number of 'down'
     // instructions. We call our specialized function and print the result.
-    val finalFloor = findFinalFloor(puzzleInput)
+    val (finalFloor, part1Duration) = measureTimedValue {
+        findFinalFloor(puzzleInput)
+    }
     println("🎅 Part 1: Santa's final floor is $finalFloor.")
+    println("Part 1 runtime: ${formatDuration(part1Duration)}")
 
 
     // --- Part 2: Find First Basement Entry ---
     // Next, we find the exact instruction that causes Santa to enter the basement for the
     // first time and print its position.
-    val basementPosition = findFirstBasementEntryPosition(puzzleInput)
+    val (basementPosition, part2Duration) = measureTimedValue {
+        findFirstBasementEntryPosition(puzzleInput)
+    }
     println("地下 Part 2: Santa first enters the basement at position $basementPosition.")
+    println("Part 2 runtime: ${formatDuration(part2Duration)}")
 }
 
 // ---------------------------------------------------------------------------------------------

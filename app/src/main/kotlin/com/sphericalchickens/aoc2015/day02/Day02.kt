@@ -1,6 +1,8 @@
 package com.sphericalchickens.aoc2015.day02
 
+import com.sphericalchickens.utils.formatDuration
 import com.sphericalchickens.utils.readInputLines
+import kotlin.time.measureTimedValue
 
 /**
  * # Advent of Code 2015, Day 2: I Was Told There Would Be No Math
@@ -37,13 +39,19 @@ fun main() {
     // --- Part 1: Calculate Total Wrapping Paper ---
     // We use the `sumOf` function to iterate through each dimension string,
     // calculate the required paper for that box, and sum the results.
-    val totalWrappingPaper = presentDimensions.sumOf { calculateWrappingPaper(it) }
+    val (totalWrappingPaper, part1Duration) = measureTimedValue {
+        presentDimensions.sumOf { calculateWrappingPaper(it) }
+    }
     println("📜 Part 1 Result: Total wrapping paper needed is $totalWrappingPaper sq. ft.")
+    println("Part 1 runtime: ${formatDuration(part1Duration)}")
 
     // --- Part 2: Calculate Total Ribbon ---
     // Similarly, we calculate the total ribbon needed by summing the requirements for each box.
-    val totalRibbon = presentDimensions.sumOf { calculateRibbonLength(it) }
+    val (totalRibbon, part2Duration) = measureTimedValue {
+        presentDimensions.sumOf { calculateRibbonLength(it) }
+    }
     println("🎀 Part 2 Result: Total ribbon needed is $totalRibbon ft.")
+    println("Part 2 runtime: ${formatDuration(part2Duration)}")
 }
 
 // ---------------------------------------------------------------------------------------------

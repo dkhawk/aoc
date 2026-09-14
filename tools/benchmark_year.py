@@ -34,13 +34,24 @@ def to_ms(val, unit):
     return v
 
 def format_ms(ms):
-    if ms is None:
-        return "N/A"
-    rounded = round(ms)
-    return f"{rounded}ms" if rounded > 0 else f"{ms:.1f}ms"
+    if ms is None or ms == 0.0:
+        return "N/A" if ms is None else "<1ms"
+    if ms < 0.1:
+        return "<1ms"
+    if ms < 10.0:
+        return f"{ms:.1f}ms"
+    return f"{round(ms)}ms"
 
 def get_day_title(year, day):
     day_padded = f"{int(day):02d}"
+    year_readme = os.path.join(KOTLIN_BASE, f"aoc{year}", "README.md")
+    if os.path.exists(year_readme):
+        with open(year_readme, "r", encoding="utf-8") as f:
+            for line in f:
+                m = re.match(r"^\|\s*" + day_padded + r"\s*\|\s*(.*?)\s*\|", line)
+                if m and m.group(1) != "Title":
+                    return m.group(1).strip()
+
     readme_path = os.path.join(KOTLIN_BASE, f"aoc{year}", f"day{day_padded}", "README.md")
     prob_path = os.path.join(PROBLEMS_BASE, str(year), f"day{day_padded}.md")
     
@@ -76,7 +87,7 @@ def run_day_benchmark(year, day, runs=3):
     avg_p1 = (sum(p1_times) / len(p1_times)) if p1_times else None
     avg_p2 = (sum(p2_times) / len(p2_times)) if p2_times else None
     
-    total = (avg_p1 or 0.0) + (avg_p2 or 0.0)
+    total = ((avg_p1 or 0.0) + (avg_p2 or 0.0)) if (avg_p1 is not None or avg_p2 is not None) else None
     return avg_p1, avg_p2, total
 
 def update_individual_readme(year, day, p1_ms, p2_ms, total_ms):

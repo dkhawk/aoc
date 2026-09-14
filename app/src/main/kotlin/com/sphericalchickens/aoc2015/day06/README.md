@@ -20,8 +20,8 @@ Model lights as integer brightness levels where `turn on` increases by 1, `turn 
 
 | Part | Runtime |
 |:---:|:---:|
-| Part 1 | 2908ms |
-| Part 2 | 2257ms |
-| **Total** | **5165ms** |
+| Part 1 | 2936ms |
+| Part 2 | 2308ms |
+| **Total** | **5245ms** |
 
 <img src="day06_art.png" width="400" alt="Day 6 Art" />

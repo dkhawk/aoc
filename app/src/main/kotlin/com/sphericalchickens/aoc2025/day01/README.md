@@ -35,6 +35,14 @@ private fun part1(input: List<String>): Int {
 
 ### Part 2
 
-The second part (implemented as `part2c`) seems to involve counting how many times the dial passes through 0 (or a multiple of 100) during the rotation, effectively counting full rotations or crossings.
+The second part involves counting how many times the dial passes through 0 (or a multiple of 100) during the rotation, effectively counting full rotations or crossings.
+
+## Performance
+
+| Part | Runtime |
+|:---:|:---:|
+| Part 1 | 2ms |
+| Part 2 | 1ms |
+| **Total** | **3ms** |
 
 <img src="day01_art.png" width="400" alt="Day 1 Art" />

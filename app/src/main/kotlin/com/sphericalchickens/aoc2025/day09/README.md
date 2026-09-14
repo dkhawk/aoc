@@ -17,4 +17,12 @@ We find the largest rectangle that can be formed on the grid using two red tiles
 
 Part 2 considers restrictions on tile regions and calculates the maximum area bounding box fitting the decorative constraints.
 
+## Performance
+
+| Part | Runtime |
+|:---:|:---:|
+| Part 1 | 7ms |
+| Part 2 | 1308ms |
+| **Total** | **1315ms** |
+
 <img src="day09_art.png" width="400" alt="Day 9 Art" />

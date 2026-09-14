@@ -11,10 +11,18 @@ Elves are connecting a new server rack to the reactor. Input lines define a dire
 
 ### Part 1
 
-Data flows downstream from device outputs. We count every distinct path from the `you` device label to the reactor `out` connection.
+Data flows downstream from device outputs. We count every distinct path from the `you` device label to the reactor `out` connection using memoized DFS on the DAG.
 
 ### Part 2
 
 Part 2 analyzes multi-branch signal paths and feedback loops to determine total network flow capacity.
+
+## Performance
+
+| Part | Runtime |
+|:---:|:---:|
+| Part 1 | 2ms |
+| Part 2 | 1ms |
+| **Total** | **3ms** |
 
 <img src="day11_art.png" width="400" alt="Day 11 Art" />

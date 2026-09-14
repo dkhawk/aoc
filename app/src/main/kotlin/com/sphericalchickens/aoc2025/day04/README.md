@@ -35,12 +35,20 @@ We return the total count of accessible rolls.
 
 The second part simulates the process of removing accessible rolls. When a roll is removed, it might make its neighbors accessible (by reducing their neighbor count).
 This is efficiently implemented using a queue and an adjacency matrix (mapping rolls to their occupied neighbors).
-1.  Initialize the queue with all initially accessible rolls.
-2.  While the queue is not empty:
-    *   Remove a roll (increment count).
-    *   Update its neighbors: remove the current roll from their list of occupied neighbors.
-    *   If a neighbor's occupied neighbor count drops to 3 (meaning it now has < 4 neighbors), add it to the queue.
+1. Initialize the queue with all initially accessible rolls.
+2. While the queue is not empty:
+   - Remove a roll (increment count).
+   - Update its neighbors: remove the current roll from their list of occupied neighbors.
+   - If a neighbor's occupied neighbor count drops to 3 (meaning it now has < 4 neighbors), add it to the queue.
 
 This cascade effect allows us to count the total number of rolls that can eventually be accessed/removed.
+
+## Performance
+
+| Part | Runtime |
+|:---:|:---:|
+| Part 1 | 7ms |
+| Part 2 | 9ms |
+| **Total** | **16ms** |
 
 <img src="day04_art.png" width="400" alt="Day 4 Art" />

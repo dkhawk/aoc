@@ -1,5 +1,8 @@
 package com.sphericalchickens.aoc2015.day11
 
+import com.sphericalchickens.utils.formatDuration
+import kotlin.time.measureTimedValue
+
 import com.sphericalchickens.utils.readInputLines
 
 /**
@@ -19,13 +22,17 @@ fun main() {
 
 
     // --- Part 1: TBD ---
-    val part1Result = part1(puzzleInput.first())
+    val (part1Result, part1Duration) = measureTimedValue {
+        part1(puzzleInput.first())
+    }
     println("🎁 Part 1: $part1Result")
+    println("Part 1 runtime: ${formatDuration(part1Duration)}")
 
 
     // --- Part 2: TBD ---
-    val part2Result = part1(part1Result)
+    val (part2Result, part2Duration) = measureTimedValue { part1(part1Result) }
     println("🎀 Part 2: $part2Result")
+    println("Part 2 runtime: ${formatDuration(part2Duration)}")
 }
 
 // ---------------------------------------------------------------------------------------------

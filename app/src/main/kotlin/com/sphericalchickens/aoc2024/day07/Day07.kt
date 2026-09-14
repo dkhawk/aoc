@@ -19,15 +19,17 @@ val testInput = """
     292: 11 6 16 20""".trimIndent()
 
 fun main() = runBlocking {
-    val input = readInputLines("inputs/07")
+    val input = readInputLines("aoc2024/day07_input.txt")
 
     check(part1(testInput.lines()) == 3749L)
-    part1(input).println()
+    val (p1, d1) = kotlin.time.measureTimedValue { part1(input) }
+    p1.println()
+    println("Part 1 runtime: ${formatDuration(d1)}")
 
-    measureTime {
-        check(part2(testInput.lines()) == 11387L)
-        part2(input).println()
-    }.println()
+    check(part2(testInput.lines()) == 11387L)
+    val (p2, d2) = kotlin.time.measureTimedValue { part2(input) }
+    p2.println()
+    println("Part 2 runtime: ${formatDuration(d2)}")
 }
 
 fun part1(input: List<String>): Long {

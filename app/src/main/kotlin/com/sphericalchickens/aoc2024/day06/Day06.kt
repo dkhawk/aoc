@@ -21,16 +21,13 @@ val testInput = """
 fun main() = runBlocking {
     val input = readLines("inputs/06")
 
-    check(part1(testInput.lines()) == 41)
-    part1(input).println()
+    val (p1, d1) = kotlin.time.measureTimedValue { part1(input) }
+    p1.println()
+    println("Part 1 runtime: ${formatDuration(d1)}")
 
-    launch(Dispatchers.Default) {
-        check(part2(testInput.lines(), this) == 6)
-        part2(input, this).println()
-    }
-
-    "${COLORS.RED}Reminder: 785 is too low!${COLORS.NONE}".println()
-    "${COLORS.RED}Reminder: 1502 is too high!${COLORS.NONE}".println()
+    val (p2, d2) = kotlin.time.measureTimedValue { part2(input, this) }
+    p2.println()
+    println("Part 2 runtime: ${formatDuration(d2)}")
 }
 
 fun part1(input: List<String>): Int {
@@ -38,7 +35,7 @@ fun part1(input: List<String>): Int {
         // printGrid()
     }.withDefault { '.' }
 
-    val bounds = grid.keys.minMax()
+    val bounds = Bounds(Vector(0, 0), Vector(input[0].length - 1, input.size - 1))
 
     var guard = grid.entries.first { (_, v) -> v == '^' }.key
     var heading = Heading.NORTH

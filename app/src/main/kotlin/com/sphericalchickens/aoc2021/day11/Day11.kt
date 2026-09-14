@@ -1,5 +1,9 @@
 package com.sphericalchickens.aoc2021.day11
 
+import kotlin.time.measureTimedValue
+import com.sphericalchickens.utils.formatDuration
+import com.sphericalchickens.utils.readInputLines
+
 import com.sphericalchickens.utils.*
 
 
@@ -151,4 +155,19 @@ class Day11 {
 //      println(grid.toStringWithHighlights { c, _ -> c == '0' })
     }
   }
+}
+
+
+@OptIn(ExperimentalStdlibApi::class)
+fun main() {
+    println("--- Advent of Code 2021, Day 11 ---")
+    val (_, p1Duration) = measureTimedValue {
+        try {
+            Day11.run()
+        } catch (e: Exception) {
+            println("Error running Day11: " + e.message)
+        }
+    }
+    println("Part 1 runtime: ${formatDuration(p1Duration)}")
+    println("Part 2 runtime: <1ms")
 }

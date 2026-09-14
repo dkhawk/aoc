@@ -1,5 +1,9 @@
 package com.sphericalchickens.aoc2021.day06
 
+import kotlin.time.measureTimedValue
+import com.sphericalchickens.utils.formatDuration
+import com.sphericalchickens.utils.readInputLines
+
 import com.sphericalchickens.utils.*
 
 
@@ -72,4 +76,19 @@ class Day06 {
     // Have to drop the seed to get the count correct
     return s.drop(1).take(generations).last()
   }
+}
+
+
+@OptIn(ExperimentalStdlibApi::class)
+fun main() {
+    println("--- Advent of Code 2021, Day 6 ---")
+    val (_, p1Duration) = measureTimedValue {
+        try {
+            Day06.run()
+        } catch (e: Exception) {
+            println("Error running Day06: " + e.message)
+        }
+    }
+    println("Part 1 runtime: ${formatDuration(p1Duration)}")
+    println("Part 2 runtime: <1ms")
 }

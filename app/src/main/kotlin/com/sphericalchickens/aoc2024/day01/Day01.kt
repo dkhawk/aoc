@@ -6,6 +6,7 @@ import com.sphericalchickens.utils.*
 import com.sphericalchickens.utils.println
 import com.sphericalchickens.utils.readLines
 import kotlin.math.abs
+import kotlin.time.measureTimedValue
 
 val testInput = """
     3   4
@@ -26,10 +27,14 @@ fun main() {
 //    val testInput = readInput("inputs/01_test")
 //    check(part1(testInput) == 1)
 
-    // Read the input from the `src/Day01.txt` file.
-    val input = parseInput(readLines("inputs/01"))
-    part1(input).println()
-    part2(input).println()
+    // Read the input from the resources directory
+    val input = parseInput(readInputLines("aoc2024/day01_input.txt"))
+    val (p1, d1) = measureTimedValue { part1(input) }
+    p1.println()
+    println("Part 1 runtime: ${formatDuration(d1)}")
+    val (p2, d2) = measureTimedValue { part2(input) }
+    p2.println()
+    println("Part 2 runtime: ${formatDuration(d2)}")
 }
 
 fun parseInput(input: List<String>): List<Pair<Int, Int>> {

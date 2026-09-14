@@ -29,8 +29,12 @@ fun main() {
     val input = readLines("inputs/14")
 
     val realAreaSize = Vector(101, 103)
-    part1(input, realAreaSize).println()
-    part2(input, realAreaSize).println()
+    val (p1, d1) = kotlin.time.measureTimedValue { part1(input, realAreaSize) }
+    p1.println()
+    println("Part 1 runtime: ${formatDuration(d1)}")
+    val (p2, d2) = kotlin.time.measureTimedValue { part2(input, realAreaSize) }
+    p2.println()
+    println("Part 2 runtime: ${formatDuration(d2)}")
 }
 
 data class Robot(

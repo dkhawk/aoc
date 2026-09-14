@@ -48,10 +48,12 @@ fun main() {
     // Read the input from the `src/Day01.txt` file.
     val input = readText("inputs/05").lines()
 
-    measureTime {
-        part1(input).println()
-        part2(input).println()
-    }.println()
+    val (p1, d1) = kotlin.time.measureTimedValue { part1(input) }
+    p1.println()
+    println("Part 1 runtime: ${formatDuration(d1)}")
+    val (p2, d2) = kotlin.time.measureTimedValue { part2(input) }
+    p2.println()
+    println("Part 2 runtime: ${formatDuration(d2)}")
 }
 
 fun part1(input: List<String>): Int {
@@ -149,7 +151,7 @@ fun <E> List<E>.middle(): E {
 }
 
 fun parseRules(input: List<String>) = input.takeWhile { it.isNotBlank() }.map { it.split("|").map(String::toInt).toPair() }
-fun parseUpdates(input: List<String>)= input.dropWhile { it.isNotBlank() }.drop(1).map { it.split(",").map(String::toInt) }
+fun parseUpdates(input: List<String>)= input.dropWhile { it.isNotBlank() }.drop(1).filter { it.isNotBlank() }.map { it.split(",").map(String::toInt) }
 
 private fun <E> List<E>.toPair(): Pair<E, E> {
     return this[0] to this[1]

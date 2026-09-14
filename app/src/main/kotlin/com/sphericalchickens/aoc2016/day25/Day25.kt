@@ -174,6 +174,7 @@ private sealed interface Command {
         override fun invoke(computer: Computer) {
             val v = arg.resolve(computer)
             computer.output(v)
+            computer.pc += 1
         }
 
         override fun toggle(): Command {
@@ -221,7 +222,7 @@ private fun part1(input: List<String>): Int {
 //
 //    return (target - 2532)
 
-    for (i in 10922.. 109220) {
+    for (i in 0.. 1000) {
 //        val a = i
 //        val d = a + 2532
 //

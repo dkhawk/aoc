@@ -9,6 +9,8 @@ import java.io.File
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.measureTime
+import kotlin.time.measureTimedValue
+import com.sphericalchickens.utils.formatDuration
 
 val testInput = """
     x00: 1
@@ -79,14 +81,9 @@ fun main() {
 //    check(part2(testInput) == 0)
 
     val input = readLines("inputs/24")
-//    part1(input).println()
-    part2(input).println()
-//    part2b(input).println()
-
-    val input2 = readLines("inputs/24-fix1")
-//    graph(input2)
-
-//    part2b(input)
+    val (p1, d1) = measureTimedValue { part1(input) }
+    p1.println()
+    println("Part 1 runtime: ${formatDuration(d1)}")
 }
 
 sealed interface Gate {

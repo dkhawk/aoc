@@ -11,7 +11,7 @@ fun main() {
     // --- Development Workflow Control Panel ---
     // Set these flags to control which parts of the solution to run.
     val runPart1Tests = false
-    val runPart1Solution = false
+    val runPart1Solution = true
     val runPart2Tests = false
     val runPart2Solution = true
     // ----------------------------------------
@@ -103,12 +103,6 @@ private fun String.toGenerator(): String {
 }
 
 private fun part1(input: List<String>): Int {
-    /*
-    Max elevator capacity = 2 items
-    Min elevator load = 1 item
-    Elevator stops at every floor
-     */
-
     val elevator = 0
     val floors = input.map { parseLine(it) }
     val state = State(elevator, floors)
@@ -116,31 +110,37 @@ private fun part1(input: List<String>): Int {
     return solve(state)
 }
 
+private fun State.canonical(): Pair<Int, List<Pair<Int, Int>>> {
+    val elements = floors.flatMap { it.objects.map { obj -> obj.first() } }.distinct()
+    val pairs = elements.map { el ->
+        val g = floors.indexOfFirst { it.objects.contains("${el}G") }
+        val m = floors.indexOfFirst { it.objects.contains("${el}M") }
+        g to m
+    }.sortedWith(compareBy({ it.first }, { it.second }))
+    return elevatorFloor to pairs
+}
+
 private fun solve(state: State): Int {
-    //  No loops!
-    val visited = mutableSetOf(state)
-
-    val work = PriorityQueue<Pair<State, Int>>(compareBy { it.second })
-
-    work.addAll(state.nextMoves(visited, work).map { it to 1 })
+    val visited = mutableSetOf(state.canonical())
+    val work = ArrayDeque<Pair<State, Int>>()
+    work.add(state to 0)
 
     while (work.isNotEmpty()) {
-        val nextState = work.poll()
+        val (currentState, dist) = work.removeFirst()
 
-        if (nextState.first.isSuccess()) {
-            render(nextState.first).println()
-            return nextState.second
+        if (currentState.isSuccess()) {
+            return dist
         }
 
-        val nextMoves = nextState.first.nextMoves(visited, work).map { it to nextState.second + 1 }
-        val s = nextMoves.firstOrNull { it.first.isSuccess() }
-
-        if (s != null) {
-            return s.second
+        for (next in currentState.nextMoves()) {
+            val code = next.canonical()
+            if (visited.add(code)) {
+                if (next.isSuccess()) {
+                    return dist + 1
+                }
+                work.add(next to dist + 1)
+            }
         }
-
-        work.addAll(nextMoves)
-//        "There are ${work.size} items in the queue".println()
     }
 
     return -1
@@ -172,7 +172,7 @@ private fun State.code(): String {
     }.joinToString(";")
 }
 
-private fun State.nextMoves(visited: MutableSet<State>, work: PriorityQueue<Pair<State, Int>>): List<State> {
+private fun State.nextMoves(): List<State> {
     val floor = floors[elevatorFloor]
 
     val cargoOptions = buildList {
@@ -210,11 +210,8 @@ private fun State.nextMoves(visited: MutableSet<State>, work: PriorityQueue<Pair
                 }
                 val proposedState = State(nextFloor, newFloors)
 
-                if (!visited.contains(proposedState)) {
-                    visited.add(proposedState)
-                    if (proposedState.isValid()) {
-                        add(proposedState)
-                    }
+                if (proposedState.isValid()) {
+                    add(proposedState)
                 }
             }
         }
@@ -222,68 +219,13 @@ private fun State.nextMoves(visited: MutableSet<State>, work: PriorityQueue<Pair
 }
 
 private fun part2(input: List<String>): Int {
-    /*
-    Max elevator capacity = 2 items
-    Min elevator load = 1 item
-    Elevator stops at every floor
-     */
-
-    /*
-    An elerium generator.
-An elerium-compatible microchip.
-A dilithium generator.
-A dilithium-compatible microchip.
-     */
-
     val elevator = 0
     val floors = input.map { parseLine(it) }
 
     floors[0].objects.addAll(listOf("EG", "EM", "DG", "DM"))
 
     val state = State(elevator, floors)
-
-    render(state).println()
-
-    // The important realization here is that it doesn't matter which of the pairs are moved first -- the answer is the same.
-
-    //  No loops!
-    val visited = mutableSetOf(state)
-
-    val visitedByCode = mutableSetOf<String>()
-
-    visitedByCode.add(state.code())
-
-    val work = PriorityQueue<Pair<State, Int>>(compareBy { it.second })
-
-    work.addAll(state.nextMoves(visited, work).map { it to 1 })
-
-    while (work.isNotEmpty()) {
-        val nextState = work.poll()
-
-        if (nextState.first.isSuccess()) {
-            render(nextState.first).println()
-            return nextState.second
-        }
-
-        val nextMoves = nextState.first.nextMoves(visited, work).map { it to nextState.second + 1 }
-
-        val s = nextMoves.firstOrNull { it.first.isSuccess() }
-        if (s != null) {
-            return s.second
-        }
-
-        val n = nextMoves.filterNot { visitedByCode.contains(it.first.code()) }
-
-        visitedByCode.addAll(n.map { it.first.code() })
-
-        // Prune all redundant moves
-//        val m = nextMoves.associateBy { it.first.code() }
-        work.addAll(n)
-
-//        "There are ${work.size} items in the queue".println()
-    }
-
-    return -1
+    return solve(state)
 }
 
 private val MicroChipRegex = Regex("""(\w+)-compatible microchip""")

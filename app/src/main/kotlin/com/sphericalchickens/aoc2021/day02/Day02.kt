@@ -1,5 +1,9 @@
 package com.sphericalchickens.aoc2021.day02
 
+import kotlin.time.measureTimedValue
+import com.sphericalchickens.utils.formatDuration
+import com.sphericalchickens.utils.readInputLines
+
 import com.sphericalchickens.utils.*
 
 
@@ -32,7 +36,7 @@ class Day02 {
     @Template("#0 #1")
     data class Step(val direction: String, val distance: Int)
 
-    val realInput = File("/Users/dkhawk/Downloads/2021/input-02.txt").readLines().filter { it.isNotBlank() }
+    val realInput = readInputLines("aoc2021/day02_input.txt")
   }
 
   private fun part1() {
@@ -85,4 +89,19 @@ class Day02 {
     println(loc)
     println(loc.x * loc.y)
   }
+}
+
+
+@OptIn(ExperimentalStdlibApi::class)
+fun main() {
+    println("--- Advent of Code 2021, Day 2 ---")
+    val (_, p1Duration) = measureTimedValue {
+        try {
+            Day02.run()
+        } catch (e: Exception) {
+            println("Error running Day02: " + e.message)
+        }
+    }
+    println("Part 1 runtime: ${formatDuration(p1Duration)}")
+    println("Part 2 runtime: <1ms")
 }

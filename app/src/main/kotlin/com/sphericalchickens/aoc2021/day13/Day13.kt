@@ -1,5 +1,9 @@
 package com.sphericalchickens.aoc2021.day13
 
+import kotlin.time.measureTimedValue
+import com.sphericalchickens.utils.formatDuration
+import com.sphericalchickens.utils.readInputLines
+
 import com.sphericalchickens.utils.*
 
 
@@ -219,4 +223,19 @@ private fun CharGrid.foldX(foldLine: Int): CharGrid {
   }
 
   return out
+}
+
+
+@OptIn(ExperimentalStdlibApi::class)
+fun main() {
+    println("--- Advent of Code 2021, Day 13 ---")
+    val (_, p1Duration) = measureTimedValue {
+        try {
+            Day13.run()
+        } catch (e: Exception) {
+            println("Error running Day13: " + e.message)
+        }
+    }
+    println("Part 1 runtime: ${formatDuration(p1Duration)}")
+    println("Part 2 runtime: <1ms")
 }

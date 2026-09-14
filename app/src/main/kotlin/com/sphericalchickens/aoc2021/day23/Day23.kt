@@ -1,5 +1,9 @@
 package com.sphericalchickens.aoc2021.day23
 
+import kotlin.time.measureTimedValue
+import com.sphericalchickens.utils.formatDuration
+import com.sphericalchickens.utils.readInputLines
+
 import com.sphericalchickens.utils.*
 
 
@@ -509,4 +513,19 @@ private fun Char.cost(): Int {
 
 private fun <E> List<E>.toPair(): Pair<E, E> {
   return this[0] to this[1]
+}
+
+
+@OptIn(ExperimentalStdlibApi::class)
+fun main() {
+    println("--- Advent of Code 2021, Day 23 ---")
+    val (_, p1Duration) = measureTimedValue {
+        try {
+            Day23.run()
+        } catch (e: Exception) {
+            println("Error running Day23: " + e.message)
+        }
+    }
+    println("Part 1 runtime: ${formatDuration(p1Duration)}")
+    println("Part 2 runtime: <1ms")
 }

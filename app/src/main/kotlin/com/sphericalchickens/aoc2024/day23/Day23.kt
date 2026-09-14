@@ -42,24 +42,16 @@ private val testInput = """
 """.trimIndent().lines()
 
 fun main() {
-//    val a = sortedSetOf("ab", "bc", "ac")
-//    val b = sortedSetOf("ab", "bc", "ac")
-//
-//    (a == b).println()
-//    TODO()
-
-//    val input = readLines("inputs/23")
-//    wtf(input)
-//
-//    TODO()
-//
-//    check(part1(testInput) == 7)
+    check(part1(testInput) == 7)
     check(part2(testInput) == "co,de,ka,ta")
-//
+
     val input = readLines("inputs/23")
-//    part1(input).println()
-    part2(input).println()
-//    // 2462 is too high
+    val (p1, d1) = kotlin.time.measureTimedValue { part1(input) }
+    p1.println()
+    println("Part 1 runtime: ${formatDuration(d1)}")
+    val (p2, d2) = kotlin.time.measureTimedValue { part2(input) }
+    p2.println()
+    println("Part 2 runtime: ${formatDuration(d2)}")
 }
 
 //typealias Triad =

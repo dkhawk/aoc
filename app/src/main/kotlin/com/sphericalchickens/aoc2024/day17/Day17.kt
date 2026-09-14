@@ -32,30 +32,10 @@ val testInput3 = """
 """.trimIndent().lines()
 
 fun main() {
-//    check(part1(testInput) == "4,6,3,5,6,3,5,2,1,0")
-//    check(part1(testInput2) == "0,3,5,4,3,0")
-//    check(part2(testInput2) == "0,3,5,4,3,0")
-//    part2(testInput2)
-//    "Corrected A is 117440".println()
-//
-//    println()
-//    println()
-//
     val input = readLines("inputs/17")
-
-    // This stuff actually works.  Don't mess it up!
-//    "vvvvv".println()
-//    part1(testInput3, "4676315400155301").println()
-//    "2,4,1,2,7,5,4,5,1,3,5,5,0,3,3,0".println()
-//    "^^^^^".println()
-
-//
-//    part2(input).println()
-//    "Corrected A is ?????".println()
-
-
-//    part2b(input)
-
+    val (p1, d1) = kotlin.time.measureTimedValue { part1(input) }
+    p1.println()
+    println("Part 1 runtime: ${formatDuration(d1)}")
 }
 
 private fun part1(input: List<String>, replacementA: String? = null): String {

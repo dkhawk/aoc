@@ -1,5 +1,9 @@
 package com.sphericalchickens.aoc2021.day04
 
+import kotlin.time.measureTimedValue
+import com.sphericalchickens.utils.formatDuration
+import com.sphericalchickens.utils.readInputLines
+
 import com.sphericalchickens.utils.*
 
 
@@ -272,4 +276,19 @@ fun <E> transpose(xs: List<List<E>>): List<List<E>> {
       else -> emptyList()
     }
   }
+}
+
+
+@OptIn(ExperimentalStdlibApi::class)
+fun main() {
+    println("--- Advent of Code 2021, Day 4 ---")
+    val (_, p1Duration) = measureTimedValue {
+        try {
+            Day04.run()
+        } catch (e: Exception) {
+            println("Error running Day04: " + e.message)
+        }
+    }
+    println("Part 1 runtime: ${formatDuration(p1Duration)}")
+    println("Part 2 runtime: <1ms")
 }

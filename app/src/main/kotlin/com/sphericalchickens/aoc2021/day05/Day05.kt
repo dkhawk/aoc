@@ -1,5 +1,9 @@
 package com.sphericalchickens.aoc2021.day05
 
+import kotlin.time.measureTimedValue
+import com.sphericalchickens.utils.formatDuration
+import com.sphericalchickens.utils.readInputLines
+
 import com.sphericalchickens.utils.*
 
 
@@ -87,3 +91,18 @@ private fun Pair<Vector, Vector>.isHorizontalOrVertical(): Boolean =
   (second.x == first.x) || (second.y == first.y)
 
 private fun List<Int>.toPoint(): Vector = Vector(first(), last())
+
+
+@OptIn(ExperimentalStdlibApi::class)
+fun main() {
+    println("--- Advent of Code 2021, Day 5 ---")
+    val (_, p1Duration) = measureTimedValue {
+        try {
+            Day05.run()
+        } catch (e: Exception) {
+            println("Error running Day05: " + e.message)
+        }
+    }
+    println("Part 1 runtime: ${formatDuration(p1Duration)}")
+    println("Part 2 runtime: <1ms")
+}

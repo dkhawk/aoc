@@ -2,6 +2,7 @@ package com.sphericalchickens.aoc2018.day13
 
 import com.sphericalchickens.utils.*
 import kotlin.time.measureTimedValue
+import com.sphericalchickens.utils.formatDuration
 
 
 import com.sphericalchickens.aoc2018.day13.Day.Cart.Companion.cartSymbolToHeading
@@ -259,7 +260,13 @@ fun main() {
     solver.useRealData = true
     try { solver.initialize() } catch (e: Exception) {}
     println("Solving Part 1:")
-    try { solver.part1() } catch (e: Exception) { println("Part 1: " + e.message) }
+    val (_, p1Duration) = measureTimedValue {
+        try { solver.part1() } catch (e: Exception) { println("Part 1: " + e.message) }
+    }
+    println("Part 1 runtime: ${formatDuration(p1Duration)}")
     println("Solving Part 2:")
-    try { solver.part2() } catch (e: Exception) { println("Part 2: " + e.message) }
+    val (_, p2Duration) = measureTimedValue {
+        try { solver.part2() } catch (e: Exception) { println("Part 2: " + e.message) }
+    }
+    println("Part 2 runtime: ${formatDuration(p2Duration)}")
 }

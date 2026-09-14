@@ -32,20 +32,13 @@ fun main() {
     check(part2(testInput, 70) == (12 + 22 + 4 + 3))
 
     val input = readLines("inputs/20")
-    part1(input, 100).println()
-//    measureTime {
-//        part2(input, 100).println()  // 693.109250ms
-//    }.println()
+    val (p1, d1) = kotlin.time.measureTimedValue { part1(input, 100) }
+    p1.println()
+    println("Part 1 runtime: ${formatDuration(d1)}")
 
-    measureTime {
-        part2b(input, 100).println()  // 342.174458ms
-        // should be 988931
-    }.println()
-
-//    measureTime {
-//        part2c(input, 100).println()  // 339.796375ms
-//        // should be 988931
-//    }.println()
+    val (p2, d2) = kotlin.time.measureTimedValue { part2b(input, 100) }
+    p2.println()
+    println("Part 2 runtime: ${formatDuration(d2)}")
 }
 
 private fun part1(input: List<String>, target: Int): Int {

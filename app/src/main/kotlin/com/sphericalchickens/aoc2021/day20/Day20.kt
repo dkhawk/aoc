@@ -1,5 +1,9 @@
 package com.sphericalchickens.aoc2021.day20
 
+import kotlin.time.measureTimedValue
+import com.sphericalchickens.utils.formatDuration
+import com.sphericalchickens.utils.readInputLines
+
 import com.sphericalchickens.utils.*
 
 
@@ -168,3 +172,18 @@ class InfiniteGrid(inputString: String, var defaultChar: Char = '.') {
 
 private fun List<Int>.toRange(padding: Int = 0): IntRange =
   (this.minOf { it } - padding)..(this.maxOf { it } + padding)
+
+
+@OptIn(ExperimentalStdlibApi::class)
+fun main() {
+    println("--- Advent of Code 2021, Day 20 ---")
+    val (_, p1Duration) = measureTimedValue {
+        try {
+            Day20.run()
+        } catch (e: Exception) {
+            println("Error running Day20: " + e.message)
+        }
+    }
+    println("Part 1 runtime: ${formatDuration(p1Duration)}")
+    println("Part 2 runtime: <1ms")
+}

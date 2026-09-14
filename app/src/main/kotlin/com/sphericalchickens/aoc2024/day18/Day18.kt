@@ -38,8 +38,12 @@ fun main() {
     check(part2(testInput) == Vector(6, 1))
 
     val input = readLines("inputs/18")
-    part1(input).println()
-    part2(input).println()
+    val (p1, d1) = kotlin.time.measureTimedValue { part1(input) }
+    p1.println()
+    println("Part 1 runtime: ${formatDuration(d1)}")
+    val (p2, d2) = kotlin.time.measureTimedValue { part2(input) }
+    p2.println()
+    println("Part 2 runtime: ${formatDuration(d2)}")
 }
 
 private fun part1(

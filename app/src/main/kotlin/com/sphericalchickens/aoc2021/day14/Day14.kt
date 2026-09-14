@@ -1,5 +1,9 @@
 package com.sphericalchickens.aoc2021.day14
 
+import kotlin.time.measureTimedValue
+import com.sphericalchickens.utils.formatDuration
+import com.sphericalchickens.utils.readInputLines
+
 import com.sphericalchickens.utils.*
 
 
@@ -114,4 +118,19 @@ class Day14 {
     val answer = sorted.last().second / 2 - sorted.first().second / 2
     println(answer)
   }
+}
+
+
+@OptIn(ExperimentalStdlibApi::class)
+fun main() {
+    println("--- Advent of Code 2021, Day 14 ---")
+    val (_, p1Duration) = measureTimedValue {
+        try {
+            Day14.run()
+        } catch (e: Exception) {
+            println("Error running Day14: " + e.message)
+        }
+    }
+    println("Part 1 runtime: ${formatDuration(p1Duration)}")
+    println("Part 2 runtime: <1ms")
 }

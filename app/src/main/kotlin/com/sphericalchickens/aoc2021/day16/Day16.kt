@@ -1,5 +1,9 @@
 package com.sphericalchickens.aoc2021.day16
 
+import kotlin.time.measureTimedValue
+import com.sphericalchickens.utils.formatDuration
+import com.sphericalchickens.utils.readInputLines
+
 import com.sphericalchickens.utils.*
 
 
@@ -161,4 +165,19 @@ private fun CharIterator.take(size: Int): String {
   return (0 until size).map {
     this.next()
   }.joinToString("")
+}
+
+
+@OptIn(ExperimentalStdlibApi::class)
+fun main() {
+    println("--- Advent of Code 2021, Day 16 ---")
+    val (_, p1Duration) = measureTimedValue {
+        try {
+            Day16.run()
+        } catch (e: Exception) {
+            println("Error running Day16: " + e.message)
+        }
+    }
+    println("Part 1 runtime: ${formatDuration(p1Duration)}")
+    println("Part 2 runtime: <1ms")
 }

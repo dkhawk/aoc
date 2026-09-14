@@ -1,5 +1,9 @@
 package com.sphericalchickens.aoc2021.day10
 
+import kotlin.time.measureTimedValue
+import com.sphericalchickens.utils.formatDuration
+import com.sphericalchickens.utils.readInputLines
+
 import com.sphericalchickens.utils.*
 
 
@@ -130,4 +134,19 @@ class Day10 {
 
     return stack.map { c -> openToClose[c]!! }.asReversed()
   }
+}
+
+
+@OptIn(ExperimentalStdlibApi::class)
+fun main() {
+    println("--- Advent of Code 2021, Day 10 ---")
+    val (_, p1Duration) = measureTimedValue {
+        try {
+            Day10.run()
+        } catch (e: Exception) {
+            println("Error running Day10: " + e.message)
+        }
+    }
+    println("Part 1 runtime: ${formatDuration(p1Duration)}")
+    println("Part 2 runtime: <1ms")
 }

@@ -11,7 +11,7 @@ fun main() {
     val runPart1Tests = false
     val runPart1Solution = true
     val runPart2Tests = false
-    val runPart2Solution = false
+    val runPart2Solution = true
     // ----------------------------------------
 
     println("--- Advent of Code 2016, Day 08 ---")
@@ -126,7 +126,11 @@ private fun String.toCommand() : Command {
 }
 
 private fun part2(input: List<String>): String {
-    return ""
+    val screen = Screen(50, 6)
+    input.forEach { line ->
+        line.toCommand().apply(screen)
+    }
+    return "\n" + screen.toString()
 }
 
 private sealed interface Command {

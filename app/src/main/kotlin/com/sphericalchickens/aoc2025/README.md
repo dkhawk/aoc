@@ -7,18 +7,18 @@ Here you can find the solutions, explanations, and art for each day.
 
 | Day | Title | Runtime | Links |
 |:---:|:---|:--------|:---|
-| 01 | Secret Entrance | 23ms | [Readme](day01/README.md) / [Code](day01/Day01.kt) |
-| 02 | Gift Shop | 414ms | [Readme](day02/README.md) / [Code](day02/Day02.kt) |
-| 03 | Lobby | 4ms | [Readme](day03/README.md) / [Code](day03/Day03.kt) |
-| 04 | Printing Department | 24ms | [Readme](day04/README.md) / [Code](day04/Day04.kt) |
-| 05 | Cafeteria | 9ms | [Readme](day05/README.md) / [Code](day05/Day05.kt) |
-| 06 | Trash Compactor | 5ms | [Readme](day06/README.md) / [Code](day06/Day06.kt) |
-| 07 | Laboratories | 4ms | [Readme](day07/README.md) / [Code](day07/Day07.kt) |
-| 08 | Playground | 318ms | [Readme](day08/README.md) / [Code](day08/Day08.kt) |
-| 09 | Movie Theater | 1320ms | [Readme](day09/README.md) / [Code](day09/Day09.kt) |
-| 10 | Factory | 749ms | [Readme](day10/README.md) / [Code](day10/Day10.kt) |
-| 11 | Reactor | 3ms | [Readme](day11/README.md) / [Code](day11/Day11.kt) |
-| 12 | Christmas Tree Farm | 425ms | [Readme](day12/README.md) / [Code](day12/Day12.kt) |
+| 01 | Secret Entrance | 2ms | [Readme](day01/README.md) / [Code](day01/Day01.kt) |
+| 02 | Gift Shop | 397ms | [Readme](day02/README.md) / [Code](day02/Day02.kt) |
+| 03 | Lobby | 1ms | [Readme](day03/README.md) / [Code](day03/Day03.kt) |
+| 04 | Printing Department | 16ms | [Readme](day04/README.md) / [Code](day04/Day04.kt) |
+| 05 | Cafeteria | 5ms | [Readme](day05/README.md) / [Code](day05/Day05.kt) |
+| 06 | Trash Compactor | 7ms | [Readme](day06/README.md) / [Code](day06/Day06.kt) |
+| 07 | Laboratories | 7ms | [Readme](day07/README.md) / [Code](day07/Day07.kt) |
+| 08 | Playground | 339ms | [Readme](day08/README.md) / [Code](day08/Day08.kt) |
+| 09 | Movie Theater | 1329ms | [Readme](day09/README.md) / [Code](day09/Day09.kt) |
+| 10 | Factory | 913ms | [Readme](day10/README.md) / [Code](day10/Day10.kt) |
+| 11 | Reactor | 2ms | [Readme](day11/README.md) / [Code](day11/Day11.kt) |
+| 12 | Christmas Tree Farm | 389ms | [Readme](day12/README.md) / [Code](day12/Day12.kt) |
 
 ## Gallery
 

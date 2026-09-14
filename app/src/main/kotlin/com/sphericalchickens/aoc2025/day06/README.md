@@ -13,16 +13,24 @@ The input is given in a strange format: vertical columns of numbers with an oper
 ### Part 1
 
 For Part 1, we treat the input as if it were simply "unrolled". We tackle the vertical structure by transposing the input grid, turning columns into rows.
-*   We identify the operator at the end of each row (`+` or `*`).
-*   We parse the numbers in the row.
-*   We apply the operator to the list of numbers (starting with 0 for addition, 1 for multiplication).
-*   The answer is the sum of all individual problem results.
+* We identify the operator at the end of each row (`+` or `*`).
+* We parse the numbers in the row.
+* We apply the operator to the list of numbers (starting with 0 for addition, 1 for multiplication).
+* The answer is the sum of all individual problem results.
 
 ### Part 2
 
 Part 2 clarifies that the vertical columns are digits of single numbers, written right-to-left.
-*   **Parsing**: We find the start and width of each number by scanning the operator line for non-space characters.
-*   **Construction**: We extract the vertical digits for each number and form the full integer value.
-*   **Calculation**: We pair the constructed numbers with their operators and compute the results just like in Part 1.
+* **Parsing**: We find the start and width of each number by scanning the operator line for non-space characters.
+* **Construction**: We extract the vertical digits for each number and form the full integer value.
+* **Calculation**: We pair the constructed numbers with their operators and compute the results just like in Part 1.
+
+## Performance
+
+| Part | Runtime |
+|:---:|:---:|
+| Part 1 | 3ms |
+| Part 2 | 4ms |
+| **Total** | **7ms** |
 
 <img src="day06_art.png" width="400" alt="Day 6 Art" />

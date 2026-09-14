@@ -17,4 +17,12 @@ We model present packing into 2D unit grids for each Christmas tree region.
 
 Part 2 computes optimal polyomino placement configurations across all regions to ensure all presents fit under the trees before Christmas.
 
+## Performance
+
+| Part | Runtime |
+|:---:|:---:|
+| Part 1 | 389ms |
+| Part 2 | N/A |
+| **Total** | **389ms** |
+
 <img src="day12_art.png" width="400" alt="Day 12 Art" />

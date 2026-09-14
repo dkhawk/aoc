@@ -19,4 +19,12 @@ When two junction boxes are connected, they form a unified circuit. We determine
 
 Part 2 finds the final connection that completes the minimum spanning network such that electricity can reach every single junction box.
 
+## Performance
+
+| Part | Runtime |
+|:---:|:---:|
+| Part 1 | 171ms |
+| Part 2 | 167ms |
+| **Total** | **339ms** |
+
 <img src="day08_art.png" width="400" alt="Day 8 Art" />

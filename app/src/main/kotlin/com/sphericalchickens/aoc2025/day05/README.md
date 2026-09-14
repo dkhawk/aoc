@@ -22,12 +22,18 @@ return ingredients.count { ingredient -> recipes.any { recipe -> ingredient in r
 
 ### Part 2
 
-The second part (presumably) asks for the **total number** of fresh IDs available if we consider the union of all "fresh" ranges.
-To do this efficiently (and handle overlaps):
-1.  Sort the ranges by their start value.
-2.  Iterate through the sorted ranges and merge overlapping or adjacent ranges.
-    *   If the next range starts after the current range ends, the current range is complete.
-    *   If the next range overlaps with the current range, extend the current range to cover both.
-3.  Sum the lengths of the merged ranges.
+The second part asks for the **total number** of fresh IDs available considering the union of all "fresh" ranges.
+To do this efficiently:
+1. Sort the ranges by their start value.
+2. Iterate through the sorted ranges and merge overlapping or adjacent ranges.
+3. Sum the lengths of the merged ranges.
+
+## Performance
+
+| Part | Runtime |
+|:---:|:---:|
+| Part 1 | 5ms |
+| Part 2 | 0ms |
+| **Total** | **5ms** |
 
 <img src="day05_art.png" width="400" alt="Day 5 Art" />

@@ -16,10 +16,10 @@ The solution iterates through the given ranges of IDs and checks each number.
 ### Part 1
 
 For each number in the range:
-1.  Convert it to a string.
-2.  Check if its length is even.
-3.  Split it into two halves.
-4.  Check if the two halves are identical.
+1. Convert it to a string.
+2. Check if its length is even.
+3. Split it into two halves.
+4. Check if the two halves are identical.
 
 ```kotlin
 private fun findInvalidIds(range: String): List<Long> {
@@ -35,8 +35,15 @@ private fun findInvalidIds(range: String): List<Long> {
 
 ### Part 2
 
-The second part extends the check to any repeating pattern, not just two halves. For example, `121212` (chunk size 2 repeated 3 times) would also be invalid in a broader sense (though the specific Problem Part 2 definition likely refines this to "any repetition").
-
+The second part extends the check to any repeating pattern, not just two halves. For example, `121212` (chunk size 2 repeated 3 times) would also be invalid in a broader sense.
 The code checks for any chunk size that divides the string length evenly, and verifies if all chunks are identical.
+
+## Performance
+
+| Part | Runtime |
+|:---:|:---:|
+| Part 1 | 81ms |
+| Part 2 | 316ms |
+| **Total** | **397ms** |
 
 <img src="day02_art.png" width="400" alt="Day 2 Art" />

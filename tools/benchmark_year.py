@@ -76,8 +76,8 @@ def run_day_benchmark(year, day, runs=3):
         res = subprocess.run(cmd, cwd=PROJECT_ROOT, capture_output=True, text=True)
         out = res.stdout
         
-        p1_m = re.search(r"Part 1 runtime:\s*([\d\.]+)(ms|µs|s|ns)", out)
-        p2_m = re.search(r"Part 2 runtime:\s*([\d\.]+)(ms|µs|s|ns)", out)
+        p1_m = re.search(r"Part 1 runtime:\s*([\d\.]+)\s*(ms|µs|s|ns)", out)
+        p2_m = re.search(r"Part 2 runtime:\s*([\d\.]+)\s*(ms|µs|s|ns)", out)
         
         if p1_m:
             p1_times.append(to_ms(p1_m.group(1), p1_m.group(2)))

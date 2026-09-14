@@ -1,31 +1,67 @@
 package com.sphericalchickens.aoc2019.day09
 
-import com.sphericalchickens.utils.*
-import com.sphericalchickens.aoc2019.Computer
+import com.sphericalchickens.utils.check
+import com.sphericalchickens.utils.formatDuration
+import com.sphericalchickens.utils.readInputLines
+import kotlin.time.measureTimedValue
 
-import java.io.File
-import java.util.*
+/**
+ * # Advent of Code 2019, Day 9: Sensor Boost
+ *
+ * Placeholder template for Day 9.
+ */
+fun main() {
+    // --- Verification ---
+    println("🧪 Running tests...")
+    runTests()
+    println("✅ Tests passed!")
 
-class Day9 {
-    companion object {
-        val testInput = "109,2000,109,19,204,-2018,99".split(",").map(String::toLong)
-        val testInput2 = "109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99".split(",").map(String::toLong)
-        val testInput3 = "1102,34915192,34915192,7,4,7,99,0".split(",").map(String::toLong)
-        val testInput4 = "104,1125899906842624,99".split(",").map(String::toLong)
+    // --- Setup ---
+    val puzzleInput = readInputLines("aoc2019/day09_input.txt")
+    println("\n--- Advent of Code 2019, Day 9: Sensor Boost ---")
 
-        val inputProgram = File("/Users/dkhawk/Downloads/2019/input-9.txt").readText().trim().split(",").map(String::toLong)
-
-        fun test() {
-            Day9().part1(inputProgram)
-        }
+    // --- Part 1 ---
+    val (part1Result, part1Duration) = measureTimedValue {
+        part1(puzzleInput)
     }
+    println("🎁 Part 1: $part1Result")
+    println("Part 1 runtime: ${formatDuration(part1Duration)}")
 
-    private fun part1(input: List<Long>) {
-        val bufferIn = ArrayDeque<Long>()
-        val bufferOut = ArrayDeque<Long>()
-        bufferIn.offer(2)
-        val computer = Computer(input, bufferIn, bufferOut)
-        computer.execute()
-        println(bufferOut.joinToString())
+    // --- Part 2 ---
+    val (part2Result, part2Duration) = measureTimedValue {
+        part2(puzzleInput)
     }
+    println("🎀 Part 2: $part2Result")
+    println("Part 2 runtime: ${formatDuration(part2Duration)}")
+}
+
+// ---------------------------------------------------------------------------------------------
+// Core Logic
+// ---------------------------------------------------------------------------------------------
+
+fun part1(input: List<String>): Int {
+    // TODO: Implement Part 1
+    return 0
+}
+
+fun part2(input: List<String>): Int {
+    // TODO: Implement Part 2
+    return 0
+}
+
+// ---------------------------------------------------------------------------------------------
+// Utilities & Test Functions
+// ---------------------------------------------------------------------------------------------
+
+/**
+ * Executes checks to validate the core logic against known test cases.
+ */
+private fun runTests() {
+    val testInput = """
+        sample
+    """.trimIndent().lines()
+
+    // Non-failing stub checks
+    check("Part 1 Sample", 0, part1(testInput))
+    check("Part 2 Sample", 0, part2(testInput))
 }

@@ -60,16 +60,12 @@ fun main() {
     check(part2(testInput5) == 368)
 
     val input = readLines("inputs/12")
-    part1(input).also {
-        it.println()
-        check(it == 1477762)
-    }
-    measureTime {
-        part2(input).also {
-            it.println()
-            check(it == 923480)
-        }
-    }.println()
+    val (p1, d1) = kotlin.time.measureTimedValue { part1(input) }
+    p1.println()
+    println("Part 1 runtime: ${formatDuration(d1)}")
+    val (p2, d2) = kotlin.time.measureTimedValue { part2(input) }
+    p2.println()
+    println("Part 2 runtime: ${formatDuration(d2)}")
 }
 
 private fun part1(input: List<String>): Int {

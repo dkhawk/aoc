@@ -52,7 +52,9 @@ fun main() {
 //    check(part2(testInput) == 0)
 
     val input = readText("inputs/25")
-    part1(input).println()
+    val (p1, d1) = kotlin.time.measureTimedValue { part1(input) }
+    p1.println()
+    println("Part 1 runtime: ${formatDuration(d1)}")
 }
 
 private fun part1(input: String): Int {

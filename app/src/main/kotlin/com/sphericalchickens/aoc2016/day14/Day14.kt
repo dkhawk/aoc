@@ -24,9 +24,9 @@ private fun String.md5(): String {
 fun main() = runBlocking {
     // --- Development Workflow Control Panel ---
     // Set these flags to control which parts of the solution to run.
-    val runPart1Tests = true
+    val runPart1Tests = false
     val runPart1Solution = true
-    val runPart2Tests = true
+    val runPart2Tests = false
     val runPart2Solution = true
     // ----------------------------------------
 

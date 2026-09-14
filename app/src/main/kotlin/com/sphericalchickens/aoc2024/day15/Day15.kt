@@ -60,12 +60,16 @@ fun main() {
     check(part1(testInput2) == 10092)
 
     val input = readLines("inputs/15")
-    part1(input).println()
+    val (p1, d1) = kotlin.time.measureTimedValue { part1(input) }
+    p1.println()
+    println("Part 1 runtime: ${formatDuration(d1)}")
 
     check(part2(testInput3) == listOf(105, (7 + 100 * 2), (6 + 100 * 3)).sum())
     check(part2(testInput2) == 9021)
 
-    part2(input).println()
+    val (p2, d2) = kotlin.time.measureTimedValue { part2(input) }
+    p2.println()
+    println("Part 2 runtime: ${formatDuration(d2)}")
 }
 
 private fun part1(input: List<String>): Int {

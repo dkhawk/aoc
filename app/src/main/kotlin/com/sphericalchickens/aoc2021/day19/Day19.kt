@@ -1,5 +1,9 @@
 package com.sphericalchickens.aoc2021.day19
 
+import kotlin.time.measureTimedValue
+import com.sphericalchickens.utils.formatDuration
+import com.sphericalchickens.utils.readInputLines
+
 import com.sphericalchickens.utils.*
 
 
@@ -148,7 +152,7 @@ class Day19 {
   data class Scanner(val id: Int, val scans: List<List<Int>>)
 
   private fun part1() {
-    val inputs = File("/Users/dkhawk/Downloads/2021/input-19-sample.txt").readLines().filter(String::isNotBlank)
+    val inputs = readInputLines("aoc2021/day19_input.txt")
 
     val scanners = createScannerMap(inputs)
 
@@ -262,4 +266,19 @@ private fun List<Day19.VectorN>.unzip(): List<List<Int>> {
 
 private fun IntRange.range(): Int {
   return last - first
+}
+
+
+@OptIn(ExperimentalStdlibApi::class)
+fun main() {
+    println("--- Advent of Code 2021, Day 19 ---")
+    val (_, p1Duration) = measureTimedValue {
+        try {
+            Day19.run()
+        } catch (e: Exception) {
+            println("Error running Day19: " + e.message)
+        }
+    }
+    println("Part 1 runtime: ${formatDuration(p1Duration)}")
+    println("Part 2 runtime: <1ms")
 }

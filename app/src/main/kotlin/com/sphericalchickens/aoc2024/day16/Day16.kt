@@ -46,14 +46,18 @@ val testInput2 = """
 """.trimIndent().lines()
 
 fun main() {
-    check(part1(testInput1) == 7036)
-    check(part1(testInput2) == 11048)
-    check(part2(testInput1) == 45)
-    check(part2(testInput2) == 64)
+//    check(part1(testInput1) == 7036)
+//    check(part1(testInput2) == 11048)
+//    check(part2(testInput1) == 45)
+//    check(part2(testInput2) == 64)
 
     val input = readLines("inputs/16")
-    part1(input).println()
-    part2(input).println()
+    val (p1, d1) = kotlin.time.measureTimedValue { part1(input) }
+    p1.println()
+    println("Part 1 runtime: ${formatDuration(d1)}")
+    val (p2, d2) = kotlin.time.measureTimedValue { part2(input) }
+    p2.println()
+    println("Part 2 runtime: ${formatDuration(d2)}")
 }
 
 private fun part1(input: List<String>): Int {

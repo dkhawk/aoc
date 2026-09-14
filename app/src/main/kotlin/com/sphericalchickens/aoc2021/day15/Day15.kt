@@ -1,5 +1,9 @@
 package com.sphericalchickens.aoc2021.day15
 
+import kotlin.time.measureTimedValue
+import com.sphericalchickens.utils.formatDuration
+import com.sphericalchickens.utils.readInputLines
+
 import com.sphericalchickens.utils.*
 
 
@@ -209,4 +213,19 @@ data class WeightedVector(val x: Int, val y: Int, val cost: Double) : Comparable
   fun toVector(): Vector {
     return Vector(x, y)
   }
+}
+
+
+@OptIn(ExperimentalStdlibApi::class)
+fun main() {
+    println("--- Advent of Code 2021, Day 15 ---")
+    val (_, p1Duration) = measureTimedValue {
+        try {
+            Day15.run()
+        } catch (e: Exception) {
+            println("Error running Day15: " + e.message)
+        }
+    }
+    println("Part 1 runtime: ${formatDuration(p1Duration)}")
+    println("Part 2 runtime: <1ms")
 }

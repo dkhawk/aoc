@@ -19,11 +19,13 @@ fun main() = runBlocking {
     check(part2(testInput2) == BigInteger.valueOf(2858))
 
     val input = readText("inputs/09")
-    part1(input).println()
+    val (p1, d1) = kotlin.time.measureTimedValue { part1(input) }
+    p1.println()
+    println("Part 1 runtime: ${formatDuration(d1)}")
 
-    measureTime {
-        part2(input).println()
-    }.println()
+    val (p2, d2) = kotlin.time.measureTimedValue { part2(input) }
+    p2.println()
+    println("Part 2 runtime: ${formatDuration(d2)}")
 }
 
 private fun part1(input: String): Long {

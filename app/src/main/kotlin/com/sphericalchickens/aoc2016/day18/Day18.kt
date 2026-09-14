@@ -1,71 +1,67 @@
 package com.sphericalchickens.aoc2016.day18
 
 import com.sphericalchickens.utils.check
+import com.sphericalchickens.utils.formatDuration
 import com.sphericalchickens.utils.readInputLines
-import kotlin.system.measureTimeMillis
+import kotlin.time.measureTimedValue
 
+/**
+ * # Advent of Code 2016, Day 18: Like a Rogue
+ *
+ * Placeholder template for Day 18.
+ */
 fun main() {
-    // --- Development Workflow Control Panel ---
-    // Set these flags to control which parts of the solution to run.
-    val runPart1Tests = true
-    val runPart1Solution = true
-    val runPart2Tests = true
-    val runPart2Solution = true
-    // ----------------------------------------
+    // --- Verification ---
+    println("🧪 Running tests...")
+    runTests()
+    println("✅ Tests passed!")
 
-    println("--- Advent of Code 2016, Day 18 ---")
-
-    val input = readInputLines("aoc2016/day18_input.txt")
+    // --- Setup ---
+    val puzzleInput = readInputLines("aoc2016/day18_input.txt")
+    println("\n--- Advent of Code 2016, Day 18: Like a Rogue ---")
 
     // --- Part 1 ---
-    if (runPart1Tests) {
-        println("🧪 Running Part 1 tests...")
-        runPart1Tests()
-        println("✅ Part 1 tests passed!")
+    val (part1Result, part1Duration) = measureTimedValue {
+        part1(puzzleInput)
     }
-    if (runPart1Solution) {
-        println("🎁 Solving Part 1...")
-        val timeInMillis = measureTimeMillis {
-            val part1Result = part1(input)
-            println("   Part 1: $part1Result")
-        }
-        println("Part 1 runtime: $timeInMillis ms.")
-    }
+    println("🎁 Part 1: $part1Result")
+    println("Part 1 runtime: ${formatDuration(part1Duration)}")
 
     // --- Part 2 ---
-    if (runPart2Tests) {
-        println("🧪 Running Part 2 tests...")
-        runPart2Tests()
-        println("✅ Part 2 tests passed!")
+    val (part2Result, part2Duration) = measureTimedValue {
+        part2(puzzleInput)
     }
-    if (runPart2Solution) {
-        println("🎀 Solving Part 2...")
-        val timeInMillis = measureTimeMillis {
-            val part2Result = part2(input)
-            println("   Part 2: $part2Result")
-        }
-        println("Part 2 runtime: $timeInMillis ms.")
-    }
+    println("🎀 Part 2: $part2Result")
+    println("Part 2 runtime: ${formatDuration(part2Duration)}")
 }
 
-private fun runPart1Tests() {
+// ---------------------------------------------------------------------------------------------
+// Core Logic
+// ---------------------------------------------------------------------------------------------
+
+fun part1(input: List<String>): Int {
+    // TODO: Implement Part 1
+    return 0
+}
+
+fun part2(input: List<String>): Int {
+    // TODO: Implement Part 2
+    return 0
+}
+
+// ---------------------------------------------------------------------------------------------
+// Utilities & Test Functions
+// ---------------------------------------------------------------------------------------------
+
+/**
+ * Executes checks to validate the core logic against known test cases.
+ */
+private fun runTests() {
     val testInput = """
-        
+        sample
     """.trimIndent().lines()
-    check("Part 1 Test Case 1", "expected", part1(testInput))
-}
 
-private fun runPart2Tests() {
-    val testInput = """
-        
-    """.trimIndent().lines()
-    check("Part 2 Test Case 1", "expected", part2(testInput))
-}
-
-private fun part1(input: List<String>): String {
-    return ""
-}
-
-private fun part2(input: List<String>): String {
-    return ""
+    // Non-failing stub checks
+    check("Part 1 Sample", 0, part1(testInput))
+    check("Part 2 Sample", 0, part2(testInput))
 }

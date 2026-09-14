@@ -17,14 +17,16 @@ fun main() = runBlocking {
     check(part2(testInput, 25) == 55312L)
 
     val input = readText("inputs/11")
-    part1(input).println()
-    measureTime {
-        part2(input, 75).println()
-    }.println()
+    val (p1, d1) = kotlin.time.measureTimedValue { part1(input) }
+    p1.println()
+    println("Part 1 runtime: ${formatDuration(d1)}")
+    val (p2, d2) = kotlin.time.measureTimedValue { part2(input, 75) }
+    p2.println()
+    println("Part 2 runtime: ${formatDuration(d2)}")
 }
 
 private fun part1(input: String): Int {
-    val rocks = input.split(" ").map { it.toLong() }
+    val rocks = input.trim().split(" ").map { it.toLong() }
 
     val sequences = sequence<List<Long>> {
         var current = rocks
@@ -60,7 +62,7 @@ typealias RockPile = Map<RockLabel, RockCount>
 typealias MutableRockPile = MutableMap<RockLabel, RockCount>
 
 private fun part2(input: String, generations: Int): Long {
-    val rocks = input.split(" ").map { it.toLong() }
+    val rocks = input.trim().split(" ").map { it.toLong() }
     val rockPile =
         rocks.groupingBy { it }.eachCount().map { it.key to it.value.toLong() }
             .toMap()

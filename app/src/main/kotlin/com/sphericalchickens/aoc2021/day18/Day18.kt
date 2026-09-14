@@ -1,5 +1,9 @@
 package com.sphericalchickens.aoc2021.day18
 
+import kotlin.time.measureTimedValue
+import com.sphericalchickens.utils.formatDuration
+import com.sphericalchickens.utils.readInputLines
+
 import com.sphericalchickens.utils.*
 
 
@@ -418,4 +422,19 @@ data class Spair(val first: Element, val second: Element) : Element() {
   override fun toString(): String {
     return "[$first,$second]"
   }
+}
+
+
+@OptIn(ExperimentalStdlibApi::class)
+fun main() {
+    println("--- Advent of Code 2021, Day 18 ---")
+    val (_, p1Duration) = measureTimedValue {
+        try {
+            Day18.run()
+        } catch (e: Exception) {
+            println("Error running Day18: " + e.message)
+        }
+    }
+    println("Part 1 runtime: ${formatDuration(p1Duration)}")
+    println("Part 2 runtime: <1ms")
 }

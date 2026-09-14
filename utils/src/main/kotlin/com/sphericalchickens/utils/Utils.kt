@@ -6,7 +6,15 @@ import java.security.MessageDigest
 import kotlin.io.path.Path
 import kotlin.io.path.readText
 
-fun readText(name: String) = Path("src/$name.txt").readText()
+fun readText(name: String): String {
+    val localFile = java.io.File("src/$name.txt")
+    if (localFile.exists()) return localFile.readText()
+    if (name.startsWith("inputs/")) {
+        val num = name.removePrefix("inputs/").padStart(2, '0')
+        return readInputText("aoc2024/day${num}_input.txt")
+    }
+    return Path("src/$name.txt").readText()
+}
 
 /**
  * Reads lines from the given input txt file.

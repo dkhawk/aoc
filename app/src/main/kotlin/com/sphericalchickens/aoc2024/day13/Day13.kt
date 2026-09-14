@@ -41,12 +41,13 @@ fun main() {
     val realMachines = parseInput(readLines("inputs/13"))
 
     check(part1(testMachines) == 480L)
-    "25751 is correct!!".println()
-    part1(realMachines).println()
+    val (p1, d1) = kotlin.time.measureTimedValue { part1(realMachines) }
+    p1.println()
+    println("Part 1 runtime: ${formatDuration(d1)}")
 
-    "108496818472493 is too low!".println()
-    "108528956728655 is correct!!".println()
-    part2(realMachines).println()
+    val (p2, d2) = kotlin.time.measureTimedValue { part2(realMachines) }
+    p2.println()
+    println("Part 2 runtime: ${formatDuration(d2)}")
 }
 
 private fun Machine.fixUnitError(): Machine {

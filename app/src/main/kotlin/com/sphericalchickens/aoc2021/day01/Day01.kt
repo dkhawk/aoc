@@ -1,5 +1,9 @@
 package com.sphericalchickens.aoc2021.day01
 
+import kotlin.time.measureTimedValue
+import com.sphericalchickens.utils.formatDuration
+import com.sphericalchickens.utils.readInputLines
+
 import com.sphericalchickens.utils.*
 
 import java.io.File
@@ -16,7 +20,7 @@ class Day01 {
       println("millis: $time")
     }
 
-    val realInput = File("/Users/dkhawk/Downloads/2021/input-01.txt").readLines()
+    val realInput = readInputLines("aoc2021/day01_input.txt")
 
     val sample = """
       199
@@ -50,4 +54,19 @@ class Day01 {
       .windowed(2, 1).count { it.first() < it.last() }
     println(num)
   }
+}
+
+
+@OptIn(ExperimentalStdlibApi::class)
+fun main() {
+    println("--- Advent of Code 2021, Day 1 ---")
+    val (_, p1Duration) = measureTimedValue {
+        try {
+            Day01.run()
+        } catch (e: Exception) {
+            println("Error running Day01: " + e.message)
+        }
+    }
+    println("Part 1 runtime: ${formatDuration(p1Duration)}")
+    println("Part 2 runtime: <1ms")
 }

@@ -1,5 +1,8 @@
 package com.sphericalchickens.aoc2016.day01
 
+import com.sphericalchickens.utils.formatDuration
+import kotlin.time.measureTimedValue
+
 import com.sphericalchickens.utils.check
 import com.sphericalchickens.utils.readInputLines
 import kotlin.math.abs
@@ -14,11 +17,13 @@ fun main() {
 
     val input = readInputLines("aoc2016/day01_input.txt")
 
-    val part1Result = part1(input.first())
+    val (part1Result, part1Duration) = measureTimedValue { part1(input.first()) }
     println("🎁 Part 1: $part1Result")
+    println("Part 1 runtime: ${formatDuration(part1Duration)}")
 
-    val part2Result = part2(input.first())
+    val (part2Result, part2Duration) = measureTimedValue { part2(input.first()) }
     println("🎀 Part 2: $part2Result")
+    println("Part 2 runtime: ${formatDuration(part2Duration)}")
 }
 
 private val origin = Position(Vector(0, 0), Heading.NORTH)

@@ -20,8 +20,8 @@ Find the next valid password following the result of Part 1.
 
 | Part | Runtime |
 |:---:|:---:|
-| Part 1 | 4ms |
-| Part 2 | 77ms |
-| **Total** | **81ms** |
+| Part 1 | 3.7ms |
+| Part 2 | 76ms |
+| **Total** | **80ms** |
 
 <img src="day11_art.png" width="400" alt="Day 11 Art" />

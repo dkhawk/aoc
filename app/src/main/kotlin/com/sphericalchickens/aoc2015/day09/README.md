@@ -20,8 +20,8 @@ Find the longest route visiting every location exactly once.
 
 | Part | Runtime |
 |:---:|:---:|
-| Part 1 | 41ms |
+| Part 1 | 42ms |
 | Part 2 | 23ms |
-| **Total** | **64ms** |
+| **Total** | **65ms** |
 
 <img src="day09_art.png" width="400" alt="Day 9 Art" />

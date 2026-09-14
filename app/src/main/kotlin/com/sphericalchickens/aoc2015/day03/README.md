@@ -20,8 +20,8 @@ Santa and Robo-Santa alternate taking movement instructions. Track visited coord
 
 | Part | Runtime |
 |:---:|:---:|
-| Part 1 | 1ms |
-| Part 2 | 1ms |
-| **Total** | **2ms** |
+| Part 1 | 1.0ms |
+| Part 2 | 1.0ms |
+| **Total** | **2.0ms** |
 
 <img src="day03_art.png" width="400" alt="Day 3 Art" />

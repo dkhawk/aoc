@@ -22,6 +22,6 @@ Find the minimum total mana spent to defeat the Boss in Hard mode (where player 
 |:---:|:---:|
 | Part 1 | N/A |
 | Part 2 | N/A |
-| **Total** | **0.0ms** |
+| **Total** | **N/A** |
 
 <img src="day22_art.png" width="400" alt="Day 22 Art" />

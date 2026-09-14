@@ -20,8 +20,8 @@ Parse the JSON structure recursively and sum all numbers, ignoring any JSON obje
 
 | Part | Runtime |
 |:---:|:---:|
-| Part 1 | 3ms |
-| Part 2 | 4ms |
-| **Total** | **7ms** |
+| Part 1 | 3.0ms |
+| Part 2 | 3.7ms |
+| **Total** | **6.7ms** |
 
 <img src="day12_art.png" width="400" alt="Day 12 Art" />

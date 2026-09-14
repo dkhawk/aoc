@@ -22,6 +22,6 @@ Determine the minimum number of replacement steps to synthesize the target molec
 |:---:|:---:|
 | Part 1 | N/A |
 | Part 2 | N/A |
-| **Total** | **0.0ms** |
+| **Total** | **N/A** |
 
 <img src="day19_art.png" width="400" alt="Day 19 Art" />

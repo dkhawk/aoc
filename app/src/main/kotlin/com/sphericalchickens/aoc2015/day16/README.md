@@ -22,6 +22,6 @@ Update matching rules so `cats` and `trees` are greater than target values, and 
 |:---:|:---:|
 | Part 1 | N/A |
 | Part 2 | N/A |
-| **Total** | **0.0ms** |
+| **Total** | **N/A** |
 
 <img src="day16_art.png" width="400" alt="Day 16 Art" />

@@ -20,8 +20,8 @@ A string is nice if it contains a pair of any two letters appearing twice withou
 
 | Part | Runtime |
 |:---:|:---:|
-| Part 1 | 2ms |
-| Part 2 | 5ms |
-| **Total** | **7ms** |
+| Part 1 | 2.0ms |
+| Part 2 | 4.0ms |
+| **Total** | **6.0ms** |
 
 <img src="day05_art.png" width="400" alt="Day 5 Art" />

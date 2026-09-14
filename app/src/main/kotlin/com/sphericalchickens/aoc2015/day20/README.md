@@ -22,6 +22,6 @@ Find the lowest house number when each elf stops delivering after 50 houses and 
 |:---:|:---:|
 | Part 1 | N/A |
 | Part 2 | N/A |
-| **Total** | **0.0ms** |
+| **Total** | **N/A** |
 
 <img src="day20_art.png" width="400" alt="Day 20 Art" />

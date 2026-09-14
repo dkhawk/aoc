@@ -22,6 +22,6 @@ Simulate the race second-by-second, awarding 1 point per second to whichever rei
 |:---:|:---:|
 | Part 1 | N/A |
 | Part 2 | N/A |
-| **Total** | **0.0ms** |
+| **Total** | **N/A** |
 
 <img src="day14_art.png" width="400" alt="Day 14 Art" />

@@ -22,6 +22,6 @@ Execute instructions starting with `a = 1, b = 0` and return the final value of 
 |:---:|:---:|
 | Part 1 | N/A |
 | Part 2 | N/A |
-| **Total** | **0.0ms** |
+| **Total** | **N/A** |
 
 <img src="day23_art.png" width="400" alt="Day 23 Art" />

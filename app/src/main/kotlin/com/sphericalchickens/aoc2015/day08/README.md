@@ -20,8 +20,8 @@ Encode each string by escaping backslashes and double quotes, and calculate `tot
 
 | Part | Runtime |
 |:---:|:---:|
-| Part 1 | 0.0ms |
-| Part 2 | 0.0ms |
-| **Total** | **0.0ms** |
+| Part 1 | <1ms |
+| Part 2 | <1ms |
+| **Total** | **<1ms** |
 
 <img src="day08_art.png" width="400" alt="Day 8 Art" />

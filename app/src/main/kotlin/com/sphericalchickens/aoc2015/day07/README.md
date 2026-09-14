@@ -20,8 +20,8 @@ Override wire `b` with the output value of wire `a` from Part 1, reset signal ca
 
 | Part | Runtime |
 |:---:|:---:|
-| Part 1 | 6ms |
-| Part 2 | 2ms |
-| **Total** | **8ms** |
+| Part 1 | 6.7ms |
+| Part 2 | 2.0ms |
+| **Total** | **8.7ms** |
 
 <img src="day07_art.png" width="400" alt="Day 7 Art" />

@@ -22,6 +22,6 @@ Simulate 100 animation steps with the 4 corner lights permanently stuck in the '
 |:---:|:---:|
 | Part 1 | N/A |
 | Part 2 | N/A |
-| **Total** | **0.0ms** |
+| **Total** | **N/A** |
 
 <img src="day18_art.png" width="400" alt="Day 18 Art" />

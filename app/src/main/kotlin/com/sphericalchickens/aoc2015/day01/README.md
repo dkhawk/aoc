@@ -20,8 +20,8 @@ Determine the 1-based character index of the first instruction that causes Santa
 
 | Part | Runtime |
 |:---:|:---:|
-| Part 1 | 0.0ms |
-| Part 2 | 0.0ms |
-| **Total** | **0.0ms** |
+| Part 1 | <1ms |
+| Part 2 | <1ms |
+| **Total** | **<1ms** |
 
 <img src="day01_art.png" width="400" alt="Day 1 Art" />

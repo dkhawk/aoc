@@ -20,8 +20,8 @@ Add yourself (with 0 happiness change for all neighbors) to the guest list and f
 
 | Part | Runtime |
 |:---:|:---:|
-| Part 1 | N/A |
-| Part 2 | N/A |
-| **Total** | **N/A** |
+| Part 1 | 6.0ms |
+| Part 2 | 17ms |
+| **Total** | **23ms** |
 
 <img src="day13_art.png" width="400" alt="Day 13 Art" />

@@ -19,7 +19,7 @@ Here you can find the solutions, explanations, and art for each day.
 | 10 | Elves Look, Elves Say | 15ms | 34ms | 49ms | [Readme](day10/README.md) / [Code](day10/Day10.kt) |
 | 11 | Corporate Policy | 4.0ms | 74ms | 78ms | [Readme](day11/README.md) / [Code](day11/Day11.kt) |
 | 12 | JSAbacusFramework.io | 3.0ms | 4.0ms | 7.0ms | [Readme](day12/README.md) / [Code](day12/Day12.kt) |
-| 13 | Knights of the Dinner Table | N/A | N/A | N/A | [Readme](day13/README.md) / [Code](day13/Day13.kt) |
+| 13 | Knights of the Dinner Table | 6.0ms | 17ms | 23ms | [Readme](day13/README.md) / [Code](day13/Day13.kt) |
 | 14 | Reindeer Olympics | N/A | N/A | N/A | [Readme](day14/README.md) / [Code](day14/Day14.kt) |
 | 15 | Science for Hungry People | N/A | N/A | N/A | [Readme](day15/README.md) / [Code](day15/Day15.kt) |
 | 16 | Aunt Sue | N/A | N/A | N/A | [Readme](day16/README.md) / [Code](day16/Day16.kt) |

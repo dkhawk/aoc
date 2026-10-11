@@ -1,6 +1,5 @@
 package com.sphericalchickens.aoc2016.day25
 
-import com.sphericalchickens.utils.check
 import com.sphericalchickens.utils.println
 import com.sphericalchickens.utils.readInputLines
 import kotlin.system.measureTimeMillis
@@ -46,6 +45,8 @@ private class Computer(val program: MutableList<Command>) {
 
     lateinit var lastCommand: Command
 
+    val stateHistory = mutableListOf<String>()
+
     fun executeProgram(function: (Computer) -> Boolean) {
         while (pc <= program.lastIndex) {
             commandsExecuted += 1
@@ -69,7 +70,12 @@ private class Computer(val program: MutableList<Command>) {
     }
 
     fun output(v: Int) {
+        stateHistory.addLast(this.stateString())
         terminal.addLast(v)
+    }
+
+    private fun stateString(): String {
+        return pc.toString() + ":" + registers.joinToString(",")
     }
 
     fun reset() {
@@ -210,24 +216,7 @@ private fun String.toArgument() = this.toImmediate() ?: this.toRegister()
 private fun part1(input: List<String>): Int {
     val program = compile(input)
 
-//    var target = 0
-//
-//    repeat(15) { i ->
-//        target = target shl 1 or ((i) % 2)
-//    }
-//
-//    target.toString(2).println()
-//
-//    target.println()
-//
-//    return (target - 2532)
-
     for (i in 0.. 1000) {
-//        val a = i
-//        val d = a + 2532
-//
-//        d.toString(2).println()
-
         val computer = Computer(program.toMutableList())
         computer.registers[0] = i
 
@@ -238,8 +227,8 @@ private fun part1(input: List<String>): Int {
                 false
             }
         }
-//
         if (computer.terminal.joinToString("").startsWith("010101010101010")) {
+//            computer.stateHistory.joinToString("\n").println()
             return i
         }
     }

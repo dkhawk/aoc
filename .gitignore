@@ -52,4 +52,6 @@ bin/
 app/src/main/resources/aoc*/*_input.txt
 app/runtimes.txt
 problems/
+**/PROBLEM.md
+**/problem.md
 

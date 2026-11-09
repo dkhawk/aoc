@@ -20,8 +20,8 @@ Determine how many water tiles remain after the spring stops producing water and
 
 | Part | Runtime |
 |:---:|:---:|
-| Part 1 | 48ms |
-| Part 2 | 24ms |
-| **Total** | **72ms** |
+| Part 1 | 25ms |
+| Part 2 | 10ms |
+| **Total** | **35ms** |
 
 <img src="day17_art.png" width="400" alt="Day 17 Art" />

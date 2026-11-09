@@ -4,7 +4,6 @@ import com.sphericalchickens.utils.check
 import com.sphericalchickens.utils.formatDuration
 import com.sphericalchickens.utils.println
 import com.sphericalchickens.utils.readInputLines
-import java.io.File
 import kotlin.time.measureTimedValue
 
 /**
@@ -317,12 +316,7 @@ fun solveWell(well: Well, stillOnly: Boolean = false): Int {
         }
     }
 
-    File("/Users/dkhawk/tmp/out.txt").bufferedWriter().use { out ->
-        out.write(
-            printWell(occupied, flowingWaterSet, stillWaterSet, unresolvedHeads)
-        )
-        out.newLine()
-    }
+//    println(printWell(occupied, flowingWaterSet, stillWaterSet, unresolvedHeads))
 
     val minY = occupied.minOf { it.y }
     val maxY = occupied.maxOf { it.y }

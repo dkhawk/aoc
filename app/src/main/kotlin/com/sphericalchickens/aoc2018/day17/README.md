@@ -4,24 +4,24 @@
 
 ## Setup
 
-Reservoir Research - Day 17 of Advent of Code 2018.
+Simulate water flowing downward and spreading horizontally from an underground spring (`x=500, y=0`) through sand and clay basins based on 2D ground scan coordinates.
 
 ## Solution
 
 ### Part 1
 
-Solve Part 1 of the puzzle using idiomatic Kotlin.
+Parse the horizontal and vertical clay veins and simulate water flow using a queue of active flow heads, tracking both flowing (`|`) and settled (`~`) water tiles within the vertical bounds of the scan.
 
 ### Part 2
 
-Solve Part 2 of the puzzle.
+Determine how many water tiles remain after the spring stops producing water and all flowing water (`|`) drains away, counting only settled water (`~`) retained inside clay reservoirs.
 
 ## Performance
 
 | Part | Runtime |
 |:---:|:---:|
-| Part 1 | N/A |
-| Part 2 | N/A |
-| **Total** | **N/A** |
+| Part 1 | 25ms |
+| Part 2 | 10ms |
+| **Total** | **35ms** |
 
 <img src="day17_art.png" width="400" alt="Day 17 Art" />

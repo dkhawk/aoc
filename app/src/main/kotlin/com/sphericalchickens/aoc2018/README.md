@@ -23,7 +23,7 @@ Here you can find the solutions, explanations, and art for each day.
 | 14 | Chocolate Charts | 17ms | 2084ms | 2101ms | [Readme](day14/README.md) / [Code](day14/Day14.kt) |
 | 15 | Beverage Bandits | 71ms | 123ms | 194ms | [Readme](day15/README.md) / [Code](day15/Day15.kt) |
 | 16 | Chronal Classification | N/A | N/A | N/A | [Readme](day16/README.md) / [Code](day16/Day16.kt) |
-| 17 | Reservoir Research | N/A | N/A | N/A | [Readme](day17/README.md) / [Code](day17/Day17.kt) |
+| 17 | Reservoir Research | 48ms | 24ms | 72ms | [Readme](day17/README.md) / [Code](day17/Day17.kt) |
 | 18 | Settlers of The North Pole | N/A | N/A | N/A | [Readme](day18/README.md) / [Code](day18/Day18.kt) |
 | 19 | Go With The Flow | N/A | N/A | N/A | [Readme](day19/README.md) / [Code](day19/Day19.kt) |
 | 20 | A Regular Map | N/A | N/A | N/A | [Readme](day20/README.md) / [Code](day20/Day20.kt) |

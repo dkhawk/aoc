@@ -56,14 +56,50 @@ fun readInputText(fileName: String): String {
 }
 
 fun <T> check(message: String, expected: T, actual: T) {
-    if (expected == actual) {
+    check(message, expected, actual) { "" }
+}
+
+fun <T> check(message: String, expected: T, actual: T, lazyMessage: () -> Any) {
+    if (java.util.Objects.deepEquals(expected, actual)) {
         println("✅ Test passed: $message")
     } else {
+        val details = lazyMessage().toString()
         System.err.println("❌ Test FAILED: $message")
-        System.err.println("   Expected: $expected")
-        System.err.println("   Actual:   $actual")
+        System.err.println("   Expected: ${formatTestValue(expected)}")
+        System.err.println("   Actual:   ${formatTestValue(actual)}")
+        if (details.isNotBlank()) {
+            System.err.println(details)
+        }
         error("Test failed: $message")
     }
+}
+
+fun check(message: String, condition: Boolean) {
+    check(message, condition) { "Assertion failed" }
+}
+
+fun check(message: String, condition: Boolean, lazyMessage: () -> Any) {
+    if (condition) {
+        println("✅ Test passed: $message")
+    } else {
+        val details = lazyMessage()
+        System.err.println("❌ Test FAILED: $message")
+        System.err.println(details)
+        error("Test failed: $message")
+    }
+}
+
+private fun formatTestValue(value: Any?): String = when (value) {
+    is IntArray -> value.contentToString()
+    is LongArray -> value.contentToString()
+    is ShortArray -> value.contentToString()
+    is ByteArray -> value.contentToString()
+    is CharArray -> value.contentToString()
+    is BooleanArray -> value.contentToString()
+    is FloatArray -> value.contentToString()
+    is DoubleArray -> value.contentToString()
+    is Array<*> -> value.contentDeepToString()
+    else -> value.toString()
 }
 
 fun formatDuration(duration: Duration): String {

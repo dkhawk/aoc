@@ -6,6 +6,18 @@ plugins {
     // Apply the Application plugin to add support for building an executable JVM application.
     application
     alias(libs.plugins.kotlinPluginSerialization)
+    alias(libs.plugins.kotlinPowerAssert)
+}
+
+@OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
+powerAssert {
+    functions = listOf(
+        "kotlin.assert",
+        "kotlin.check",
+        "kotlin.require",
+        "com.sphericalchickens.utils.check",
+    )
+    includedSourceSets = listOf("main", "test")
 }
 
 dependencies {
